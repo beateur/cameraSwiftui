@@ -1,2 +1,3 @@
-# cameraSwiftui
-camera swiftui record vidéo et take photo comme sur insta
+# Camera
+
+A description of this package.
