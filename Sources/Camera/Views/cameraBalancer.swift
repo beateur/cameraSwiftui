@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct cameraBalancer: View {
+public struct cameraBalancer: View {
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
 
     var body: some View {
