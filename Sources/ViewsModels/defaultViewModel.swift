@@ -1,18 +1,20 @@
 //
-//  File.swift
-//  
+//  defaultViewModel.swift
+//  CameraViews
 //
 //  Created by Bilel Hattay on 05/05/2022.
 //
 
 import SwiftUI
+import AVFoundation
 
 #if !os(macOS)
 @available(iOS 14, *)
 public class defaultViewModel: ObservableObject {
-    let manager = defaultManager.instance
     let RecordButton: AnyView
     let Filters: AnyView
+    
+    var dismissCompletion: (()->())?
     
     @Published var galleryImage: UIImage? = nil
      
@@ -20,7 +22,15 @@ public class defaultViewModel: ObservableObject {
         self.RecordButton = record
         self.Filters = filters
     }
-
+    
+    func dismiss(completion: @escaping()->()) {
+        completion()
+    }
+    
+    func emptydismiss() {
+        
+    }
+    
     @ViewBuilder func entete(dismisselement: AnyView, nextelement: AnyView, dismiss: @escaping()->(), next: @escaping()->()?) -> some View {
         HStack {
             Button(action: {
@@ -35,18 +45,25 @@ public class defaultViewModel: ObservableObject {
                 nextelement
             }
         }
+        .padding()
     }
     
-    @ViewBuilder func flashElement() -> some View {
+    @ViewBuilder func flashElement(disabled: Bool, flashmode: AVCaptureDevice.FlashMode, perform: @escaping()->()) -> some View {
         Button {
-            self.manager.toggleFlash()
+            perform()
         } label: {
-            if manager.flashisActive {
+            switch flashmode {
+            case .on:
                 Image(systemName: "bolt.fill")
-            } else {
+            case .off:
                 Image(systemName: "bolt.slash.fill")
+            case .auto:
+                Image(systemName: "bolt")
+            @unknown default:
+                Image(systemName: "bolt.fill")
             }
         }
+        .disabled(disabled)
     }
     
     @ViewBuilder func cameraInversion() -> some View {
@@ -68,8 +85,14 @@ public class defaultViewModel: ObservableObject {
     @ViewBuilder func galleryButton() -> some View {
         if let image = galleryImage {
             Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 18, height: 13)
         } else {
             Image(systemName: "photo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 18, height: 13)
         }
     }
 }
