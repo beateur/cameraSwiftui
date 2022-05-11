@@ -7,14 +7,10 @@
 
 import SwiftUI
 
-public struct cameraBalancer: View {
+struct cameraBalancer: View {
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
 
-    public init() {
-        
-    }
-    
-    public var body: some View {
+    var body: some View {
         ZStack {
             GeometryReader { reader in
                 let size = reader.size
@@ -22,8 +18,15 @@ public struct cameraBalancer: View {
                 // MARK: switch between camera's possibilities
                 defaultCamera()
                     .environmentObject(cameraInstanceModel)
+                    .onTapGesture(count: 2) {
+                        cameraInstanceModel.switchCamera()
+                    }
+                    .onAppear {
+                        cameraInstanceModel.maxDuration = 30
+                    }
                 // MARK: progress bar
                 cameraInstanceModel.progressBar(size: size)
+                    
             }
             .onAppear(perform: cameraInstanceModel.checkPermission)
             .alert(isPresented: $cameraInstanceModel.alert) {

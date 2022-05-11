@@ -11,6 +11,8 @@ import SwiftUI
 @available(iOS 14, *)
 public struct defaultCamera: View {
     @StateObject var defaultCameraModel = defaultViewModel(record:  AnyView(Circle().fill(Color.blue).frame(width: 72, height: 72)), filters: AnyView(Rectangle().fill(Color.white).frame(width: 18, height: 40)))
+    @StateObject var galleryViewModel = ImagePickerViewModel()
+
     @EnvironmentObject var cameraInstanceModel: cameraInstanceViewModel
     
     public var body: some View {
@@ -64,47 +66,66 @@ public struct defaultCamera: View {
             Spacer()
             bottomComponents
         }
-        .padding()
+        .padding(.vertical)
     }
     
     private var bottomComponents: some View {
+        VStack {
+            ThumbList()
+                .environmentObject(galleryViewModel)
+            bardesButtons
+        }
+    }
+    
+    private var bardesButtons: some View {
         HStack {
             defaultCameraModel.galleryButton()
+                .background(Color.gray.opacity(0.2))
+                .scaleEffect(2)
+                .onTapGesture {
+                    galleryViewModel.openPickerView()
+                }
                 .padding(.leading, 40)
-                .scaleEffect(1.2)
             Spacer()
             defaultCameraModel.recordButton()
+            // foutre la gesture ailleurs
                 .gesture(
                     DragGesture(minimumDistance: .zero, coordinateSpace: .global)
                     .onEnded { _ in
-                        beginCountingGap = false
-                        switch cameraInstanceModel.capturemode {
-                        case .video:
-                            cameraInstanceModel.stopRecording()
-                            print("\(cameraInstanceModel.capturemode) et \(gapOnDragTime)")
-                            cameraInstanceModel.capturemode = .photo
-                        case .photo:
-                            if gapOnDragTime <= 2 {
-                                cameraInstanceModel.takePhoto()
-                            }
-                        }
-                        gapOnDragTime -= gapOnDragTime
+                        onEndedGesture()
                     }
                     .onChanged { _ in
-                        print("testned")
-                        beginCountingGap = true
-                        if !cameraInstanceModel.isRecording {
-                            if gapOnDragTime > 2 {
-                                cameraInstanceModel.capturemode = .video
-                                cameraInstanceModel.startRecording()
-                            }
-                        }
-                        
+                        onChangedGesture()
                     }
                 )
             Spacer()
             defaultCameraModel.filterButton()
                 .padding(.trailing, 40)
+        }
+    }
+    
+    func onEndedGesture() {
+        beginCountingGap = false
+        switch cameraInstanceModel.capturemode {
+        case .video:
+            cameraInstanceModel.stopRecording()
+            print("\(cameraInstanceModel.capturemode) et \(gapOnDragTime)")
+            cameraInstanceModel.capturemode = .photo
+        case .photo:
+            if gapOnDragTime <= 2 {
+                cameraInstanceModel.takePhoto()
+            }
+        }
+        gapOnDragTime -= gapOnDragTime
+    }
+    
+    func onChangedGesture() {
+        beginCountingGap = true
+        if !cameraInstanceModel.isRecording {
+            if gapOnDragTime > 2 {
+                cameraInstanceModel.capturemode = .video
+                cameraInstanceModel.startRecording()
+            }
         }
     }
     

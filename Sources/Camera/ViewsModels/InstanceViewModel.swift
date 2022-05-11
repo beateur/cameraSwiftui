@@ -19,8 +19,10 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     @Published var movieOutput = AVCaptureMovieFileOutput()
     @Published var preview: AVCaptureVideoPreviewLayer!
     @Published var flashMode: AVCaptureDevice.FlashMode = .off
-    @Published var cameraPosition: AVCaptureDevice.Position?
     @Published var capturemode: captureMode = .photo
+    
+    var cameraPosition: AVCaptureDevice.Position = .back
+    var cameraInput: AVCaptureInput!
     
     // MARK: VIDEO RECORDER PROPERTIES
     @Published var isRecording = false
@@ -61,11 +63,35 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         }
     }
     
+    func switchCamera() {
+        session.removeInput(cameraInput)
+        
+        switch cameraPosition {
+        case .unspecified, .front:
+            cameraPosition = .back
+        case .back:
+            cameraPosition = .front
+        }
+        var newCam = createDevice()
+        do {
+            let newInput = try AVCaptureDeviceInput(device: newCam)
+            cameraInput = newInput
+            if self.session.canAddInput(newInput) {
+                self.session.addInput(newInput)
+            }
+        } catch {
+            // handle plus tard
+        }
+        
+    }
+    
     func setup() {
         do {
             self.session.beginConfiguration()
-            let cameradevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition ?? .back)
-            let camerainput = try AVCaptureDeviceInput(device: cameradevice!)
+
+            let cameradevice = createDevice()
+            let camerainput = try AVCaptureDeviceInput(device: cameradevice)
+            cameraInput = camerainput
             let audiodevice = AVCaptureDevice.default(for: .audio)
             let audioinput = try AVCaptureDeviceInput(device: audiodevice!)
             
@@ -89,6 +115,19 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
 
         }
             
+    }
+    
+    func createDevice() -> AVCaptureDevice {
+        if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: cameraPosition) {
+            return dualCameraDevice
+        } else if let dualWideCameraDevice = AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: cameraPosition) {
+            // If a rear dual camera is not available, default to the rear dual wide camera.
+            return dualWideCameraDevice
+        }  else {
+            let WideAngleCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+            // If the rear wide angle camera isn't available, default to the front wide angle camera.
+            return WideAngleCamera!
+        }
     }
     
     @objc func takePhoto() {
