@@ -46,6 +46,7 @@ public struct defaultCamera: View {
                 if cameraInstanceModel.showPreview || cameraInstanceModel.photoCaptured != nil {
                     cameraInstanceModel.dismissPreview()
                 } else {
+                    print(":\(defaultCameraModel.dismissCompletion) completionned")
                     defaultCameraModel.dismissCompletion
                 }
             }
