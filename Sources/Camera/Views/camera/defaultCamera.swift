@@ -38,6 +38,11 @@ public struct defaultCamera: View {
                         }
                     }
                 }
+                
+                if galleryViewModel.showPickerMosaïque {
+                    ThumbnailMosaïque()
+                        .environmentObject(galleryViewModel)
+                }
             }
         }
     }
@@ -89,7 +94,7 @@ public struct defaultCamera: View {
                 .background(Color.gray.opacity(0.2))
                 .scaleEffect(2)
                 .onTapGesture {
-                    galleryViewModel.openPickerView()
+                    galleryViewModel.openPickerMosaïque()
                 }
                 .padding(.leading, 40)
             Spacer()

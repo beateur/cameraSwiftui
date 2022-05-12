@@ -16,10 +16,10 @@ struct ThumbList: View {
     
     private var ThumbnailList: some View {
         VStack {
-            Image(systemName: galleryViewModel.showPickerView ? "rectangle.fill" : "chevron.up")
+            Image(systemName: galleryViewModel.showPickerList ? "rectangle.fill" : "chevron.up")
                 .resizable()
                 .font(.system(size: 20, weight: .bold))
-                .frame(width: 45, height: galleryViewModel.showPickerView ? 4 : 8)
+                .frame(width: 45, height: galleryViewModel.showPickerList ? 4 : 8)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
@@ -51,10 +51,10 @@ struct ThumbList: View {
                     
                 }
             }
-            .frame(height: galleryViewModel.showPickerView ? UIScreen.main.bounds.size.height / 4 : 0)
-            .opacity(galleryViewModel.showPickerView ? 1:0)
+            .frame(height: galleryViewModel.showPickerList ? UIScreen.main.bounds.size.height / 4 : 0)
+            .opacity(galleryViewModel.showPickerList ? 1:0)
         }
-        .background(Color.primary.opacity(galleryViewModel.showPickerView ? 0.04: 0.01))
+        .background(Color.primary.opacity(galleryViewModel.showPickerList ? 0.04: 0.01))
         .gesture(
             DragGesture()
                 .onChanged { value in
@@ -62,11 +62,11 @@ struct ThumbList: View {
                 }
                 .onEnded{ value in
                     if value.translation.height > 0 && value.translation.height > UIScreen.main.bounds.size.height / 40 {
-                        galleryViewModel.openPickerView()
+                        galleryViewModel.openPickerList()
                     }
                     
                     if value.translation.height < 0 && value.translation.height < -(UIScreen.main.bounds.size.height / 40) {
-                        galleryViewModel.openPickerView()
+                        galleryViewModel.openPickerList()
                     }
                 }
         ) // end gesture

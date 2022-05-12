@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ThumbnailMosaïqu: View {
+struct ThumbnailMosaïque: View {
     @EnvironmentObject var galleryViewModel: ImagePickerViewModel
 
     let gridItem = [

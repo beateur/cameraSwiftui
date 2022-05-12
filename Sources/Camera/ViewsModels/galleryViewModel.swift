@@ -9,20 +9,33 @@ import SwiftUI
 import Photos
  
 class ImagePickerViewModel: NSObject, ObservableObject {
-    @Published var showPickerView = false
+    @Published var showPickerList = false
+    @Published var showPickerMosaïque = false
     @Published var libraryStatus = PHLibraryStatus.denied
     @Published var fetchedElements = [Asset]()
     @Published var allPhotos:PHFetchResult<PHAsset>!
 
-    func openPickerView() {
+    func initPicker() {
         setup()
         
         if fetchedElements.isEmpty {
             fetchAssets()
         }
+    }
+    
+    func openPickerList() {
+        initPicker()
         
         withAnimation {
-            showPickerView.toggle()
+            showPickerList.toggle()
+        }
+    }
+    
+    func openPickerMosaïque() {
+        initPicker()
+        
+        withAnimation {
+            showPickerMosaïque.toggle()
         }
     }
     
