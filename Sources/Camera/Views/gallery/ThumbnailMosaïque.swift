@@ -21,7 +21,7 @@ struct ThumbnailMosaïque: View {
         VStack {
             if galleryViewModel.libraryStatus != .authorized {
                 Button {
-                    galleryViewModel.openPickerMosaïque()
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
                 } label: {
                     VStack(spacing: 8) {
                         Text("Accedez à votre gallerie")
