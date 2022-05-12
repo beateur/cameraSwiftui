@@ -20,7 +20,7 @@ struct ThumbnailMosaïque: View {
         VStack {
             if galleryViewModel.libraryStatus != .authorized {
                 VStack(spacing: 8) {
-                    Text(galleryViewModel.libraryStatus == .denied ? "Accedez à votre gallerie")
+                    Text("Accedez à votre gallerie")
                         .font(.system(size: 13))
                         .foregroundColor(.gray)
                 }
