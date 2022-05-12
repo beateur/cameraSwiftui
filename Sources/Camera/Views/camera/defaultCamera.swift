@@ -52,7 +52,11 @@ public struct defaultCamera: View {
             defaultCameraModel.dismiss {
                 if cameraInstanceModel.showPreview || cameraInstanceModel.photoCaptured != nil {
                     cameraInstanceModel.dismissPreview()
-                } else {
+                }
+                else if galleryViewModel.showPickerMosaïque {
+                    galleryViewModel.dismissMosaïque()
+                }
+                else {
                     print(":\(defaultCameraModel.dismissCompletion) completionned")
                     defaultCameraModel.dismissCompletion()
                 }

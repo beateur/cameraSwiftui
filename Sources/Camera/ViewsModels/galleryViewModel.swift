@@ -42,6 +42,11 @@ class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
+    func dismissMosaïque() {
+        showPickerMosaïque = false
+        fetchedElements.removeAll()
+    }
+    
     func fetchAssets() {
         let options = PHFetchOptions()
         options.sortDescriptors = [
