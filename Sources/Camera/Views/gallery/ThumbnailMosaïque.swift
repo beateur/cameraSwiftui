@@ -26,6 +26,9 @@ struct ThumbnailMosaïque: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: 50)
                 .background(Color.gray.opacity(0.6))
+                .onTapGesture {
+                    
+                }
             }
 
             if galleryViewModel.fetchedElements.isEmpty {
