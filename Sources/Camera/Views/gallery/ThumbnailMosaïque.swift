@@ -20,22 +20,12 @@ struct ThumbnailMosaïque: View {
         VStack {
             if galleryViewModel.libraryStatus != .authorized {
                 VStack(spacing: 8) {
-                    Text(galleryViewModel.libraryStatus == .denied ? "Acceder à votre gallerie" : "Plus de photos")
+                    Text(galleryViewModel.libraryStatus == .denied ? "Accedez à votre gallerie")
                         .font(.system(size: 13))
                         .foregroundColor(.gray)
-                    Button {
-                        galleryViewModel.setup()
-//                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-                    } label: {
-                        Text(galleryViewModel.libraryStatus == .denied ? "Autoriser l'accès": "Sélectionner")
-                            .foregroundColor(.white)
-                            .fontWeight(.bold)
-                            .padding()
-                            .background(Color.gray.opacity(0.9))
-                            .cornerRadius(12)
-                    }
                 }
-                .padding()
+                .frame(width: UIScreen.main.bounds.width, height: 50)
+                .background(Color.gray.opacity(0.6))
             }
 
             if galleryViewModel.fetchedElements.isEmpty {
@@ -50,6 +40,7 @@ struct ThumbnailMosaïque: View {
                 }
             }
         }
+        .background(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
