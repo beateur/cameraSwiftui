@@ -19,20 +19,23 @@ struct ThumbnailMosaïque: View {
     var body: some View {
         VStack {
             if galleryViewModel.libraryStatus != .authorized {
-                VStack(spacing: 8) {
-                    Text("Accedez à votre gallerie")
-                        .font(.system(size: 13))
-                        .foregroundColor(.gray)
-                }
-                .frame(width: UIScreen.main.bounds.width, height: 50)
-                .background(Color.gray.opacity(0.6))
-                .onTapGesture {
+                Button {
                     galleryViewModel.fetchElements()
+                } label: {
+                    VStack(spacing: 8) {
+                        Text("Accedez à votre gallerie")
+                            .font(.system(size: 13))
+                            .foregroundColor(.gray)
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: 50)
+                    .background(Color.gray.opacity(0.6))
                 }
             }
 
             if galleryViewModel.fetchedElements.isEmpty {
-                emptyPlaceHolder
+                ScrollView {
+                    emptyPlaceHolder
+                }
             } else {
                 ScrollView {
                     LazyVGrid(columns: gridItem, spacing: 0.5) {

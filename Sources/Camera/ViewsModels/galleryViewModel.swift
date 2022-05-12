@@ -35,7 +35,7 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     }
     
     func openPickerMosaïque() {
-        setup()
+        initPicker()
 
         withAnimation {
             showPickerMosaïque.toggle()
