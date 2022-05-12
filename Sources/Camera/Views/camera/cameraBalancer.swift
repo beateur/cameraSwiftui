@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct cameraBalancer: View {
+public struct cameraBalancer: View {
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             GeometryReader { reader in
                 let size = reader.size
