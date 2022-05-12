@@ -109,10 +109,9 @@ public struct defaultCamera: View {
         switch cameraInstanceModel.capturemode {
         case .video:
             cameraInstanceModel.stopRecording()
-            print("\(cameraInstanceModel.capturemode) et \(gapOnDragTime)")
             cameraInstanceModel.capturemode = .photo
         case .photo:
-            if gapOnDragTime <= 2 {
+            if gapOnDragTime <= 1.3 {
                 cameraInstanceModel.takePhoto()
             }
         }
@@ -122,7 +121,7 @@ public struct defaultCamera: View {
     func onChangedGesture() {
         beginCountingGap = true
         if !cameraInstanceModel.isRecording {
-            if gapOnDragTime > 2 {
+            if gapOnDragTime > 1.3 {
                 cameraInstanceModel.capturemode = .video
                 cameraInstanceModel.startRecording()
             }

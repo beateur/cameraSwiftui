@@ -78,6 +78,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             cameraInput = newInput
             if self.session.canAddInput(newInput) {
                 self.session.addInput(newInput)
+                adjustVideoMirror()
             }
         } catch {
             // handle plus tard
@@ -89,12 +90,13 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         do {
             self.session.beginConfiguration()
 
+
             let cameradevice = createDevice()
             let camerainput = try AVCaptureDeviceInput(device: cameradevice)
             cameraInput = camerainput
             let audiodevice = AVCaptureDevice.default(for: .audio)
             let audioinput = try AVCaptureDeviceInput(device: audiodevice!)
-            
+                                    
             if self.session.canAddInput(camerainput) && self.session.canAddInput(audioinput) {
                 self.session.addInput(camerainput)
                 self.session.addInput(audioinput)
@@ -114,7 +116,17 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         } catch {
 
         }
-            
+    }
+    
+    private func adjustVideoMirror(){
+        
+        if let conn = movieOutput.connection(with: .video){
+            conn.isVideoMirrored = cameraPosition == .front
+        }
+        
+        if let conn = photoOutput.connection(with: .video){
+            conn.isVideoMirrored = cameraPosition == .front
+        }
     }
     
     func createDevice() -> AVCaptureDevice {
