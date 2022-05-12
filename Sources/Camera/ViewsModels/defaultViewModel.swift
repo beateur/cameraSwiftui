@@ -14,13 +14,14 @@ public class defaultViewModel: ObservableObject {
     let RecordButton: AnyView
     let Filters: AnyView
     
-    var dismissCompletion: (()->())?
+    var dismissCompletion: (()->())
     
     @Published var galleryImage: UIImage? = nil
      
-    init(record: AnyView, filters: AnyView) {
+    public init(record: AnyView, filters: AnyView, dismissCompletion: @escaping()->()) {
         self.RecordButton = record
         self.Filters = filters
+        self.dismissCompletion = dismissCompletion
     }
     
     func dismiss(completion: @escaping()->()) {

@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct cameraBalancer: View {
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
+    @EnvironmentObject var defaultCameraModel: defaultViewModel
 
     public init() {
         
@@ -22,6 +23,7 @@ public struct cameraBalancer: View {
                 // MARK: switch between camera's possibilities
                 defaultCamera()
                     .environmentObject(cameraInstanceModel)
+                    .environmentObject(defaultCameraModel)
                     .onTapGesture(count: 2) {
                         cameraInstanceModel.switchCamera()
                     }
@@ -44,11 +46,5 @@ public struct cameraBalancer: View {
             }
         }
             
-    }
-}
-
-struct cameraBalancer_Previews: PreviewProvider {
-    static var previews: some View {
-        cameraBalancer()
     }
 }

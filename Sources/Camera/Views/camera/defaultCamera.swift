@@ -10,10 +10,13 @@ import SwiftUI
 #if !os(macOS)
 @available(iOS 14, *)
 public struct defaultCamera: View {
-    @StateObject var defaultCameraModel = defaultViewModel(record:  AnyView(Circle().fill(Color.blue).frame(width: 72, height: 72)), filters: AnyView(Rectangle().fill(Color.white).frame(width: 18, height: 40)))
-    @StateObject var galleryViewModel = ImagePickerViewModel()
-
+    @EnvironmentObject var defaultCameraModel: defaultViewModel
     @EnvironmentObject var cameraInstanceModel: cameraInstanceViewModel
+    @StateObject var galleryViewModel = ImagePickerViewModel()
+    
+    public init() {
+        
+    }
     
     public var body: some View {
         VStack {
