@@ -16,11 +16,12 @@ struct ThumbnailMosaïque: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+
     var body: some View {
         VStack {
             if galleryViewModel.libraryStatus != .authorized {
                 Button {
-                    galleryViewModel.fetchElements()
+                    galleryViewModel.initPicker()
                 } label: {
                     VStack(spacing: 8) {
                         Text("Accedez à votre gallerie")
@@ -49,7 +50,7 @@ struct ThumbnailMosaïque: View {
         .background(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
+
     private var emptyPlaceHolder: some View {
         VStack {
             Text("0 photo/vidéo")
