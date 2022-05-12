@@ -14,7 +14,7 @@ public class defaultViewModel: ObservableObject {
     let RecordButton: AnyView
     let Filters: AnyView
     
-    var dismissCompletion: (()->())
+    public var dismissCompletion: (()->())
     
     @Published var galleryImage: UIImage? = nil
      
