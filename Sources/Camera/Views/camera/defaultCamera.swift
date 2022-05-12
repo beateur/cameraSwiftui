@@ -14,8 +14,10 @@ public struct defaultCamera: View {
     @EnvironmentObject var cameraInstanceModel: cameraInstanceViewModel
     @StateObject var galleryViewModel = ImagePickerViewModel()
     
+//    public var dismissCompletion: (()->())
+
     public init() {
-        
+//        self.dismissCompletion = dismissCompletion
     }
     
     public var body: some View {
@@ -47,7 +49,7 @@ public struct defaultCamera: View {
                     cameraInstanceModel.dismissPreview()
                 } else {
                     print(":\(defaultCameraModel.dismissCompletion) completionned")
-                    defaultCameraModel.dismissCompletion
+                    defaultCameraModel.dismissCompletion()
                 }
             }
         } next: {

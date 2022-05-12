@@ -10,9 +10,10 @@ import SwiftUI
 public struct cameraBalancer: View {
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
     @EnvironmentObject var defaultCameraModel: defaultViewModel
+//    public var dismissCompletion: (()->())
 
     public init() {
-        
+//        self.dismissCompletion = dismissCompletion
     }
 
     public var body: some View {
