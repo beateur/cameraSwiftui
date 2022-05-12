@@ -25,7 +25,7 @@ struct ThumbList: View {
                 HStack(spacing: 10) {
                     
                     ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
-                        ThumbnailView(photo: Photo)
+                        ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.height * 0.22)
                     }
                     .padding(.leading)
                     

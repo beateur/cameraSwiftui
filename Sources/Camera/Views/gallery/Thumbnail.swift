@@ -9,13 +9,14 @@ import SwiftUI
 
 struct ThumbnailView: View {
     var photo: Asset
+    let size: CGFloat
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Image(uiImage: photo.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: UIScreen.main.bounds.size.height * 0.22, height: UIScreen.main.bounds.size.height * 0.22)
+                .frame(width: size, height: size)
                 .cornerRadius(10)
             
             if photo.asset.mediaType == .video {
