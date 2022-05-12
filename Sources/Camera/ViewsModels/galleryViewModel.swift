@@ -15,6 +15,12 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var fetchedElements = [Asset]()
     @Published var allPhotos:PHFetchResult<PHAsset>!
     
+    
+    func initPicker() {
+        setup()
+        fetchElements()
+    }
+    
     func fetchElements() {
         if fetchedElements.isEmpty {
             fetchAssets()
@@ -22,8 +28,7 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     }
     
     func openPickerList() {
-        setup()
-        fetchElements()
+        initPicker()
         withAnimation {
             showPickerList.toggle()
         }
