@@ -24,7 +24,8 @@ struct ThumbnailMosaïque: View {
                         .font(.system(size: 13))
                         .foregroundColor(.gray)
                     Button {
-                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                        galleryViewModel.setup()
+//                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
                     } label: {
                         Text(galleryViewModel.libraryStatus == .denied ? "Autoriser l'accès": "Sélectionner")
                             .foregroundColor(.white)
@@ -33,7 +34,6 @@ struct ThumbnailMosaïque: View {
                             .background(Color.gray.opacity(0.9))
                             .cornerRadius(12)
                     }
-
                 }
                 .padding()
             }
@@ -50,6 +50,7 @@ struct ThumbnailMosaïque: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private var emptyPlaceHolder: some View {

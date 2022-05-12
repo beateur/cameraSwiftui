@@ -14,26 +14,24 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var libraryStatus = PHLibraryStatus.denied
     @Published var fetchedElements = [Asset]()
     @Published var allPhotos:PHFetchResult<PHAsset>!
-
-    func initPicker() {
-        setup()
-        
+    
+    func fetchElements() {
         if fetchedElements.isEmpty {
             fetchAssets()
         }
     }
     
     func openPickerList() {
-        initPicker()
-        
+        setup()
+        fetchElements()
         withAnimation {
             showPickerList.toggle()
         }
     }
     
     func openPickerMosaïque() {
-        initPicker()
-        
+//        initPicker()
+        fetchElements()
         withAnimation {
             showPickerMosaïque.toggle()
         }
