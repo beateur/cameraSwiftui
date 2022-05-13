@@ -56,7 +56,7 @@ public struct defaultCamera: View {
     }
     
     private var entete: some View {
-        defaultCameraModel.entete(dismisselement: AnyView(Image(systemName: "xmark").resizable().frame(width: 15, height: 15)), nextelement: AnyView(Image(systemName: "arrow.right").resizable().frame(width: 30, height: 10))) {
+        defaultCameraModel.entete {
             defaultCameraModel.dismiss {
                 if cameraInstanceModel.showPreview || cameraInstanceModel.photoCaptured != nil {
                     cameraInstanceModel.dismissPreview()
@@ -72,6 +72,7 @@ public struct defaultCamera: View {
         } next: {
 
         }
+
     }
     
     private var camera: some View {

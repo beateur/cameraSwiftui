@@ -13,15 +13,22 @@ import AVFoundation
 public class defaultViewModel: ObservableObject {
     let RecordButton: AnyView
     let Filters: AnyView
+    let dismissButtonView: AnyView
+    let nextButtonView: AnyView
     
     public var dismissCompletion: (()->())
+    public var nextCompletion: (()->())
     
     @Published var galleryImage: UIImage? = nil
      
-    public init(record: AnyView, filters: AnyView, dismissCompletion: @escaping()->()) {
+    public init(record: AnyView, filters: AnyView, dismissButtonView: AnyView, nextButtonView: AnyView, dismissCompletion: @escaping()->(), nextCompletion: @escaping()->()) {
         self.RecordButton = record
         self.Filters = filters
+        self.dismissButtonView = dismissButtonView
+        self.nextButtonView = nextButtonView
         self.dismissCompletion = dismissCompletion
+        self.nextCompletion = nextCompletion
+
     }
     
     func dismiss(completion: @escaping()->()) {
@@ -32,18 +39,18 @@ public class defaultViewModel: ObservableObject {
         
     }
     
-    @ViewBuilder func entete(dismisselement: AnyView, nextelement: AnyView, dismiss: @escaping()->(), next: @escaping()->()?) -> some View {
+    @ViewBuilder func entete(dismiss: @escaping()->(), next: @escaping()->()?) -> some View {
         HStack {
             Button(action: {
                 dismiss()
             }) {
-                dismisselement
+                dismissButtonView
             }
             Spacer()
             Button(action: {
                 next()
             }) {
-                nextelement
+                nextButtonView
             }
         }
         .padding()
