@@ -63,7 +63,7 @@ public struct defaultCamera: View {
                     cameraInstanceModel.dismissPreview()
                 }
                 else if galleryViewModel.showPickerMosaïque || galleryViewModel.showPreview {
-                    galleryViewModel.dismissMosaïque()
+                    galleryViewModel.dismissGalleryOverView()
                 }
                 else {
                     print(":\(defaultCameraModel.dismissCompletion) completionned")
