@@ -18,7 +18,9 @@ struct contentPreview: View {
                 let playerItem = AVPlayerItem(asset: galleryPicker.selectedVideo)
                 let player = AVPlayer(playerItem: playerItem)
                 
-                VideoPlayer(player: player)
+                PlayerContainerView(player: player, gravity: .aspectFill, onEditingChanged: {
+
+                })
             }
             
             if galleryPicker.selectedImage != nil {
