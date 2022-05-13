@@ -18,7 +18,7 @@ struct ThumbnailMosaïque: View {
     ]
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 1) {
             if galleryViewModel.libraryStatus != .authorized {
                 Button {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
@@ -44,7 +44,7 @@ struct ThumbnailMosaïque: View {
                             ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.248)
                         }
                     }
-                    .padding(.horizontal, 1)
+                    .padding(.horizontal, 2)
                 }
             }
         }
