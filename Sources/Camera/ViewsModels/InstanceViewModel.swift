@@ -64,6 +64,9 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     }
     
     func switchCamera() {
+        if session.inputs.isEmpty {
+           return
+        }
         session.removeInput(cameraInput)
         
         switch cameraPosition {
@@ -71,6 +74,8 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             cameraPosition = .back
         case .back:
             cameraPosition = .front
+        @unknown default:
+            cameraPosition = .back
         }
         if let newCam = createDevice() {
             do {
@@ -84,8 +89,6 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
                 // handle plus tard
             }
         }
-        
-        
     }
     
     func setup() {
