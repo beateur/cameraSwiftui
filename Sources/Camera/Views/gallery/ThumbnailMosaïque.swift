@@ -44,7 +44,7 @@ struct ThumbnailMosaïque: View {
                             ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.243)
                         }
                     }
-                    .padding(.horizontal, 1)
+                    .padding(.horizontal, 20)
                 }
             }
         }
