@@ -41,10 +41,10 @@ struct ThumbnailMosaïque: View {
                 ScrollView {
                     LazyVGrid(columns: gridItem, spacing: 0) {
                         ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
-                            ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.243)
+                            ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.2475)
                         }
                     }
-                    .padding(.horizontal, 5)
+                    .padding(.horizontal, 3)
                 }
             }
         }
