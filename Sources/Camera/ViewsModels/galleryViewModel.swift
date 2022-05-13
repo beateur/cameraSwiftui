@@ -51,9 +51,23 @@ class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
+    func dismissPreview() {
+        showPreview = false
+        selectedImage = nil
+        selectedVideo = nil
+    }
+    
     func dismissMosaïque() {
         showPickerMosaïque = false
         fetchedElements.removeAll()
+    }
+    
+    func dismissGalleryOverView() {
+        if showPreview {
+            dismissPreview()
+        } else {
+            dismissMosaïque()
+        }
     }
     
     func fetchAssets(size: CGSize) {

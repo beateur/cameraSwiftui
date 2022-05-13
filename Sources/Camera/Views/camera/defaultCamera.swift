@@ -42,6 +42,9 @@ public struct defaultCamera: View {
                 if galleryViewModel.showPickerMosaïque {
                     ThumbnailMosaïque()
                         .environmentObject(galleryViewModel)
+                        .onDisappear {
+                            galleryViewModel.dismissMosaïque()
+                        }
                 }
                 
                 if galleryViewModel.showPreview {
@@ -59,7 +62,7 @@ public struct defaultCamera: View {
                 if cameraInstanceModel.showPreview || cameraInstanceModel.photoCaptured != nil {
                     cameraInstanceModel.dismissPreview()
                 }
-                else if galleryViewModel.showPickerMosaïque {
+                else if galleryViewModel.showPickerMosaïque || galleryViewModel.showPreview {
                     galleryViewModel.dismissMosaïque()
                 }
                 else {
