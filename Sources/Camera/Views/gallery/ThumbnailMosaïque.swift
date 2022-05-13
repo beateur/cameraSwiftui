@@ -39,7 +39,7 @@ struct ThumbnailMosaïque: View {
                 }
             } else {
                 ScrollView {
-                    LazyVGrid(columns: gridItem, spacing: 0) {
+                    LazyVGrid(columns: gridItem, spacing: 0.5) {
                         ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
                             ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.2475)
                         }
