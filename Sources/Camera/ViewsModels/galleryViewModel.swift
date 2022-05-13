@@ -20,7 +20,7 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var showPreview = false
     
     func initPicker(size: CGSize) {
-//        setup()
+        setup()
         fetchElements(size: size)
     }
     
