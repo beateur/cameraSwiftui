@@ -20,7 +20,6 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var showPreview = false
     
     func initPicker(size: CGSize) {
-        setup()
         fetchElements(size: size)
     }
     
@@ -31,6 +30,8 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     }
     
     func tapThumbnail(photo: Asset) {
+        showPickerMosaïque = false
+        showPickerList = false
         extractPreviewData(asset: photo.asset)
         showPreview = true
     }

@@ -45,10 +45,12 @@ public struct defaultCamera: View {
                 }
                 
                 if galleryViewModel.showPreview {
-                    
+                    contentPreview()
+                        .environmentObject(galleryViewModel)
                 }
             }
         }
+        .onAppear(perform: galleryViewModel.setup)
     }
     
     private var entete: some View {
