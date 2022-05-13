@@ -72,17 +72,19 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         case .back:
             cameraPosition = .front
         }
-        var newCam = createDevice()
-        do {
-            let newInput = try AVCaptureDeviceInput(device: newCam)
-            cameraInput = newInput
-            if self.session.canAddInput(newInput) {
-                self.session.addInput(newInput)
-                adjustVideoMirror()
+        if let newCam = createDevice() {
+            do {
+                let newInput = try AVCaptureDeviceInput(device: newCam)
+                cameraInput = newInput
+                if self.session.canAddInput(newInput) {
+                    self.session.addInput(newInput)
+                    adjustVideoMirror()
+                }
+            } catch {
+                // handle plus tard
             }
-        } catch {
-            // handle plus tard
         }
+        
         
     }
     
@@ -91,24 +93,25 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             self.session.beginConfiguration()
 
 
-            let cameradevice = createDevice()
-            let camerainput = try AVCaptureDeviceInput(device: cameradevice)
-            cameraInput = camerainput
-            let audiodevice = AVCaptureDevice.default(for: .audio)
-            let audioinput = try AVCaptureDeviceInput(device: audiodevice!)
-                                    
-            if self.session.canAddInput(camerainput) && self.session.canAddInput(audioinput) {
-                self.session.addInput(camerainput)
-                self.session.addInput(audioinput)
-            }
-            
-            if self.session.canAddOutput(photoOutput) {
-                self.session.addOutput(photoOutput)
-                photoOutput.isHighResolutionCaptureEnabled = true
-            }
-            
-            if self.session.canAddOutput(self.movieOutput) {
-                self.session.addOutput(self.movieOutput)
+            if let cameradevice = createDevice() {
+                let camerainput = try AVCaptureDeviceInput(device: cameradevice)
+                cameraInput = camerainput
+                let audiodevice = AVCaptureDevice.default(for: .audio)
+                let audioinput = try AVCaptureDeviceInput(device: audiodevice!)
+                                        
+                if self.session.canAddInput(camerainput) && self.session.canAddInput(audioinput) {
+                    self.session.addInput(camerainput)
+                    self.session.addInput(audioinput)
+                }
+                
+                if self.session.canAddOutput(photoOutput) {
+                    self.session.addOutput(photoOutput)
+                    photoOutput.isHighResolutionCaptureEnabled = true
+                }
+                
+                if self.session.canAddOutput(self.movieOutput) {
+                    self.session.addOutput(self.movieOutput)
+                }
             }
             
             self.session.commitConfiguration()
@@ -129,7 +132,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         }
     }
     
-    func createDevice() -> AVCaptureDevice {
+    func createDevice() -> AVCaptureDevice? {
         if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: cameraPosition) {
             return dualCameraDevice
         } else if let dualWideCameraDevice = AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: cameraPosition) {
@@ -139,7 +142,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             // If the rear wide angle camera isn't available, default to the front wide angle camera.
             return WideAngleCamera
         }
-        return AVCaptureDevice.default(for: .video)!
+        return AVCaptureDevice.default(for: .video)
     }
     
     @objc func takePhoto() {
