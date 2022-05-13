@@ -67,9 +67,9 @@ public class defaultViewModel: ObservableObject {
         .disabled(disabled)
     }
     
-    @ViewBuilder func cameraInversion() -> some View {
+    @ViewBuilder func cameraInversion(perform: @escaping()->()) -> some View {
         Button {
-            
+            perform()
         } label: {
             Image(systemName: "arrow.triangle.2.circlepath.camera")
         }

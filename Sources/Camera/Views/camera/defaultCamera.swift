@@ -153,9 +153,11 @@ public struct defaultCamera: View {
                 .padding(.leading)
                 .scaleEffect(1.2)
             Spacer()
-            defaultCameraModel.cameraInversion()
+            defaultCameraModel.cameraInversion(perform: {
+                cameraInstanceModel.switchCamera()
+            })
                 .padding(.trailing)
-                .scaleEffect(1.2)
+                .scaleEffect(1.4)
         }
         .foregroundColor(.white)
     }
