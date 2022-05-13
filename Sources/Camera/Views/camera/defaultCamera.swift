@@ -65,12 +65,11 @@ public struct defaultCamera: View {
                     galleryViewModel.dismissGalleryOverView()
                 }
                 else {
-                    print(":\(defaultCameraModel.dismissCompletion) completionned")
                     defaultCameraModel.dismissCompletion()
                 }
             }
         } next: {
-
+            print("nexted")
         }
 
     }
