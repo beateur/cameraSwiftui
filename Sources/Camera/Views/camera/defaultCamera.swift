@@ -53,7 +53,6 @@ public struct defaultCamera: View {
                 }
             }
         }
-        .onAppear(perform: galleryViewModel.setup)
     }
     
     private var entete: some View {
