@@ -18,7 +18,7 @@ struct ThumbnailMosaïque: View {
     ]
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if galleryViewModel.libraryStatus != .authorized {
                 Button {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
@@ -41,9 +41,10 @@ struct ThumbnailMosaïque: View {
                 ScrollView {
                     LazyVGrid(columns: gridItem, spacing: 0.5) {
                         ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
-                            ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.25)
+                            ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.248)
                         }
                     }
+                    .padding(.horizontal, 1)
                 }
             }
         }
