@@ -19,8 +19,14 @@ struct contentPreview: View {
                 let player = AVPlayer(playerItem: playerItem)
                 
                 PlayerContainerView(player: player, gravity: .aspectFill, onEditingChanged: {
-
+                    PlayerViewModel.shared.loopVideo(videoPlayer: player)
                 })
+                    .onAppear(perform: {
+                        PlayerViewModel.shared.play(player: player)
+                    })
+                    .onDisappear {
+                        PlayerViewModel.shared.pause(player: player)
+                    }
             }
             
             if galleryPicker.selectedImage != nil {

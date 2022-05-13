@@ -16,15 +16,14 @@ class PlayerViewModel: ObservableObject {
         if currentItem?.currentTime() == currentItem?.duration {
             currentItem?.seek(to: .zero, completionHandler: nil)
         }
-        
         player.play()
     }
     
     func loopVideo(videoPlayer: AVPlayer) {
-      NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
-        videoPlayer.seek(to: .zero)
-        videoPlayer.play()
-      }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            videoPlayer.seek(to: .zero)
+            videoPlayer.play()
+        }
     }
     
     func pause(player: AVPlayer) {
