@@ -19,6 +19,15 @@ struct ThumbnailMosaïque: View {
 
     var body: some View {
         VStack(spacing: 1) {
+            header
+            corpus
+        }
+        .background(Color.white)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    private var header: some View {
+        Group {
             if galleryViewModel.libraryStatus != .authorized {
                 Button {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
@@ -32,7 +41,11 @@ struct ThumbnailMosaïque: View {
                     .background(Color.gray.opacity(0.6))
                 }
             }
-
+        }
+    }
+    
+    private var corpus: some View {
+        Group {
             if galleryViewModel.fetchedElements.isEmpty {
                 ScrollView {
                     emptyPlaceHolder
@@ -42,14 +55,15 @@ struct ThumbnailMosaïque: View {
                     LazyVGrid(columns: gridItem, spacing: 0.5) {
                         ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
                             ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.2475)
+                                .onTapGesture {
+                                    galleryViewModel.tapThumbnail(photo: Photo)
+                                }
                         }
                     }
                     .padding(.horizontal, 4)
                 }
             }
         }
-        .background(Color.white)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private var emptyPlaceHolder: some View {

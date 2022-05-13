@@ -43,6 +43,10 @@ public struct defaultCamera: View {
                     ThumbnailMosaïque()
                         .environmentObject(galleryViewModel)
                 }
+                
+                if galleryViewModel.showPreview {
+                    
+                }
             }
         }
     }

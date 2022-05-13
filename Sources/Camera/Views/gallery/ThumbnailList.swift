@@ -26,9 +26,12 @@ struct ThumbList: View {
                     
                     ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
                         ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.height * 0.22)
+                            .onTapGesture {
+                                galleryViewModel.tapThumbnail(photo: Photo)
+                            }
                     }
                     .padding(.leading)
-                    
+
                     if galleryViewModel.libraryStatus != .authorized {
                         VStack(spacing: 8) {
                             Text(galleryViewModel.libraryStatus == .denied ? "Acceder à votre gallerie" : "Plus de photos")
@@ -48,7 +51,6 @@ struct ThumbList: View {
                         }
                         .padding()
                     }
-                    
                 }
             }
             .frame(height: galleryViewModel.showPickerList ? UIScreen.main.bounds.size.height / 4 : 0)

@@ -7,35 +7,43 @@
 
 import SwiftUI
 import Photos
- 
-class ImagePickerViewModel: NSObject, ObservableObject {
+import AVKit
+
+class ImagePickerViewModel: NSObject, ObservableObject {    
     @Published var showPickerList = false
     @Published var showPickerMosaïque = false
     @Published var libraryStatus = PHLibraryStatus.denied
     @Published var fetchedElements = [Asset]()
     @Published var allPhotos:PHFetchResult<PHAsset>!
+    @Published var selectedVideo: AVAsset!
+    @Published var selectedImage: UIImage!
+    @Published var showPreview = false
     
-    
-    func initPicker() {
+    func initPicker(size: CGSize) {
         setup()
-        fetchElements()
+        fetchElements(size: size)
     }
     
-    func fetchElements() {
+    func fetchElements(size: CGSize) {
         if fetchedElements.isEmpty {
-            fetchAssets()
+            fetchAssets(size: size)
         }
     }
     
+    func tapThumbnail(photo: Asset) {
+        extractPreviewData(asset: photo.asset)
+        showPreview = true
+    }
+    
     func openPickerList() {
-        initPicker()
+        initPicker(size: ThumSize)
         withAnimation {
             showPickerList.toggle()
         }
     }
     
     func openPickerMosaïque() {
-        initPicker()
+        initPicker(size: MosaïqueSize)
 
         withAnimation {
             showPickerMosaïque.toggle()
@@ -47,7 +55,7 @@ class ImagePickerViewModel: NSObject, ObservableObject {
         fetchedElements.removeAll()
     }
     
-    func fetchAssets() {
+    func fetchAssets(size: CGSize) {
         let options = PHFetchOptions()
         options.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -57,13 +65,13 @@ class ImagePickerViewModel: NSObject, ObservableObject {
         let fetchresult = PHAsset.fetchAssets(with: options)
         allPhotos = fetchresult
         fetchresult.enumerateObjects { asset, index, _ in
-            self.getContentFromAsset(asset: asset) { picture in
+            self.getImageFromAsset(asset: asset, size: size) { picture in
                 self.fetchedElements.append(Asset(asset: asset, image: picture))
             }
         }
     }
     
-    func getContentFromAsset(asset: PHAsset, completion: @escaping(UIImage)->()) {
+    func getImageFromAsset(asset: PHAsset, size: CGSize, completion: @escaping(UIImage)->()) {
         let manager = PHCachingImageManager()
         manager.allowsCachingHighQualityImages = true
         
@@ -71,13 +79,39 @@ class ImagePickerViewModel: NSObject, ObservableObject {
         options.deliveryMode = .highQualityFormat
         options.isSynchronous = false
         
-        let size = CGSize(width: UIScreen.main.bounds.size.height * 0.22, height: UIScreen.main.bounds.size.height * 0.22)
+        let size = CGSize(width: size.width, height: size.height)
         manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options) { image, _ in
             guard let resizedImage = image else { return }
             
             completion(resizedImage)
         }
     }
+    
+    func extractPreviewData(asset: PHAsset) {
+        let manager = PHCachingImageManager()
+        
+        if asset.mediaType == .video {
+            let videoManager = PHVideoRequestOptions()
+            videoManager.deliveryMode = .highQualityFormat
+            
+            manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
+                guard let videoUrl = videoAsset else {return}
+                
+                DispatchQueue.main.async {
+                    self.selectedVideo = videoUrl
+                }
+            }
+        }
+        
+        if asset.mediaType == .image {
+            getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
+                DispatchQueue.main.async {
+                    self.selectedImage = image
+                }
+            }
+        }
+    }
+
     
     func setup() {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
@@ -122,7 +156,7 @@ extension ImagePickerViewModel: PHPhotoLibraryChangeObserver {
 
             updatedPhotos.enumerateObjects { asset, index, _ in
                 if !self.allPhotos.contains(asset) {
-                    self.getContentFromAsset(asset: asset) { image in
+                    self.getImageFromAsset(asset: asset, size: ThumSize) { image in
                         DispatchQueue.main.async {
                             self.fetchedElements.append(Asset(asset: asset, image: image))
                         }
