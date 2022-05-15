@@ -23,6 +23,7 @@ public struct cameraBalancer: View {
                 
                 // MARK: switch between camera's possibilities
                 defaultCamera()
+                    .padding(.bottom)
                     .environmentObject(cameraInstanceModel)
                     .environmentObject(defaultCameraModel)
                     .onTapGesture(count: 2) {
@@ -35,7 +36,6 @@ public struct cameraBalancer: View {
                 cameraInstanceModel.progressBar(size: size)
                     
             }
-            .padding(.bottom)
             .onAppear(perform: cameraInstanceModel.checkPermission)
             .alert(isPresented: $cameraInstanceModel.alert) {
                 Alert(title: Text("test title"))
