@@ -46,6 +46,6 @@ public struct cameraBalancer: View {
                 cameraInstanceModel.makeProgression()
             }
         }
-            
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
