@@ -35,6 +35,7 @@ public struct cameraBalancer: View {
                 cameraInstanceModel.progressBar(size: size)
                     
             }
+            .padding(.bottom)
             .onAppear(perform: cameraInstanceModel.checkPermission)
             .alert(isPresented: $cameraInstanceModel.alert) {
                 Alert(title: Text("test title"))
