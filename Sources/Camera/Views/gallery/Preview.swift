@@ -14,7 +14,7 @@ struct contentPreview: View {
     
     var body: some View {
         ZStack {
-            if selectedImage != nil {
+            if selectedVideo != nil {
                 
                 let playerItem = AVPlayerItem(asset: selectedVideo!)
                 let player = AVPlayer(playerItem: playerItem)
