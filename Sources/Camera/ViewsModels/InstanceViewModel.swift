@@ -188,8 +188,8 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         movieOutput.stopRecording()
         self.resetProgressValues()
         self.isRecording = false
-        self.showPreview = true
         self.undoFlash()
+        self.showPreview = true
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {

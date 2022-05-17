@@ -44,7 +44,7 @@ public struct defaultCamera: View {
     private var entete: some View {
         defaultCameraModel.entete {
             defaultCameraModel.dismiss {
-                if cameraInstanceModel.showPreview || cameraInstanceModel.photoCaptured != nil {
+                if cameraInstanceModel.showPreview {
                     cameraInstanceModel.dismissPreview()
                 }
                 else if galleryViewModel.showPickerMosaïque || galleryViewModel.showPreview {
