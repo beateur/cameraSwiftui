@@ -34,8 +34,8 @@ public struct defaultCamera: View {
                         }
                 }
                 
-                if galleryViewModel.showPreview || cameraInstanceModel.showPreview {
-                    contentPreview(selectedVideo: galleryViewModel.selectedVideo ?? cameraInstanceModel.previewURL!, selectedImage: galleryViewModel.selectedImage ?? cameraInstanceModel.photoCaptured!)
+                if cameraInstanceModel.showPreview || galleryViewModel.showPreview {
+                    contentPreview(selectedVideo: cameraInstanceModel.previewURL ?? galleryViewModel.selectedVideo!, selectedImage: cameraInstanceModel.photoCaptured ?? galleryViewModel.selectedImage!)
                 }
             }
         }
