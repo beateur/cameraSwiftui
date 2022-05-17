@@ -14,10 +14,8 @@ public struct defaultCamera: View {
     @EnvironmentObject var cameraInstanceModel: cameraInstanceViewModel
     @StateObject var galleryViewModel = ImagePickerViewModel()
     
-//    public var dismissCompletion: (()->())
-
     public init() {
-//        self.dismissCompletion = dismissCompletion
+
     }
     
     public var body: some View {
@@ -28,17 +26,6 @@ public struct defaultCamera: View {
                 camera
                 OverlayedComponents
                 
-                if cameraInstanceModel.showPreview {
-                    if let url = cameraInstanceModel.previewURL {
-                        VideoPreview(url: url)
-                            .animation(.easeInOut, value: cameraInstanceModel.showPreview)
-                    } else {
-                        if let previewImage = cameraInstanceModel.photoCaptured {
-                            PhotoPreview(photoPreview: previewImage)
-                        }
-                    }
-                }
-                
                 if galleryViewModel.showPickerMosaïque {
                     ThumbnailMosaïque()
                         .environmentObject(galleryViewModel)
@@ -47,9 +34,8 @@ public struct defaultCamera: View {
                         }
                 }
                 
-                if galleryViewModel.showPreview {
-                    contentPreview()
-                        .environmentObject(galleryViewModel)
+                if galleryViewModel.showPreview || cameraInstanceModel.showPreview {
+                    contentPreview(selectedVideo: galleryViewModel.selectedVideo ?? cameraInstanceModel.previewURL!, selectedImage: galleryViewModel.selectedImage ?? cameraInstanceModel.photoCaptured!)
                 }
             }
         }

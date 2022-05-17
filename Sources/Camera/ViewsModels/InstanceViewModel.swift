@@ -27,7 +27,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     // MARK: VIDEO RECORDER PROPERTIES
     @Published var isRecording = false
     @Published var recordedUrls = [URL]()
-    @Published var previewURL: URL?
+    @Published var previewURL: AVAsset!
     @Published var showPreview = false
     
     // MARK: PROGRESS BAR
@@ -38,7 +38,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     var maxDuration: CGFloat? = nil
     
     // MARK: PHOTO PROCESSING
-    @Published var photoCaptured: UIImage?
+    @Published var photoCaptured: UIImage!
     
     func checkPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -199,7 +199,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         }
         
         print("created succes: \(outputFileURL.description)")
-        self.previewURL = outputFileURL
+        self.previewURL = AVAsset(url: outputFileURL)
     }
     
     func recordProgression() -> CGFloat {
