@@ -7,7 +7,32 @@
 
 import SwiftUI
 
+import Foundation
+
+private struct SafeAreaInsetsKey: EnvironmentKey {
+    static var defaultValue: EdgeInsets {
+        (UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.safeAreaInsets ?? .zero).insets
+    }
+}
+
+private extension EnvironmentValues {
+    
+    var safeAreaInsets: EdgeInsets {
+        self[SafeAreaInsetsKey.self]
+    }
+}
+
+private extension UIEdgeInsets {
+    
+    var insets: EdgeInsets {
+        EdgeInsets(top: top, leading: left, bottom: bottom, trailing: right)
+    }
+}
+
+
 public struct cameraBalancer: View {
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
+
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
     @EnvironmentObject var defaultCameraModel: defaultViewModel
 //    public var dismissCompletion: (()->())
@@ -23,7 +48,7 @@ public struct cameraBalancer: View {
                 
                 // MARK: switch between camera's possibilities
                 defaultCamera()
-                    .padding(.bottom)
+                    .padding(.bottom, safeAreaInsets.bottom)
                     .environmentObject(cameraInstanceModel)
                     .environmentObject(defaultCameraModel)
                     .onTapGesture(count: 2) {
