@@ -12,8 +12,9 @@ public struct contentPreview: View {
     let selectedVideo: AVAsset?
     let selectedImage: UIImage?
     
-    public init () {
-        
+    public init (selectedVideo: AVAsset?, selectedImage: UIImage?) {
+        self.selectedVideo = selectedVideo
+        self.selectedImage = selectedImage
     }
     
     public var body: some View {
