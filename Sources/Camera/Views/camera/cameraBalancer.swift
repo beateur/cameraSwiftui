@@ -30,7 +30,6 @@ private extension UIEdgeInsets {
     }
 }
 
-
 public struct cameraBalancer: View {
     @Environment(\.safeAreaInsets) private var safeAreaInsets
 
