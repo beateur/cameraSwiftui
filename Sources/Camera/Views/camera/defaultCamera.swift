@@ -34,11 +34,6 @@ public struct defaultCamera: View {
                             galleryViewModel.dismissMosaïque()
                         }
                 }
-                
-                if cameraInstanceModel.showPreview || galleryViewModel.showPreview {
-                    defaultCameraModel.preview
-//                    contentPreview(selectedVideo: cameraInstanceModel.previewURL ?? galleryViewModel.selectedVideo, selectedImage: cameraInstanceModel.photoCaptured ?? galleryViewModel.selectedImage)
-                }
             }
         }
     }

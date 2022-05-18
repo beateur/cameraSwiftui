@@ -142,7 +142,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             // If a rear dual camera is not available, default to the rear dual wide camera.
             return dualWideCameraDevice
         }  else if let WideAngleCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition) {
-            // If the rear wide angle camera isn't available, default to the front wide angle camera.
+            // If the rear dual wide camera isn't available, default to the wide angle camera.
             return WideAngleCamera
         }
         return AVCaptureDevice.default(for: .video)
