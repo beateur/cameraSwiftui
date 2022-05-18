@@ -12,7 +12,7 @@ import SwiftUI
 public struct defaultCamera: View {
     @EnvironmentObject var defaultCameraModel: defaultViewModel
     @EnvironmentObject var cameraInstanceModel: cameraInstanceViewModel
-    @StateObject var galleryViewModel = ImagePickerViewModel()
+    @EnvironmentObject var galleryViewModel: ImagePickerViewModel
     
     public init() {
 
@@ -36,7 +36,8 @@ public struct defaultCamera: View {
                 }
                 
                 if cameraInstanceModel.showPreview || galleryViewModel.showPreview {
-                    contentPreview(selectedVideo: cameraInstanceModel.previewURL ?? galleryViewModel.selectedVideo, selectedImage: cameraInstanceModel.photoCaptured ?? galleryViewModel.selectedImage)
+                    defaultCameraModel.preview
+//                    contentPreview(selectedVideo: cameraInstanceModel.previewURL ?? galleryViewModel.selectedVideo, selectedImage: cameraInstanceModel.photoCaptured ?? galleryViewModel.selectedImage)
                 }
             }
         }

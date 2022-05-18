@@ -34,6 +34,7 @@ public struct cameraBalancer: View {
     @Environment(\.safeAreaInsets) private var safeAreaInsets
 
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
+    @StateObject var galleryViewModel = ImagePickerViewModel()
     @EnvironmentObject var defaultCameraModel: defaultViewModel
     public var contentCompletion: ((UIImage?, AVAsset?)->())
 
@@ -51,6 +52,7 @@ public struct cameraBalancer: View {
                     .padding(.bottom, safeAreaInsets.bottom)
                     .environmentObject(cameraInstanceModel)
                     .environmentObject(defaultCameraModel)
+                    .environmentObject(galleryViewModel)
                     .onTapGesture(count: 2) {
                         cameraInstanceModel.switchCamera()
                     }
@@ -71,7 +73,25 @@ public struct cameraBalancer: View {
                 }
                 cameraInstanceModel.makeProgression()
             }
+            .onChange(of: cameraInstanceModel.previewURL) { newValue in
+                performCompletion()
+            }
+            .onChange(of: cameraInstanceModel.photoCaptured) { newValue in
+                performCompletion()
+            }
+            .onChange(of: galleryViewModel.selectedImage) { newValue in
+                performCompletion()
+            }
+            .onChange(of: galleryViewModel.selectedVideo) { newValue in
+                performCompletion()
+            }
         }
         .edgesIgnoringSafeArea(.bottom)
+    }
+    
+    func performCompletion() {
+        let image = galleryViewModel.selectedImage ?? cameraInstanceModel.photoCaptured
+        let video = galleryViewModel.selectedVideo ?? cameraInstanceModel.previewURL
+        contentCompletion(image, video)
     }
 }

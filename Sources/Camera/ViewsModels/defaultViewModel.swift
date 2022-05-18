@@ -16,16 +16,18 @@ public class defaultViewModel: ObservableObject {
     let dismissButtonView: AnyView
     let nextButtonView: AnyView
     
+    public var preview: AnyView
     public var dismissCompletion: (()->())
     public var nextCompletion: (()->())
     
     @Published var galleryImage: UIImage? = nil
      
-    public init(record: AnyView, filters: AnyView, dismissButtonView: AnyView, nextButtonView: AnyView, dismissCompletion: @escaping()->(), nextCompletion: @escaping()->()) {
+    public init(record: AnyView, filters: AnyView, dismissButtonView: AnyView, nextButtonView: AnyView, preview:  AnyView, dismissCompletion: @escaping()->(), nextCompletion: @escaping()->()) {
         self.RecordButton = record
         self.Filters = filters
         self.dismissButtonView = dismissButtonView
         self.nextButtonView = nextButtonView
+        self.preview = preview
         self.dismissCompletion = dismissCompletion
         self.nextCompletion = nextCompletion
 
