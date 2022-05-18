@@ -20,26 +20,30 @@ struct contentPreview: View {
                 Color.white
                     .frame(width: size.width, height: size.height)
                 
-                if selectedVideo != nil {
-                    
-                    let playerItem = AVPlayerItem(asset: selectedVideo!)
-                    let player = AVPlayer(playerItem: playerItem)
+                VStack {
+                    Spacer()
+                    if selectedVideo != nil {
+                        
+                        let playerItem = AVPlayerItem(asset: selectedVideo!)
+                        let player = AVPlayer(playerItem: playerItem)
 
-                    PlayerContainerView(player: player, gravity: .aspectFill, onEditingChanged: {
-                        PlayerViewModel.shared.loopVideo(videoPlayer: player)
-                    })
-                        .onAppear(perform: {
-                            PlayerViewModel.shared.play(player: player)
+                        PlayerContainerView(player: player, gravity: .aspectFill, onEditingChanged: {
+                            PlayerViewModel.shared.loopVideo(videoPlayer: player)
                         })
-                        .onDisappear {
-                            PlayerViewModel.shared.pause(player: player)
-                        }
-                }
-                
-                if selectedImage != nil {
-                    Image(uiImage: selectedImage!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                            .onAppear(perform: {
+                                PlayerViewModel.shared.play(player: player)
+                            })
+                            .onDisappear {
+                                PlayerViewModel.shared.pause(player: player)
+                            }
+                    }
+                    
+                    if selectedImage != nil {
+                        Image(uiImage: selectedImage!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    Spacer()
                 }
             }
             
