@@ -23,7 +23,6 @@ struct contentPreview: View {
                 VStack {
                     Spacer()
                     if selectedVideo != nil {
-                        
                         let playerItem = AVPlayerItem(asset: selectedVideo!)
                         let player = AVPlayer(playerItem: playerItem)
 
@@ -41,12 +40,13 @@ struct contentPreview: View {
                     if selectedImage != nil {
                         Image(uiImage: selectedImage!)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFill()
+                            .frame(width: size.width, height: size.height)
+                            .clipped()
                     }
                     Spacer()
                 }
             }
-            
         }
         .ignoresSafeArea(.all, edges: .bottom)
     }

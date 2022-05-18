@@ -23,6 +23,7 @@ public struct defaultCamera: View {
             entete
             ZStack {
                 Color.black
+                    .edgesIgnoringSafeArea(.bottom)
                 camera
                 OverlayedComponents
                 
