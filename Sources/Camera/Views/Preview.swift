@@ -17,7 +17,7 @@ struct contentPreview: View {
             GeometryReader { reader in
                 let size = reader.size
                 
-                Color.white
+                Color.black
                     .frame(width: size.width, height: size.height)
                 
                 VStack {
