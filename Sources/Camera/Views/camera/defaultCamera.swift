@@ -22,7 +22,7 @@ public struct defaultCamera: View {
         VStack {
             entete
             ZStack {
-                Color.red
+                Color.black
                     .edgesIgnoringSafeArea(.bottom)
                 camera
                 OverlayedComponents
