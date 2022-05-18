@@ -13,6 +13,7 @@ public struct contentPreview: View {
     let selectedImage: UIImage?
     
     public init (selectedVideo: AVAsset?, selectedImage: UIImage?) {
+        print("initied: \(selectedVideo) \(selectedImage)")
         self.selectedVideo = selectedVideo
         self.selectedImage = selectedImage
     }
