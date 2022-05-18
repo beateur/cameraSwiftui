@@ -8,11 +8,15 @@
 import SwiftUI
 import AVKit
 
-struct contentPreview: View {
+public struct contentPreview: View {
     let selectedVideo: AVAsset?
     let selectedImage: UIImage?
     
-    var body: some View {
+    public init () {
+        
+    }
+    
+    public var body: some View {
         ZStack {
             GeometryReader { reader in
                 let size = reader.size
