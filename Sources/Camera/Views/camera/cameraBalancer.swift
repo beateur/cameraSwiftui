@@ -8,6 +8,7 @@
 import SwiftUI
 
 import Foundation
+import AVFoundation
 
 private struct SafeAreaInsetsKey: EnvironmentKey {
     static var defaultValue: EdgeInsets {
@@ -35,10 +36,10 @@ public struct cameraBalancer: View {
 
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
     @EnvironmentObject var defaultCameraModel: defaultViewModel
-//    public var dismissCompletion: (()->())
+    public var contentCompletion: ((UIImage?, AVAsset?)->())
 
-    public init() {
-//        self.dismissCompletion = dismissCompletion
+    public init(contentCompletion: @escaping(UIImage?, AVAsset?)->()) {
+        self.contentCompletion = contentCompletion
     }
 
     public var body: some View {
