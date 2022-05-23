@@ -23,9 +23,9 @@ public struct contentPreview: View {
             GeometryReader { reader in
                 let size = reader.size
                 
-                Color(hex: 0xFFFFFF)
+                 Color(hex: 0xFFFFFF)
                     .frame(width: size.width, height: size.height)
-                
+
                 VStack {
                     Spacer()
                     if selectedVideo != nil {
