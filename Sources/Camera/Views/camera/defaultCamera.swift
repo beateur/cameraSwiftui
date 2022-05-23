@@ -105,8 +105,8 @@ public struct defaultCamera: View {
                     }
                 )
             Spacer()
-            defaultCameraModel.filterButton()
-                .padding(.trailing, 40)
+//            defaultCameraModel.filterButton()
+//                .padding(.trailing, 40)
         }
     }
     
