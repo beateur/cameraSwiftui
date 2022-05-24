@@ -36,7 +36,7 @@ public struct cameraBalancer: View {
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
     @StateObject var galleryViewModel = ImagePickerViewModel()
     @EnvironmentObject var defaultCameraModel: defaultViewModel
-    public var contentCompletion: ((UIImage?, AVAsset?)->())
+    public var contentCompletion: ((UIImage?, AVAsset?, URL?)->())
 
     public init(contentCompletion: @escaping(UIImage?, AVAsset?)->()) {
         self.contentCompletion = contentCompletion
