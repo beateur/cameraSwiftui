@@ -26,8 +26,9 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     
     // MARK: VIDEO RECORDER PROPERTIES
     @Published var isRecording = false
-    @Published var recordedUrls = [URL]()
-    @Published var previewURL: AVAsset?
+//    @Published var recordedUrls = [URL]()
+    @Published var previewAsset: AVAsset?
+    @Published var previewUrl: URL?
     @Published var showPreview = false
     
     // MARK: PROGRESS BAR
@@ -194,12 +195,10 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
-            print("fileOutput func: \(error.localizedDescription)")
             return
         }
-        
-        print("created succes: \(outputFileURL.description)")
-        self.previewURL = AVAsset(url: outputFileURL)
+        previewUrl = outputFileURL
+        self.previewAsset = AVAsset(url: outputFileURL)
     }
     
     func recordProgression() -> CGFloat {
@@ -230,7 +229,8 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     
     func dismissPreview() {
         showPreview = false
-        previewURL = nil
+        previewAsset = nil
+        previewUrl = nil
         photoCaptured = nil
     }
     

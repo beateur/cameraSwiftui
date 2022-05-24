@@ -73,7 +73,7 @@ public struct cameraBalancer: View {
                 }
                 cameraInstanceModel.makeProgression()
             }
-            .onChange(of: cameraInstanceModel.previewURL) { newValue in
+            .onChange(of: cameraInstanceModel.previewAsset) { newValue in
                 performCompletion()
             }
             .onChange(of: cameraInstanceModel.photoCaptured) { newValue in
@@ -91,7 +91,7 @@ public struct cameraBalancer: View {
     
     func performCompletion() {
         let image = galleryViewModel.selectedImage ?? cameraInstanceModel.photoCaptured
-        let video = galleryViewModel.selectedVideo ?? cameraInstanceModel.previewURL
+        let video = galleryViewModel.selectedVideo ?? cameraInstanceModel.previewAsset
         contentCompletion(image, video)
     }
 }
