@@ -28,7 +28,6 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     @Published var isRecording = false
 //    @Published var recordedUrls = [URL]()
     @Published var previewAsset: AVAsset?
-    @Published var previewUrl: URL?
     @Published var showPreview = false
     
     // MARK: PROGRESS BAR
@@ -197,7 +196,6 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         if let error = error {
             return
         }
-        previewUrl = outputFileURL
         self.previewAsset = AVAsset(url: outputFileURL)
     }
     
@@ -230,7 +228,6 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     func dismissPreview() {
         showPreview = false
         previewAsset = nil
-        previewUrl = nil
         photoCaptured = nil
     }
     

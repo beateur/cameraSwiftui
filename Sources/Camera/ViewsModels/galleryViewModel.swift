@@ -15,6 +15,7 @@ class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var libraryStatus = PHLibraryStatus.denied
     @Published var fetchedElements = [Asset]()
     @Published var allPhotos: PHFetchResult<PHAsset>!
+    
     @Published var selectedVideo: AVAsset!
     @Published var selectedImage: UIImage!
     @Published var showPreview = false
@@ -109,7 +110,8 @@ class ImagePickerViewModel: NSObject, ObservableObject {
         if asset.mediaType == .video {
             let videoManager = PHVideoRequestOptions()
             videoManager.deliveryMode = .highQualityFormat
-
+            
+           
             manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
                 guard let videoUrl = videoAsset else {return}
                 
