@@ -25,7 +25,6 @@ public struct defaultCamera: View {
                 Color.black
                     .edgesIgnoringSafeArea(.bottom)
                 camera
-                    .edgesIgnoringSafeArea(.bottom)
                 OverlayedComponents
                 
                 if galleryViewModel.showPickerMosaïque {
