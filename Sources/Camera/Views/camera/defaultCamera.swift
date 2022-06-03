@@ -104,7 +104,7 @@ public struct defaultCamera: View {
                         onChangedGesture()
                     }
                 )
-                .padding(.trailing, 60)
+                .padding(.trailing, 50)
             Spacer()
 //            defaultCameraModel.filterButton()
 //                .padding(.trailing, 40)
