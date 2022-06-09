@@ -14,8 +14,12 @@ public struct PlayerContainerViewCaller: View {
     
     var onEditing: ()->()
     
-    public init(player: AVPlayer, gravity: PlayerGravity, onedition: @escaping()->()) {
+    public init(asset: AVAsset, gravity: PlayerGravity, onedition: @escaping()->()) {
         self.gravity = gravity
+        
+        let playerItem = AVPlayerItem(asset: asset)
+        let player = AVPlayer(playerItem: playerItem)
+        
         self.player = player
         self.onEditing = onedition
     }
