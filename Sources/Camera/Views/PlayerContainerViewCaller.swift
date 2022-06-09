@@ -26,5 +26,11 @@ public struct PlayerContainerViewCaller: View {
 
     public var body: some View {
         PlayerContainerView(player: player, gravity: gravity, onEditingChanged: onEditing)
+            .onAppear(perform: {
+                PlayerViewModel.shared.play(player: player)
+            })
+            .onDisappear {
+                PlayerViewModel.shared.pause(player: player)
+            }
     }
 }
