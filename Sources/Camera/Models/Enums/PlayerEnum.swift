@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum PlayerGravity {
+public enum PlayerGravity {
     case aspectFill
     case resize
 }
 
-enum PlayerAction {
+public enum PlayerAction {
     case play
     case pause
 }
