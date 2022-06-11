@@ -10,6 +10,7 @@ import AVFoundation
 
 class PlayerViewModel: ObservableObject {
     static let shared = PlayerViewModel()
+    var observer: NSObjectProtocol?
     
     func play(player: AVPlayer) {
         let currentItem = player.currentItem
@@ -20,7 +21,7 @@ class PlayerViewModel: ObservableObject {
     }
     
     func loopVideo(videoPlayer: AVPlayer) {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+        observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
             videoPlayer.seek(to: .zero)
             videoPlayer.play()
         }
@@ -28,5 +29,8 @@ class PlayerViewModel: ObservableObject {
     
     func pause(player: AVPlayer) {
         player.pause()
+        if let _ = observer {
+            NotificationCenter.default.removeObserver(observer!)
+        }
     }
 }

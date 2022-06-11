@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 import AVFoundation
+import AVKit
 
-final class PlayerContainerView: UIViewRepresentable {
+struct PlayerContainerView: UIViewRepresentable {
     typealias UIViewType = PlayerView
     
     let player: AVPlayer
@@ -23,6 +24,7 @@ final class PlayerContainerView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> PlayerView {
+        player.actionAtItemEnd = AVPlayer.ActionAtItemEnd.pause
         return PlayerView(player: player, gravity: gravity)
     }
     

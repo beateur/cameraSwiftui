@@ -23,7 +23,7 @@ public struct PlayerContainerViewCaller: View {
         self.player = player
         self.onEditing = onedition
     }
-
+    
     public var body: some View {
         PlayerContainerView(player: player, gravity: gravity, onEditingChanged: onEditing)
             .onAppear(perform: {
