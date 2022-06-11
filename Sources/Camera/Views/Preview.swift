@@ -13,7 +13,6 @@ public struct contentPreview: View {
     let selectedImage: UIImage?
     
     public init (selectedVideo: AVAsset?, selectedImage: UIImage?) {
-        print("initied: \(selectedVideo) \(selectedImage)")
         self.selectedVideo = selectedVideo
         self.selectedImage = selectedImage
     }
@@ -32,14 +31,15 @@ public struct contentPreview: View {
                         let playerItem = AVPlayerItem(asset: selectedVideo!)
                         let player = AVPlayer(playerItem: playerItem)
 
+                        let defaultVm = PlayerViewModel.shared
                         PlayerContainerView(player: player, gravity: .aspectFill, onEditingChanged: {
-                            PlayerViewModel.shared.loopVideo(videoPlayer: player)
+                            defaultVm.loopVideo(videoPlayer: player)
                         })
                             .onAppear(perform: {
-                                PlayerViewModel.shared.play(player: player)
+                                defaultVm.play(player: player)
                             })
                             .onDisappear {
-                                PlayerViewModel.shared.pause(player: player)
+                                defaultVm.pause(player: player)
                             }
                     }
                     

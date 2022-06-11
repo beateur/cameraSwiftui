@@ -24,7 +24,6 @@ struct PlayerContainerView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> PlayerView {
-        player.actionAtItemEnd = AVPlayer.ActionAtItemEnd.pause
         return PlayerView(player: player, gravity: gravity)
     }
     
