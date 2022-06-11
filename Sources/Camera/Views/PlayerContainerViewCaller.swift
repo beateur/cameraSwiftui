@@ -12,9 +12,9 @@ public struct PlayerContainerViewCaller: View {
     let player: AVPlayer
     let gravity: PlayerGravity
     
-    var onEditing: ()->()
+    var onEditing: (AVPlayer)->()
     
-    public init(asset: AVAsset, gravity: PlayerGravity, onedition: @escaping()->()) {
+    public init(asset: AVAsset, gravity: PlayerGravity, onedition: @escaping(AVPlayer)->()) {
         self.gravity = gravity
         
         let playerItem = AVPlayerItem(asset: asset)
@@ -25,7 +25,9 @@ public struct PlayerContainerViewCaller: View {
     }
     
     public var body: some View {
-        PlayerContainerView(player: player, gravity: gravity, onEditingChanged: onEditing)
+        PlayerContainerView(player: player, gravity: gravity) {
+            onEditing(player)
+        }
             .onAppear(perform: {
                 PlayerViewModel.shared.play(player: player)
             })
