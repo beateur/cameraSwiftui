@@ -31,11 +31,8 @@ public struct PlayerContainerViewCaller: View {
             onUpdate()
         }
         .onReceive(Timer.publish(every: 0.1, on: .current, in: .common).autoconnect()) { _ in
-            print("\r\r\(Date())")
-            print(player.currentItem)
             if let item = player.currentItem {
-                print("evolution of currentTime \(player.currentTime())")
-                if player.currentTime() >= item.duration {
+                if player.currentTime().seconds >= item.duration.seconds {
                     playerVM.pause(player: player)
                     onEnd(player)
                 }
