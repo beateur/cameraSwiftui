@@ -32,7 +32,9 @@ public struct PlayerContainerViewCaller: View {
         }
         .onReceive(Timer.publish(every: 0.1, on: .current, in: .common).autoconnect()) { _ in
             if let item = player.currentItem {
+                print("what's happening \(player.currentTime().seconds >= item.duration.seconds)")
                 if player.currentTime().seconds >= item.duration.seconds {
+                    print("entrer au bon endroit")
                     playerVM.pause(player: player)
                     onEnd(player)
                 }
