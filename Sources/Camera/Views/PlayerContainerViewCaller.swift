@@ -13,7 +13,6 @@ public struct PlayerContainerViewCaller: View {
     let gravity: PlayerGravity
     
     var onEditing: (AVPlayer)->()
-    
     public init(asset: AVAsset, gravity: PlayerGravity, onedition: @escaping(AVPlayer)->()) {
         self.gravity = gravity
         
@@ -25,14 +24,23 @@ public struct PlayerContainerViewCaller: View {
     }
     
     public var body: some View {
+        let playerVM = PlayerViewModel.shared
         PlayerContainerView(player: player, gravity: gravity) {
             onEditing(player)
         }
-            .onAppear(perform: {
-                PlayerViewModel.shared.play(player: player)
-            })
-            .onDisappear {
-                PlayerViewModel.shared.pause(player: player)
+        .onReceive(Timer.publish(every: 0.1, on: .current, in: .common).autoconnect()) { _ in
+            if let item = player.currentItem {
+                if player.currentTime() >= item.duration {
+                    playerVM.pause(player: player)
+                    onEditing(player)
+                }
             }
+        }
+        .onAppear(perform: {
+            playerVM.play(player: player)
+        })
+        .onDisappear {
+            playerVM.pause(player: player)
+        }
     }
 }
