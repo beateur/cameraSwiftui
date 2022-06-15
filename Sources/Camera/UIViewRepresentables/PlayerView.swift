@@ -15,11 +15,13 @@ struct PlayerContainerView: UIViewRepresentable {
     
     let player: AVPlayer
     let gravity: PlayerGravity
+    let replay; Bool
     let onEditingChanged: ()->()
     
-    init(player: AVPlayer, gravity: PlayerGravity, onEditingChanged: @escaping()->()) {
+    init(player: AVPlayer, gravity: PlayerGravity, replay: Bool, onEditingChanged: @escaping()->()) {
         self.player = player
         self.gravity = gravity
+        self.replay = replay
         self.onEditingChanged = onEditingChanged
     }
     
@@ -28,6 +30,9 @@ struct PlayerContainerView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PlayerView, context: Context) {
+        if replay {
+            PlayerViewModel.shared.loopVideo(videoPlayer: player)
+        }
         onEditingChanged()
     }
 }
