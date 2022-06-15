@@ -21,9 +21,8 @@ public class PlayerViewModel: ObservableObject {
     }
     
     public func loopVideo(videoPlayer: AVPlayer) {
-        observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
-            videoPlayer.seek(to: .zero)
-            videoPlayer.play()
+        observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { _ in
+            self.play(player: videoPlayer)
         }
     }
     
