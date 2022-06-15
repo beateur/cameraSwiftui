@@ -23,7 +23,7 @@ public struct PlayerContainerViewCaller: View {
         
         self.player = player
         self.replay = replay
-        self.onUpdate = onedition
+        self.onUpdate = onUpdate
         self.onEnd = onEnd
     }
     

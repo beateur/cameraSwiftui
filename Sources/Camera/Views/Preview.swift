@@ -32,15 +32,15 @@ public struct contentPreview: View {
                         let player = AVPlayer(playerItem: playerItem)
 
                         let defaultVm = PlayerViewModel.shared
-                        PlayerContainerView(player: player, gravity: .aspectFill, replay: true, onEditingChanged: {
+                        PlayerContainerView(player: player, gravity: .aspectFill, replay: true) {
 //                            defaultVm.loopVideo(videoPlayer: player)
                         }
-                            .onAppear(perform: {
-                                defaultVm.play(player: player)
-                            })
-                            .onDisappear {
-                                defaultVm.pause(player: player)
-                            }
+                        .onAppear(perform: {
+                            defaultVm.play(player: player)
+                        })
+                        .onDisappear {
+                            defaultVm.pause(player: player)
+                        }
                     }
                     
                     if selectedImage != nil {

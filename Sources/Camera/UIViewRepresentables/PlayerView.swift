@@ -15,7 +15,7 @@ struct PlayerContainerView: UIViewRepresentable {
     
     let player: AVPlayer
     let gravity: PlayerGravity
-    let replay; Bool
+    let replay: Bool
     let onEditingChanged: ()->()
     
     init(player: AVPlayer, gravity: PlayerGravity, replay: Bool, onEditingChanged: @escaping()->()) {
