@@ -30,9 +30,9 @@ struct PlayerContainerView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PlayerView, context: Context) {
-        if replay {
-            PlayerViewModel.shared.loopVideo(videoPlayer: player)
-        }
+//        if replay {
+//            PlayerViewModel.shared.loopVideo(videoPlayer: player)
+//        }
         onEditingChanged()
     }
 }
