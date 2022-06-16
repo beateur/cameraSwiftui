@@ -8,7 +8,12 @@
 import SwiftUI
 import AVFoundation
 
+public enum playingMode {
+    case play, pause, stop
+}
+
 public struct PlayerContainerViewCaller: View {
+    @Binding var shouldPlay: playingMode
     let player: AVPlayer
     let gravity: PlayerGravity
     let replay: Bool
@@ -34,19 +39,23 @@ public struct PlayerContainerViewCaller: View {
         }
         .onReceive(Timer.publish(every: 0.1, on: .current, in: .common).autoconnect()) { _ in
             if let item = player.currentItem {
-                let time = CMTimeGetSeconds(item.currentTime())
                 if player.currentTime().seconds >= item.duration.seconds {
                     print("entrer au bon endroit")
-                    playerVM.pause(player: player)
+                    playerVM.stop(player: player)
                     onEnd(player)
+                    
                 }
             }
         }
-        .onAppear(perform: {
-            playerVM.play(player: player)
-        })
-        .onDisappear {
-            playerVM.pause(player: player)
+        .onChange(of: shouldPlay) { newValue in
+            switch newValue {
+            case .play:
+                playerVM.pause(player: player)
+            case .pause:
+                playerVM.play(player: player)
+            case .stop:
+                playerVM.stop(player: player)
+            }
         }
     }
 }
