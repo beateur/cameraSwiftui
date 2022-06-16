@@ -20,7 +20,8 @@ public struct PlayerContainerViewCaller: View {
     
     var onUpdate: ()->()
     var onEnd: (AVPlayer)->()
-    public init(asset: AVAsset, gravity: PlayerGravity, replay: Bool, onUpdate: @escaping()->(), onEnd: @escaping(AVPlayer)->()) {
+    public init(shouldPlay: Binding<playingMode>, asset: AVAsset, gravity: PlayerGravity, replay: Bool, onUpdate: @escaping()->(), onEnd: @escaping(AVPlayer)->()) {
+        self.shouldPlay = shouldPlay
         self.gravity = gravity
         
         let playerItem = AVPlayerItem(asset: asset)
