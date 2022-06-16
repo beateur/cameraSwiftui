@@ -48,6 +48,11 @@ public struct PlayerContainerViewCaller: View {
                 }
             }
         }
+        .onAppear {
+            if shouldPlay == .play {
+                playerVM.play(player: player)
+            }
+        }
         .onChange(of: shouldPlay) { newValue in
             switch newValue {
             case .play:
