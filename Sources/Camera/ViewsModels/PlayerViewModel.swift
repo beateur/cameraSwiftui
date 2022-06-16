@@ -14,7 +14,7 @@ public class PlayerViewModel: ObservableObject {
     public func play(player: AVPlayer) {
         let currentItem = player.currentItem
         
-        print("launched video: \rtime: \(currentItem?.currentTime())\rduration: \(currentItem?.duration)")
+        print("launched video: \rtime: \(currentItem?.currentTime().seconds)\rduration: \(currentItem?.duration.seconds)")
         if currentItem?.currentTime() == currentItem?.duration {
             currentItem?.seek(to: .zero, completionHandler: nil)
         }
@@ -22,9 +22,8 @@ public class PlayerViewModel: ObservableObject {
     }
     
     public func loopVideo(videoPlayer: AVPlayer) {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { _ in
-            self.play(player: videoPlayer)
-        }
+        stop(player: videoPlayer)
+        play(player: videoPlayer)
     }
     
     public func pause(player: AVPlayer) {
