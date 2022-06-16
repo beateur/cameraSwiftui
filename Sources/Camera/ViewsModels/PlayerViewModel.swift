@@ -14,10 +14,7 @@ public class PlayerViewModel: ObservableObject {
     public func play(player: AVPlayer) {
         let currentItem = player.currentItem
         
-        print("launched video: \rtime: \(currentItem?.currentTime().seconds)\rduration: \(currentItem?.duration.seconds)")
-        if currentItem?.currentTime() == currentItem?.duration {
-            currentItem?.seek(to: .zero, completionHandler: nil)
-        }
+        print("launched video:")
         player.play()
     }
     
