@@ -30,9 +30,11 @@ struct PlayerContainerView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PlayerView, context: Context) {
-        if replay {
-            PlayerViewModel.shared.loopVideo(videoPlayer: player)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            onEditingChanged()
+            if replay {
+                PlayerViewModel.shared.loopVideo(videoPlayer: player)
+            }
         }
-        onEditingChanged()
     }
 }

@@ -27,6 +27,7 @@ class PlayerView: UIView {
         self.player = player
         self.backgroundColor = .black
         setupLayer()
+        print("setuplayer video: \(Date())")
     }
     
     func setupLayer() {
