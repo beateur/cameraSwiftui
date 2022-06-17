@@ -27,6 +27,7 @@ class PlayerView: UIView {
         self.player = player
         self.backgroundColor = .black
         setupLayer()
+        // mettre ici looping video avec obsserver
         print("setuplayer video: \(Date())")
     }
     
