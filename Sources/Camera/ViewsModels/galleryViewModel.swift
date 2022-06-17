@@ -20,6 +20,10 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var selectedImage: UIImage!
     @Published var showPreview = false
     
+    public init() {
+        
+    }
+    
     func initPicker(size: CGSize) {
         setup()
         fetchElements(size: size)
