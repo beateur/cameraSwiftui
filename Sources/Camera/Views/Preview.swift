@@ -33,7 +33,7 @@ public struct contentPreview: View {
 
                         let defaultVm = PlayerViewModel.shared
                         PlayerContainerView(player: player, gravity: .aspectFill, replay: true) {
-//                            defaultVm.loopVideo(videoPlayer: player)
+
                         }
                         .onAppear(perform: {
                             defaultVm.play(player: player)

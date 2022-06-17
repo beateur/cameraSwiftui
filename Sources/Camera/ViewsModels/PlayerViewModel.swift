@@ -11,16 +11,15 @@ import AVFoundation
 public class PlayerViewModel: ObservableObject {
     public static let shared = PlayerViewModel()
     
-    public func play(player: AVPlayer) {
-        let currentItem = player.currentItem
-        
-        print("launched video:")
+    public func play(player: AVPlayer) {        
         player.play()
     }
     
     public func loopVideo(videoPlayer: AVPlayer) {
-        stop(player: videoPlayer)
-        play(player: videoPlayer)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            self.stop(player: videoPlayer)
+            self.play(player: videoPlayer)
+        }
     }
     
     public func pause(player: AVPlayer) {
