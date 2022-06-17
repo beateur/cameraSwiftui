@@ -11,7 +11,7 @@ import AVKit
 
 public class ImagePickerViewModel: NSObject, ObservableObject {    
     @Published var showPickerList = false
-    @Published var showPickerMosaïque = false
+    @Published public var showPickerMosaïque = false
     @Published var libraryStatus = PHLibraryStatus.denied
     @Published var fetchedElements = [Asset]()
     @Published var allPhotos: PHFetchResult<PHAsset>!
