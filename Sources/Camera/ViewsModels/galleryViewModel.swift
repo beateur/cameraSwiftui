@@ -63,7 +63,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         selectedVideo = nil
     }
     
-    func dismissMosaïque() {
+    public func dismissMosaïque() {
         showPickerMosaïque = false
         fetchedElements.removeAll()
     }
