@@ -20,7 +20,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var selectedImage: UIImage!
     @Published var showPreview = false
     
-    public init() {
+    public override init() {
         
     }
     
