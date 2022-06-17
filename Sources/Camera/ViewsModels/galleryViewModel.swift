@@ -35,7 +35,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-   public func tapThumbnail(photo: Asset) {
+    func tapThumbnail(photo: Asset) {
         showPickerMosaïque = false
         showPickerList = false
         extractPreviewData(asset: photo.asset)
