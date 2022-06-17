@@ -16,6 +16,11 @@ public struct ThumbnailMosaïque: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    
+    public init() {
+        
+    }
+
     public var body: some View {
         VStack(spacing: 1) {
             header
