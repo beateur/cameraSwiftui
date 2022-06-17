@@ -9,7 +9,7 @@ import SwiftUI
 import Photos
 import AVKit
 
-class ImagePickerViewModel: NSObject, ObservableObject {    
+public class ImagePickerViewModel: NSObject, ObservableObject {    
     @Published var showPickerList = false
     @Published var showPickerMosaïque = false
     @Published var libraryStatus = PHLibraryStatus.denied
@@ -165,7 +165,7 @@ class ImagePickerViewModel: NSObject, ObservableObject {
 }
 
 extension ImagePickerViewModel: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
+    public func photoLibraryDidChange(_ changeInstance: PHChange) {
         guard let _ = allPhotos else { return }
 
         if let updates = changeInstance.changeDetails(for: allPhotos) {

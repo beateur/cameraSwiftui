@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ThumbnailMosaïque: View {
+public struct ThumbnailMosaïque: View {
     @EnvironmentObject var galleryViewModel: ImagePickerViewModel
 
     let gridItem = [
@@ -16,8 +16,7 @@ struct ThumbnailMosaïque: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 1) {
             header
             corpus
