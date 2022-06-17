@@ -24,32 +24,32 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         
     }
     
-    func initPicker(size: CGSize) {
+   public func initPicker(size: CGSize) {
         setup()
         fetchElements(size: size)
     }
     
-    func fetchElements(size: CGSize) {
+   public func fetchElements(size: CGSize) {
         if fetchedElements.isEmpty {
             fetchAssets(size: size)
         }
     }
     
-    func tapThumbnail(photo: Asset) {
+   public func tapThumbnail(photo: Asset) {
         showPickerMosaïque = false
         showPickerList = false
         extractPreviewData(asset: photo.asset)
         showPreview = true
     }
     
-    func openPickerList() {
+   public func openPickerList() {
         initPicker(size: ThumSize)
         withAnimation {
             showPickerList.toggle()
         }
     }
     
-    func openPickerMosaïque() {
+   public func openPickerMosaïque() {
         initPicker(size: MosaïqueSize)
 
         withAnimation {
@@ -57,7 +57,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-    func dismissPreview() {
+   public func dismissPreview() {
         showPreview = false
         selectedImage = nil
         selectedVideo = nil
@@ -68,7 +68,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         fetchedElements.removeAll()
     }
     
-    func dismissGalleryOverView() {
+   public func dismissGalleryOverView() {
         if showPreview {
             dismissPreview()
         } else {
@@ -76,7 +76,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-    func fetchAssets(size: CGSize) {
+   public func fetchAssets(size: CGSize) {
         let options = PHFetchOptions()
         options.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -92,7 +92,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-    func getImageFromAsset(asset: PHAsset, size: CGSize, completion: @escaping(UIImage)->()) {
+   public func getImageFromAsset(asset: PHAsset, size: CGSize, completion: @escaping(UIImage)->()) {
         let manager = PHCachingImageManager()
         manager.allowsCachingHighQualityImages = true
         
@@ -108,7 +108,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-    func extractPreviewData(asset: PHAsset) {
+   public func extractPreviewData(asset: PHAsset) {
         let manager = PHCachingImageManager()
         
         if asset.mediaType == .video {
@@ -135,7 +135,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     }
 
     
-    func setup() {
+   public func setup() {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             switch status {
             case .notDetermined:
