@@ -41,27 +41,8 @@ public struct PlayerContainerViewCaller: View {
         .onAppear {
             playerVM.play(player: player)
         }
-        .onReceive(Timer.publish(every: 0.1, on: .current, in: .common).autoconnect()) { _ in
-//            if let item = player.currentItem {
-//                if player.currentTime().seconds >= item.duration.seconds {
-//                    print("entrer au bon endroit")
-//                    playerVM.stop(player: player)
-//                    onEnd(player)
-//                }
-//            }
-        }
         .onDisappear {
             playerVM.stop(player: player)
         }
-//        .onChange(of: shouldPlay) { newValue in
-//            switch newValue {
-//            case .play:
-//                playerVM.play(player: player)
-//            case .pause:
-//                playerVM.pause(player: player)
-//            case .stop:
-//                playerVM.stop(player: player)
-//            }
-//        }
     }
 }
