@@ -17,8 +17,8 @@ struct cameraModelPreview: UIViewRepresentable {
     func makeUIView(context: Context) -> some UIView {
         let view = UIView()
         
+        cameraModel.preview = AVCaptureVideoPreviewLayer(session: cameraModel.session)
         DispatchQueue.global(qos: .userInitiated).async {
-            cameraModel.preview = AVCaptureVideoPreviewLayer(session: cameraModel.session)
             cameraModel.preview.frame.size = size
             cameraModel.preview.videoGravity = .resizeAspectFill
             cameraModel.session.startRunning()
