@@ -216,7 +216,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             }
         }
     }
-    
+        
     func beginCapture() {
         
     }

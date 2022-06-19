@@ -35,11 +35,15 @@ public struct cameraBalancer: View {
 
     @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
     @StateObject var galleryViewModel = ImagePickerViewModel()
+    
+    @Binding var stopRunningCamera: Bool
+    
     @EnvironmentObject var defaultCameraModel: defaultViewModel
     public var contentCompletion: ((UIImage?, AVAsset?)->())
 
-    public init(contentCompletion: @escaping(UIImage?, AVAsset?)->()) {
+    public init(stopRunning: Binding<Bool>, contentCompletion: @escaping(UIImage?, AVAsset?)->()) {
         self.contentCompletion = contentCompletion
+        self._stopRunningCamera = stopRunning
     }
 
     public var body: some View {
@@ -87,6 +91,13 @@ public struct cameraBalancer: View {
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .onChange(of: stopRunningCamera) { newValue in
+            if newValue {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    cameraInstanceModel.session.stopRunning()
+                }
+            }
+        }
     }
     
     func performCompletion() {
