@@ -31,15 +31,14 @@ public struct contentPreview: View {
                         let playerItem = AVPlayerItem(asset: selectedVideo!)
                         let player = AVPlayer(playerItem: playerItem)
 
-                        let defaultVm = PlayerViewModel.shared
                         PlayerContainerView(player: player, gravity: .aspectFill, replay: true) {
 
                         }
-                        .onAppear(perform: {
-                            defaultVm.play(player: player)
-                        })
+                        .onAppear {
+                            PlayerViewModel.shared.play(player: player)
+                        }
                         .onDisappear {
-                            defaultVm.pause(player: player)
+                            PlayerViewModel.shared.pause(player: player)
                         }
                     }
                     
