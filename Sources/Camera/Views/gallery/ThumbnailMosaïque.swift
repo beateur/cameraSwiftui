@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 public struct ThumbnailMosaïque: View {
     @EnvironmentObject var galleryViewModel: ImagePickerViewModel
+    public var contentCompletion: ((UIImage?, AVAsset?)->())
 
     let gridItem = [
         GridItem(.flexible()),
@@ -17,8 +19,8 @@ public struct ThumbnailMosaïque: View {
         GridItem(.flexible())
     ]
     
-    public init() {
-        
+    public init(contentCompletion: @escaping(UIImage?, AVAsset?)->()) {
+        self.contentCompletion = contentCompletion
     }
 
     public var body: some View {
@@ -28,6 +30,12 @@ public struct ThumbnailMosaïque: View {
         }
         .background(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onChange(of: galleryViewModel.selectedVideo) { _ in
+            performCompletion()
+        }
+        .onChange(of: galleryViewModel.selectedImage) { _ in
+            performCompletion()
+        }
     }
     
     private var header: some View {
@@ -78,5 +86,12 @@ public struct ThumbnailMosaïque: View {
                 .frame(width: UIScreen.main.bounds.width * 0.7)
         }
         .foregroundColor(Color.gray)
+    }
+    
+    func performCompletion() {
+        let image = galleryViewModel.selectedImage
+        let video = galleryViewModel.selectedVideo
+        
+        contentCompletion(image, video)
     }
 }

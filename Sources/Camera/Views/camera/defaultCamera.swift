@@ -28,7 +28,9 @@ public struct defaultCamera: View {
                 OverlayedComponents
                 
                 if galleryViewModel.showPickerMosaïque {
-                    ThumbnailMosaïque()
+                    ThumbnailMosaïque(contentCompletion: { _, _ in
+                        
+                    })
                         .environmentObject(galleryViewModel)
                         .onDisappear {
                             galleryViewModel.dismissMosaïque()
