@@ -19,11 +19,11 @@ struct cameraModelPreview: UIViewRepresentable {
         
         DispatchQueue.main.async {
             cameraModel.preview = AVCaptureVideoPreviewLayer(session: cameraModel.session)
+            cameraModel.preview.frame.size = size
+            cameraModel.preview.videoGravity = .resizeAspectFill
+            view.layer.addSublayer(cameraModel.preview)
         }
-        cameraModel.preview.frame.size = size
         
-        cameraModel.preview.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(cameraModel.preview)
         
         DispatchQueue.global(qos: .userInitiated).async {
             cameraModel.session.startRunning()
