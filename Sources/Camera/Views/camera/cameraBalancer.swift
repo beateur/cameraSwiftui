@@ -92,7 +92,12 @@ public struct cameraBalancer: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .onChange(of: stopRunningCamera) { newValue in
-            if !newValue {
+            switch newValue {
+            case true:
+                DispatchQueue.global(qos: .userInitiated).async {
+                    cameraInstanceModel.session.startRunning()
+                }
+            case false:
                 DispatchQueue.global(qos: .userInitiated).async {
                     cameraInstanceModel.session.stopRunning()
                 }

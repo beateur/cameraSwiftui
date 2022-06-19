@@ -21,7 +21,6 @@ struct cameraModelPreview: UIViewRepresentable {
         DispatchQueue.global(qos: .userInitiated).async {
             cameraModel.preview.frame.size = size
             cameraModel.preview.videoGravity = .resizeAspectFill
-            cameraModel.session.startRunning()
         }
         
         DispatchQueue.main.async {
