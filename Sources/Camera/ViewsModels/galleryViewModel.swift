@@ -120,6 +120,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
                 guard let videoUrl = videoAsset else {return}
                 
                 DispatchQueue.main.async {
+                    self.selectedImage = nil
                     self.selectedVideo = videoUrl
                 }
             }
@@ -128,6 +129,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         if asset.mediaType == .image {
             getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
                 DispatchQueue.main.async {
+                    self.selectedVideo = nil
                     self.selectedImage = image
                 }
             }
