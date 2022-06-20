@@ -49,12 +49,22 @@ public struct contentPreview: View {
                             if needCrop {
                                 imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
                             } else {
-                                Image(uiImage: selectedImage!)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .clipped()
+                                if selectedImage!.size.width < selectedImage!.size.height {
+                                    Image(uiImage: selectedImage!)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: size.height)
+                                        .clipped()
+                                } else {
+                                    Image(uiImage: selectedImage!)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: size.height)
+                                        .clipped()
+                                }
+                                
                             }
-                            
+
                             Button {
                                 needCrop.toggle()
                             } label: {
