@@ -20,7 +20,7 @@ public struct defaultCamera: View {
     
     public var body: some View {
         VStack {
-            entete
+//            entete
             ZStack {
                 Color.black
                     .edgesIgnoringSafeArea(.bottom)
@@ -44,15 +44,12 @@ public struct defaultCamera: View {
         defaultCameraModel.entete {
             defaultCameraModel.dismiss {
                 if cameraInstanceModel.showPreview {
-                    print("prewied with: \(cameraInstanceModel.showPreview)")
                     cameraInstanceModel.dismissPreview()
                 }
                 else if galleryViewModel.showPickerMosaïque || galleryViewModel.showPreview {
-                    print("galleried")
                     galleryViewModel.dismissGalleryOverView()
                 }
                 else {
-                    print("infos about: \(defaultCameraModel.dismissCompletion())")
                     defaultCameraModel.dismissCompletion()
                 }
             }
