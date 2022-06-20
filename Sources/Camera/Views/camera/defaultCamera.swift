@@ -20,7 +20,6 @@ public struct defaultCamera: View {
     
     public var body: some View {
         VStack {
-//            entete
             ZStack {
                 Color.black
                     .edgesIgnoringSafeArea(.bottom)

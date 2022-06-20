@@ -10,7 +10,8 @@ import AVKit
 
 public struct contentPreview: View {
     let selectedVideo: AVAsset?
-    let selectedImage: UIImage?
+    @State var selectedImage: UIImage?
+    @State var needCrop = false
     
     public init (selectedVideo: AVAsset?, selectedImage: UIImage?) {
         self.selectedVideo = selectedVideo
@@ -43,11 +44,24 @@ public struct contentPreview: View {
                     }
                     
                     if selectedImage != nil {
-                        Image(uiImage: selectedImage!)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: size.width, height: size.height)
-                            .clipped()
+                        ZStack(alignment: .bottomLeading) {
+                            
+                            if needCrop {
+                                imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
+                            } else {
+                                Image(uiImage: selectedImage!)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipped()
+                            }
+                            
+                            Button {
+                                needCrop.toggle()
+                            } label: {
+                                Circle().fill(Color.red).frame(width: 48, height: 48)
+                            }
+
+                        }
                     }
                     Spacer()
                 }
