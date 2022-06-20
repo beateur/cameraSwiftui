@@ -44,7 +44,7 @@ public struct defaultCamera: View {
         defaultCameraModel.entete {
             defaultCameraModel.dismiss {
                 if cameraInstanceModel.showPreview {
-                    print("prewied")
+                    print("prewied with: \(cameraInstanceModel.showPreview)")
                     cameraInstanceModel.dismissPreview()
                 }
                 else if galleryViewModel.showPickerMosaïque || galleryViewModel.showPreview {
