@@ -44,8 +44,7 @@ public struct contentPreview: View {
                     }
                     
                     if selectedImage != nil {
-                        ZStack(alignment: .bottomLeading) {
-                            
+                        ZStack {
                             if needCrop {
                                 imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
                             } else {
@@ -64,13 +63,11 @@ public struct contentPreview: View {
                                 }
                                 
                             }
-
-                            Button {
-                                needCrop.toggle()
-                            } label: {
-                                Circle().fill(Color.red).frame(width: 48, height: 48)
-                            }
-
+//                            Button {
+//                                needCrop.toggle()
+//                            } label: {
+//                                Circle().fill(Color.red).frame(width: 48, height: 48)
+//                            }
                         }
                     }
                     Spacer()
