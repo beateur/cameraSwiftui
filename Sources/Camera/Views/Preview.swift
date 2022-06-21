@@ -49,10 +49,8 @@ public struct contentPreview: View {
                         ZStack(alignment: .bottomLeading) {
                             if isCroppable {
                                 if needCrop {
-                                    ScrollView {
-                                        imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
-                                    }
-                                    .frame(width: size.width, height: size.height)
+                                    imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
+                                        .frame(width: size.width, height: size.height)
                                 } else {
                                     if selectedImage!.size.width < selectedImage!.size.height {
                                         Image(uiImage: selectedImage!)
