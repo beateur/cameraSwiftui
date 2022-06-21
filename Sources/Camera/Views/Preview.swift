@@ -46,11 +46,13 @@ public struct contentPreview: View {
                     }
                     
                     if selectedImage != nil {
-                        ZStack {
+                        ZStack(alignment: .bottomLeading) {
                             if isCroppable {
                                 if needCrop {
-                                    imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
-                                        .frame(width: size.width, height: size.height)
+                                    ScrollView {
+                                        imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
+                                    }
+                                    .frame(width: size.width, height: size.height)
                                 } else {
                                     if selectedImage!.size.width < selectedImage!.size.height {
                                         Image(uiImage: selectedImage!)
@@ -71,6 +73,7 @@ public struct contentPreview: View {
                                 } label: {
                                     Circle().fill(Color.red).frame(width: 48, height: 48)
                                 }
+                                .padding()
                             } else {
                                 Image(uiImage: selectedImage!)
                                     .resizable()
@@ -79,7 +82,8 @@ public struct contentPreview: View {
                                     .clipped()
                             }
                         }
-                        
+                        .frame(width: size.width, height: size.height)
+                        .background(Color(hex: 0x0))
                     }
                     Spacer()
                 }
