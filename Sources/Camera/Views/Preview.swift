@@ -53,7 +53,7 @@ public struct contentPreview: View {
                 }
             }
             
-            if isCroppable && selectedImage != nil && !isCrop {
+            if isCroppable && selectedImage != nil && !isCrop && !needCrop {
                 Button {
                     needCrop.toggle()
                 } label: {
