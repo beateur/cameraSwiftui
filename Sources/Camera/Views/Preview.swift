@@ -12,14 +12,13 @@ public struct contentPreview: View {
     let isCroppable: Bool
     let selectedVideo: AVAsset?
     @Binding var selectedImage: UIImage?
-//    @State var originalImage: UIImage?
     @State var needCrop = false
-    
+    @State var isCrop = false
+
     public init (isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
         self.isCroppable = isCroppable
         self.selectedVideo = selectedVideo
         self._selectedImage = selectedImage
-//        self.originalImage = selectedImage
     }
     
     public var body: some View {
@@ -54,7 +53,7 @@ public struct contentPreview: View {
                 }
             }
             
-            if selectedImage != nil && !needCrop {
+            if isCroppable && selectedImage != nil && !isCrop {
                 Button {
                     needCrop.toggle()
                 } label: {
@@ -68,18 +67,13 @@ public struct contentPreview: View {
             
         }
         .ignoresSafeArea(.all, edges: .bottom)
-//        .onChange(of: needCrop) { newValue in
-//            if newValue {
-//                selectedImage = originalImage
-//            }
-//        }
     }
     
     @ViewBuilder func showImage(size: CGSize) -> some View {
         ZStack {
             if isCroppable {
                 if needCrop {
-                    imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
+                    imageEditor(image: $selectedImage, isShowing: $needCrop, isCropped: $isCrop, frame: CGSize(width: 4, height: 3))
                         .frame(width: size.width, height: size.height)
                 } else {
                     if selectedImage!.size.width < selectedImage!.size.height {
@@ -93,8 +87,6 @@ public struct contentPreview: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: size.height)
                     }
-                    
-                    
                 }
                 
                 

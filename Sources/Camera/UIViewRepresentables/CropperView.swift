@@ -9,25 +9,24 @@ import SwiftUI
 import Mantis
 
 class ImageEditorCoordinator: NSObject, CropViewControllerDelegate {
-    @Binding var image: UIImage?
-    @Binding var isShowing: Bool
+    let parent: imageEditor
     
-    init(image: Binding<UIImage?>, isShowing: Binding<Bool>) {
-        _image = image
-        _isShowing = isShowing
+    init(_ parent: imageEditor) {
+        self.parent = parent
     }
     
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation, cropInfo: CropInfo) {
-        self.image = cropped
-        isShowing = false
+        parent.image = cropped
+        parent.isShowing = false
+        parent.isCropped = true
     }
     
     func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage) {
-        isShowing = false
+        parent.isShowing = false
     }
     
     func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {
-        isShowing = false
+        parent.isShowing = false
     }
     
     func cropViewControllerDidBeginResize(_ cropViewController: CropViewController) {
@@ -49,11 +48,12 @@ struct imageEditor: UIViewControllerRepresentable {
     typealias Coordinator = ImageEditorCoordinator
     @Binding var image: UIImage?
     @Binding var isShowing: Bool
+    @Binding var isCropped: Bool
     
     var frame: CGSize
     
     func makeCoordinator() -> ImageEditorCoordinator {
-        return ImageEditorCoordinator(image: $image, isShowing: $isShowing)
+        return ImageEditorCoordinator(self)
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
