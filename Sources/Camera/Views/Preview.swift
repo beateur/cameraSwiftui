@@ -10,12 +10,12 @@ import AVKit
 
 public struct contentPreview: View {
     let selectedVideo: AVAsset?
-    @State var selectedImage: UIImage?
+    @Binding var selectedImage: UIImage?
     @State var needCrop = false
     
-    public init (selectedVideo: AVAsset?, selectedImage: UIImage?) {
+    public init (selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
         self.selectedVideo = selectedVideo
-        self.selectedImage = selectedImage
+        self._selectedImage = selectedImage
     }
     
     public var body: some View {
