@@ -64,14 +64,18 @@ public struct contentPreview: View {
                                             .frame(width: size.height)
                                     }
                                     
+                                    Button {
+                                        needCrop.toggle()
+                                    } label: {
+                                        Image(systemName: "crop")
+                                            .font(.system(size: 26))
+                                    }
+                                    .padding()
+                                    .background(Color(hex: 0xF9F9F9))
+                                    .cornerRadius(15)
                                 }
                                 
-                                Button {
-                                    needCrop.toggle()
-                                } label: {
-                                    Circle().fill(Color.red).frame(width: 48, height: 48)
-                                }
-                                .padding()
+                                
                             } else {
                                 Image(uiImage: selectedImage!)
                                     .resizable()
