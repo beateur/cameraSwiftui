@@ -12,12 +12,14 @@ public struct contentPreview: View {
     let isCroppable: Bool
     let selectedVideo: AVAsset?
     @Binding var selectedImage: UIImage?
+    @State var originalImage: UIImage!
     @State var needCrop = false
     
     public init (isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
         self.isCroppable = isCroppable
         self.selectedVideo = selectedVideo
         self._selectedImage = selectedImage
+        self.originalImage = selectedImage.wrappedValue
     }
     
     public var body: some View {
@@ -46,52 +48,61 @@ public struct contentPreview: View {
                     }
                     
                     if selectedImage != nil {
-                        ZStack(alignment: .bottomLeading) {
-                            if isCroppable {
-                                if needCrop {
-                                    imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
-                                        .frame(width: size.width, height: size.height)
-                                } else {
-                                    if selectedImage!.size.width < selectedImage!.size.height {
-                                        Image(uiImage: selectedImage!)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(height: size.height)
-                                    } else {
-                                        Image(uiImage: selectedImage!)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: size.height)
-                                    }
-                                    
-                                    Button {
-                                        needCrop.toggle()
-                                    } label: {
-                                        Image(systemName: "crop")
-                                            .font(.system(size: 26))
-                                    }
-                                    .padding()
-                                    .background(Color(hex: 0xF9F9F9))
-                                    .cornerRadius(15)
-                                }
-                                
-                                
-                            } else {
-                                Image(uiImage: selectedImage!)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: size.width, height: size.height)
-                                    .clipped()
-                            }
-                        }
-                        .frame(width: size.width)
-                        .background(Color(hex: 0x0))
+                        showImage(size: size)
                     }
                     Spacer()
                 }
             }
         }
         .ignoresSafeArea(.all, edges: .bottom)
+        .onChange(of: needCrop) { newValue in
+            if !needCrop {
+                selectedImage = originalImage
+            }
+        }
+    }
+    
+    @ViewBuilder func showImage(size: CGSize) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            if isCroppable {
+                if needCrop {
+                    imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
+                        .frame(width: size.width, height: size.height)
+                } else {
+                    if selectedImage!.size.width < selectedImage!.size.height {
+                        Image(uiImage: selectedImage!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: size.height)
+                    } else {
+                        Image(uiImage: selectedImage!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: size.height)
+                    }
+                    
+                    Button {
+                        needCrop.toggle()
+                    } label: {
+                        Image(systemName: "crop")
+                            .font(.system(size: 13))
+                    }
+                    .padding()
+                    .background(Color(hex: 0xF9F9F9).opacity(0.65))
+                    .cornerRadius(15)
+                }
+                
+                
+            } else {
+                Image(uiImage: selectedImage!)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: size.width, height: size.height)
+                    .clipped()
+            }
+        }
+        .frame(width: size.width)
+        .background(Color(hex: 0x0))
     }
 }
 
