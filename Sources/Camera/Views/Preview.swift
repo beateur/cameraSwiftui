@@ -50,6 +50,7 @@ public struct contentPreview: View {
                             if isCroppable {
                                 if needCrop {
                                     imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
+                                        .frame(width: size.width, height: size.height)
                                 } else {
                                     if selectedImage!.size.width < selectedImage!.size.height {
                                         Image(uiImage: selectedImage!)
@@ -74,7 +75,7 @@ public struct contentPreview: View {
                                 Image(uiImage: selectedImage!)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: size.height, height: size.height)
+                                    .frame(width: size.width, height: size.height)
                                     .clipped()
                             }
                         }

@@ -8,7 +8,7 @@
 import SwiftUI
 import Mantis
 
-class ImageEditorCoordinator: NSObject, CropViewControllerDelegate {    
+class ImageEditorCoordinator: NSObject, CropViewControllerDelegate {
     @Binding var image: UIImage?
     @Binding var isShowing: Bool
     
@@ -19,6 +19,7 @@ class ImageEditorCoordinator: NSObject, CropViewControllerDelegate {
     
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation, cropInfo: CropInfo) {
         self.image = cropped
+        isShowing = false
     }
     
     func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage) {
