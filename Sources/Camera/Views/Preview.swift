@@ -51,15 +51,13 @@ public struct contentPreview: View {
                                 if selectedImage!.size.width < selectedImage!.size.height {
                                     Image(uiImage: selectedImage!)
                                         .resizable()
-                                        .scaledToFit()
+                                        .aspectRatio(contentMode: .fit)
                                         .frame(height: size.height)
-                                        .clipped()
                                 } else {
                                     Image(uiImage: selectedImage!)
                                         .resizable()
-                                        .scaledToFit()
+                                        .aspectRatio(contentMode: .fit)
                                         .frame(width: size.height)
-                                        .clipped()
                                 }
                                 
                             }
