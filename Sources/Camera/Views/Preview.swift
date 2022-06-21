@@ -9,11 +9,13 @@ import SwiftUI
 import AVKit
 
 public struct contentPreview: View {
+    let isCroppable: Bool
     let selectedVideo: AVAsset?
     @Binding var selectedImage: UIImage?
     @State var needCrop = false
     
-    public init (selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
+    public init (isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
+        self.isCroppable = isCroppable
         self.selectedVideo = selectedVideo
         self._selectedImage = selectedImage
     }
@@ -45,28 +47,38 @@ public struct contentPreview: View {
                     
                     if selectedImage != nil {
                         ZStack {
-                            if needCrop {
-                                imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
-                            } else {
-                                if selectedImage!.size.width < selectedImage!.size.height {
-                                    Image(uiImage: selectedImage!)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: size.height)
+                            if isCroppable {
+                                if needCrop {
+                                    imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
                                 } else {
-                                    Image(uiImage: selectedImage!)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: size.height)
+                                    if selectedImage!.size.width < selectedImage!.size.height {
+                                        Image(uiImage: selectedImage!)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: size.height)
+                                    } else {
+                                        Image(uiImage: selectedImage!)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: size.height)
+                                    }
+                                    
                                 }
                                 
+                                Button {
+                                    needCrop.toggle()
+                                } label: {
+                                    Circle().fill(Color.red).frame(width: 48, height: 48)
+                                }
+                            } else {
+                                Image(uiImage: selectedImage!)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: size.height, height: size.height)
+                                    .clipped()
                             }
-//                            Button {
-//                                needCrop.toggle()
-//                            } label: {
-//                                Circle().fill(Color.red).frame(width: 48, height: 48)
-//                            }
                         }
+                        
                     }
                     Spacer()
                 }
