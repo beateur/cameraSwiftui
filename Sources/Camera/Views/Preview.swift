@@ -12,14 +12,14 @@ public struct contentPreview: View {
     let isCroppable: Bool
     let selectedVideo: AVAsset?
     @Binding var selectedImage: UIImage?
-    @State var originalImage: UIImage!
+//    @State var originalImage: UIImage?
     @State var needCrop = false
     
     public init (isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
         self.isCroppable = isCroppable
         self.selectedVideo = selectedVideo
         self._selectedImage = selectedImage
-        self.originalImage = selectedImage.wrappedValue
+//        self.originalImage = selectedImage
     }
     
     public var body: some View {
@@ -68,11 +68,11 @@ public struct contentPreview: View {
             
         }
         .ignoresSafeArea(.all, edges: .bottom)
-        .onChange(of: needCrop) { newValue in
-            if newValue {
-                selectedImage = originalImage
-            }
-        }
+//        .onChange(of: needCrop) { newValue in
+//            if newValue {
+//                selectedImage = originalImage
+//            }
+//        }
     }
     
     @ViewBuilder func showImage(size: CGSize) -> some View {
