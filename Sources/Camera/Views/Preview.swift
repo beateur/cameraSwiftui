@@ -82,7 +82,7 @@ public struct contentPreview: View {
                                     .clipped()
                             }
                         }
-                        .frame(width: size.width, height: size.height)
+                        .frame(width: size.width)
                         .background(Color(hex: 0x0))
                     }
                     Spacer()
