@@ -23,7 +23,7 @@ public struct contentPreview: View {
     }
     
     public var body: some View {
-        ZStack {
+        ZStack(alignment: .bottomLeading) {
             GeometryReader { reader in
                 let size = reader.size
                 
@@ -53,17 +53,30 @@ public struct contentPreview: View {
                     Spacer()
                 }
             }
+            
+            if selectedImage != nil && !needCrop {
+                Button {
+                    needCrop.toggle()
+                } label: {
+                    Image(systemName: "crop")
+                        .font(.system(size: 13))
+                }
+                .padding()
+                .background(Color(hex: 0xF9F9F9).opacity(0.65))
+                .cornerRadius(15)
+            }
+            
         }
         .ignoresSafeArea(.all, edges: .bottom)
         .onChange(of: needCrop) { newValue in
-            if !needCrop {
+            if newValue {
                 selectedImage = originalImage
             }
         }
     }
     
     @ViewBuilder func showImage(size: CGSize) -> some View {
-        ZStack(alignment: .bottomLeading) {
+        ZStack {
             if isCroppable {
                 if needCrop {
                     imageEditor(image: $selectedImage, isShowing: $needCrop, frame: CGSize(width: 4, height: 3))
@@ -81,15 +94,7 @@ public struct contentPreview: View {
                             .frame(width: size.height)
                     }
                     
-                    Button {
-                        needCrop.toggle()
-                    } label: {
-                        Image(systemName: "crop")
-                            .font(.system(size: 13))
-                    }
-                    .padding()
-                    .background(Color(hex: 0xF9F9F9).opacity(0.65))
-                    .cornerRadius(15)
+                    
                 }
                 
                 
