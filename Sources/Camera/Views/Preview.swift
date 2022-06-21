@@ -10,12 +10,14 @@ import AVKit
 
 public struct contentPreview: View {
     let isCroppable: Bool
+    let gravity: PlayerGravity
     let selectedVideo: AVAsset?
     @Binding var selectedImage: UIImage?
     @State var needCrop = false
     @State var isCrop = false
 
-    public init (isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
+    public init (gravity: PlayerGravity, isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
+        self.gravity = gravity
         self.isCroppable = isCroppable
         self.selectedVideo = selectedVideo
         self._selectedImage = selectedImage
@@ -35,7 +37,7 @@ public struct contentPreview: View {
                         let playerItem = AVPlayerItem(asset: selectedVideo!)
                         let player = AVPlayer(playerItem: playerItem)
 
-                        PlayerContainerView(player: player, gravity: .aspectFill, replay: true) {
+                        PlayerContainerView(player: player, gravity: gravity, replay: true) {
 
                         }
                         .onAppear {
