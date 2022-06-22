@@ -23,12 +23,15 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     
     var cameraPosition: AVCaptureDevice.Position = .back
     var cameraInput: AVCaptureInput!
-    
+
     // MARK: VIDEO RECORDER PROPERTIES
     @Published var isRecording = false
 //    @Published var recordedUrls = [URL]()
     @Published var previewAsset: AVAsset?
     @Published var showPreview = false
+    
+    // MARK: PHOTO PROCESSING PROPERTIES
+    @Published var photoCaptured: UIImage?
     
     // MARK: PROGRESS BAR
     @Published var recordDuration: CGFloat = 0
@@ -36,9 +39,6 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     var backgroundProgressColor: Color? = nil
     var progressbarHeight: CGFloat? = nil
     var maxDuration: CGFloat? = nil
-    
-    // MARK: PHOTO PROCESSING
-    @Published var photoCaptured: UIImage?
     
     func checkPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -196,9 +196,8 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         if let error = error {
             return
         }
-        print("aç passe là ")
+
         DispatchQueue.main.async {
-            convertVideoAndSaveTophotoLibrary(videoURL: outputFileURL)
             self.previewAsset = AVAsset(url: outputFileURL)
         }
     }
