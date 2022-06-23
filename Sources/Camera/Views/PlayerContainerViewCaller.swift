@@ -32,7 +32,7 @@ public struct PlayerContainerViewCaller: View {
     public var body: some View {
         let playerVM = PlayerViewModel.shared
         PlayerContainerView(player: player, gravity: gravity, replay: replay) {
-            onUpdate()
+            onUpdate(player)
         }
         .onAppear {
             playerVM.play(player: player)
