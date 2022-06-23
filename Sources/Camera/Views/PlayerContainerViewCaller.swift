@@ -47,18 +47,17 @@ public struct PlayerContainerViewCaller: View {
                 playerVM.stopVideo(player: player)
                 videoPlaying = false
             }
-            
-            if !videoPlaying {
-                Button {
-                    PlayerViewModel.shared.play(player: player)
-                    videoPlaying = true
-                } label: {
-                    Image(systemName: "play.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 36, height: 36)
-                }
-            }
+//            if !videoPlaying {
+//                Button {
+//                    PlayerViewModel.shared.play(player: player)
+//                    videoPlaying = true
+//                } label: {
+//                    Image(systemName: "play.circle")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 36, height: 36)
+//                }
+//            }
         }
     }
 }

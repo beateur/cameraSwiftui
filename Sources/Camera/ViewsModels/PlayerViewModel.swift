@@ -21,7 +21,7 @@ public class PlayerViewModel: ObservableObject {
     }
     
     public func loopVideo(videoPlayer: AVPlayer) {
-        self.stopVideo(player: videoPlayer)
+        videoPlayer.seek(to: CMTime.init(seconds: 0, preferredTimescale: 1))
         self.play(player: videoPlayer)
     }
     
