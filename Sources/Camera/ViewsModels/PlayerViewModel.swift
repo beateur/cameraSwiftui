@@ -16,15 +16,15 @@ public class PlayerViewModel: ObservableObject {
     }
     
     public func loopVideo(videoPlayer: AVPlayer) {
-        self.stop(player: videoPlayer)
+        self.stopVideo(player: videoPlayer)
         self.play(player: videoPlayer)
     }
     
     public func pause(player: AVPlayer) {
         player.pause()
     }
-    
-    public func stop(player: AVPlayer) {
+
+    public func stopVideo(player: AVPlayer) {
         player.pause()
         player.seek(to: CMTime.init(seconds: 0, preferredTimescale: 1))
     }

@@ -27,8 +27,15 @@ class PlayerView: UIView {
         self.player = player
         self.backgroundColor = .black
         setupLayer()
-        // mettre ici looping video avec obsserver
-        print("setuplayer video: \(Date())")
+        NotificationCenter.default.addObserver(self, selector: #selector(stopVideo), name:
+        NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+    }
+    
+    @objc func stopVideo() {
+        if let player = player {
+            player.pause()
+            player.seek(to: CMTime.init(seconds: 0, preferredTimescale: 1))
+        }
     }
     
     func setupLayer() {

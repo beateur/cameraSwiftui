@@ -15,6 +15,7 @@ public struct contentPreview: View {
     @Binding var selectedImage: UIImage?
     @State var needCrop = false
     @State var isCrop = false
+    @State var videoPlaying = true
 
     public init (gravity: PlayerGravity, isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
         self.gravity = gravity
@@ -34,17 +35,33 @@ public struct contentPreview: View {
                 VStack {
                     Spacer()
                     if selectedVideo != nil {
-                        let playerItem = AVPlayerItem(asset: selectedVideo!)
-                        let player = AVPlayer(playerItem: playerItem)
+                        ZStack {
+                            let playerItem = AVPlayerItem(asset: selectedVideo!)
+                            let player = AVPlayer(playerItem: playerItem)
 
-                        PlayerContainerView(player: player, gravity: gravity, replay: true) {
-                            PlayerViewModel.shared.loopVideo(videoPlayer: player)
-                        }
-                        .onAppear {
-                            PlayerViewModel.shared.play(player: player)
-                        }
-                        .onDisappear {
-                            PlayerViewModel.shared.pause(player: player)
+                            PlayerContainerView(player: player, gravity: gravity, replay: true) {
+                                videoPlaying = false
+                            }
+                            .onAppear {
+                                PlayerViewModel.shared.play(player: player)
+                                videoPlaying = true
+                            }
+                            .onDisappear {
+                                PlayerViewModel.shared.pause(player: player)
+                                videoPlaying = false
+                            }
+
+                            if !videoPlaying {
+                                Button {
+                                    PlayerViewModel.shared.play(player: player)
+                                    videoPlaying = true
+                                } label: {
+                                    Image(systemName: "play.circle")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 36, height: 36)
+                                }
+                            }
                         }
                     }
                     

@@ -17,8 +17,11 @@ public struct PlayerContainerViewCaller: View {
     let gravity: PlayerGravity
     let replay: Bool
     
-    var onUpdate: (AVPlayer)->()
-    public init(asset: AVAsset, gravity: PlayerGravity, replay: Bool, onUpdate: @escaping(AVPlayer)->()) {
+    var onEnd: (AVPlayer)->()
+    
+    @State var videoPlaying = true
+
+    public init(asset: AVAsset, gravity: PlayerGravity, replay: Bool, onEnd: @escaping(AVPlayer)->()) {
         self.gravity = gravity
         
         let playerItem = AVPlayerItem(asset: asset)
@@ -26,20 +29,36 @@ public struct PlayerContainerViewCaller: View {
         
         self.player = player
         self.replay = replay
-        self.onUpdate = onUpdate
+        self.onEnd = onEnd
     }
     
     public var body: some View {
-        let playerVM = PlayerViewModel.shared
-        PlayerContainerView(player: player, gravity: gravity, replay: replay) {
-            onUpdate(player)
-        }
-        .onAppear {
-            playerVM.play(player: player)
-        }
-        .onDisappear {
-            print("disappeared video")
-            playerVM.stop(player: player)
+        ZStack {
+            let playerVM = PlayerViewModel.shared
+            PlayerContainerView(player: player, gravity: gravity, replay: replay) {
+                videoPlaying = false
+                onEnd(player)
+            }
+            .onAppear {
+                playerVM.play(player: player)
+                videoPlaying = true
+            }
+            .onDisappear {
+                playerVM.stopVideo(player: player)
+                videoPlaying = false
+            }
+            
+            if !videoPlaying {
+                Button {
+                    PlayerViewModel.shared.play(player: player)
+                    videoPlaying = true
+                } label: {
+                    Image(systemName: "play.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 36, height: 36)
+                }
+            }
         }
     }
 }
