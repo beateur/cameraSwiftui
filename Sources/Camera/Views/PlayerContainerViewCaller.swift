@@ -40,6 +40,7 @@ public struct PlayerContainerViewCaller: View {
                 onEnd(player)
             }
             .onAppear {
+                print("onappear et play")
                 playerVM.play(player: player)
                 videoPlaying = true
             }
