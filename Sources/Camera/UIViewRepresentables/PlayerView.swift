@@ -30,6 +30,8 @@ struct PlayerContainerView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PlayerView, context: Context) {
-        onEditingChanged()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            onEditingChanged()
+        }
     }
 }
