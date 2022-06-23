@@ -11,7 +11,12 @@ import AVFoundation
 public class PlayerViewModel: ObservableObject {
     public static let shared = PlayerViewModel()
     
-    public func play(player: AVPlayer) {        
+    public func play(player: AVPlayer) {
+        let currentItem = player.currentItem
+        if currentItem?.currentTime() == currentItem?.duration {
+            currentItem?.seek(to: .zero, completionHandler: nil)
+        }
+        
         player.play()
     }
     

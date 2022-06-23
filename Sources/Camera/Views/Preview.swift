@@ -36,9 +36,9 @@ public struct contentPreview: View {
                     Spacer()
                     if selectedVideo != nil {
                         ZStack {
+                            
                             let playerItem = AVPlayerItem(asset: selectedVideo!)
                             let player = AVPlayer(playerItem: playerItem)
-
                             PlayerContainerView(player: player, gravity: gravity, replay: true) {
                                 videoPlaying = false
                             }
