@@ -34,7 +34,7 @@ public struct PlayerContainerViewCaller: View {
     
     public var body: some View {
         ZStack {
-            let playerVM = PlayerViewModel.shared
+            let playerVM = PlayerViewModel()
             PlayerContainerView(player: player, gravity: gravity, replay: replay) {
                 videoPlaying = false
                 onEnd(player)
