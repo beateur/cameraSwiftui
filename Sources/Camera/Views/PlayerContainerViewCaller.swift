@@ -13,15 +13,12 @@ public enum playingMode {
 }
 
 public struct PlayerContainerViewCaller: View {
-    @Binding var shouldPlay: playingMode
     let player: AVPlayer
     let gravity: PlayerGravity
     let replay: Bool
     
-    var onUpdate: ()->()
-    var onEnd: (AVPlayer)->()
-    public init(shouldPlay: Binding<playingMode>, asset: AVAsset, gravity: PlayerGravity, replay: Bool, onUpdate: @escaping()->(), onEnd: @escaping(AVPlayer)->()) {
-        self._shouldPlay = shouldPlay
+    var onUpdate: (AVPlayer)->()
+    public init(asset: AVAsset, gravity: PlayerGravity, replay: Bool, onUpdate: @escaping(AVPlayer)->()) {
         self.gravity = gravity
         
         let playerItem = AVPlayerItem(asset: asset)
@@ -30,7 +27,6 @@ public struct PlayerContainerViewCaller: View {
         self.player = player
         self.replay = replay
         self.onUpdate = onUpdate
-        self.onEnd = onEnd
     }
     
     public var body: some View {
