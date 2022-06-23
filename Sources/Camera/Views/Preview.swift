@@ -38,18 +38,10 @@ public struct contentPreview: View {
                         ZStack {
                             let playerItem = AVPlayerItem(asset: selectedVideo!)
                             let player = AVPlayer(playerItem: playerItem)
-                            PlayerContainerView(player: player, gravity: gravity, replay: true) {
-                                videoPlaying = false
+                            
+                            PlayerContainerViewCaller(asset: selectedVideo!, gravity: .aspectFill, replay: true) { player in
+                                
                             }
-                            .onAppear {
-                                PlayerViewModel.shared.play(player: player)
-                                videoPlaying = true
-                            }
-                            .onDisappear {
-                                PlayerViewModel.shared.pause(player: player)
-                                videoPlaying = false
-                            }
-
 //                            if !videoPlaying {
 //                                Button {
 //                                    PlayerViewModel.shared.play(player: player)
