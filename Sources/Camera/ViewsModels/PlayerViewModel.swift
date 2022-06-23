@@ -17,6 +17,7 @@ public class PlayerViewModel: ObservableObject {
             currentItem?.seek(to: .zero, completionHandler: nil)
         }
         
+        print("play video")
         player.play()
     }
     
