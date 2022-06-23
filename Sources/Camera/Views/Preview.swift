@@ -38,7 +38,9 @@ public struct contentPreview: View {
                         let player = AVPlayer(playerItem: playerItem)
 
                         PlayerContainerView(player: player, gravity: gravity, replay: true) {
-
+                            NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+                                PlayerViewModel.shared.loopVideo(videoPlayer: player)
+                            }
                         }
                         .onAppear {
                             PlayerViewModel.shared.play(player: player)
