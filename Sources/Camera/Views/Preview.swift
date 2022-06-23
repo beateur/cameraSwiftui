@@ -61,7 +61,7 @@ public struct contentPreview: View {
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: size.width * 0.3, height: size.width * 0.3)
                                 }
-                                .zIndex(0)
+                                .zIndex(1)
                             }
                         }
                     }
