@@ -36,24 +36,9 @@ public struct contentPreview: View {
                     Spacer()
                     if selectedVideo != nil {
                         ZStack {
-                            let playerItem = AVPlayerItem(asset: selectedVideo!)
-                            let player = AVPlayer(playerItem: playerItem)
-                            
-                            PlayerContainerViewCaller(asset: selectedVideo!, gravity: .aspectFill, replay: true) { player in
+                            PlayerContainerViewCaller(asset: selectedVideo!, gravity: .aspectFill, replay: true) { _ in
                                 
                             }
-//                            if !videoPlaying {
-//                                Button {
-//                                    PlayerViewModel.shared.play(player: player)
-//                                    videoPlaying = true
-//                                } label: {
-//                                    Image(systemName: "play.circle")
-//                                        .resizable()
-//                                        .aspectRatio(contentMode: .fit)
-//                                        .frame(width: size.width * 0.3, height: size.width * 0.3)
-//                                }
-//                                .zIndex(10)
-//                            }
                         }
                     }
                     
