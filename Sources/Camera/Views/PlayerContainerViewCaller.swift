@@ -38,6 +38,7 @@ public struct PlayerContainerViewCaller: View {
             playerVM.play(player: player)
         }
         .onDisappear {
+            print("disappeared video")
             playerVM.stop(player: player)
         }
     }
