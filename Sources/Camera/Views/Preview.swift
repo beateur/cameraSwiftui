@@ -59,7 +59,7 @@ public struct contentPreview: View {
                                     Image(systemName: "play.circle")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(width: 36, height: 36)
+                                        .frame(width: size.width * 0.3, height: size.width * 0.3)
                                 }
                             }
                         }
