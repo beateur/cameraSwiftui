@@ -21,7 +21,7 @@ public struct PlayerContainerViewCaller: View {
     var onEnd: (AVPlayer)->()
     
     @State var videoPlaying = true
-
+    let playerVM = PlayerViewModel()
     public init(asset: AVAsset, gravity: PlayerGravity, replay: Bool, onEnd: @escaping(AVPlayer)->()) {
         self.gravity = gravity
         
@@ -43,17 +43,19 @@ public struct PlayerContainerViewCaller: View {
             }
             .onAppear {
                 print("onappear et play")
-                PlayerViewModel.shared.play(player: player)
+                playerVM.play(player: player)
                 observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
                     print("notification")
-                    PlayerViewModel.shared.loopVideo(videoPlayer: player)
+                    playerVM.loopVideo(videoPlayer: player)
                 }
                 videoPlaying = true
             }
             .onDisappear {
                 print("disappeared and stop")
-                NotificationCenter.default.removeObserver(observer as Any)
-                PlayerViewModel.shared.stopVideo(player: player)
+                if let observer = observer {
+                    NotificationCenter.default.removeObserver(observer as Any)
+                }
+                playerVM.stopVideo(player: player)
                 videoPlaying = false
             }
 //            if !videoPlaying {
