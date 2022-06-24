@@ -71,6 +71,7 @@ public struct ThumbnailMosaïque: View {
                                 Color.white.opacity(0.05)
                                     .frame(width: UIScreen.main.bounds.size.width * 0.2475, height: UIScreen.main.bounds.size.width * 0.2475)
                                     .onTapGesture {
+                                        print("tapped thumbn")
                                         galleryViewModel.tapThumbnail(photo: Photo)
                                     }
                             }

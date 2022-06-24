@@ -31,6 +31,7 @@ struct ThumbList: View {
                             Color.white.opacity(0.05)
                                 .frame(width: UIScreen.main.bounds.size.height * 0.22, height: UIScreen.main.bounds.size.height * 0.22)
                                 .onTapGesture {
+                                    print("tapped thumbn")
                                     galleryViewModel.tapThumbnail(photo: Photo)
                                 }
                         }
