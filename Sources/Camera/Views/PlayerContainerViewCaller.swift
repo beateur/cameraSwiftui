@@ -52,11 +52,11 @@ public struct PlayerContainerViewCaller: View {
             }
             .onDisappear {
                 print("disappeared and stop")
+                playerVM.stopVideo(player: player)
+                videoPlaying = false
                 if let observer = observer {
                     NotificationCenter.default.removeObserver(observer as Any)
                 }
-                playerVM.stopVideo(player: player)
-                videoPlaying = false
             }
 //            if !videoPlaying {
 //                Button {
