@@ -37,14 +37,13 @@ public struct PlayerContainerViewCaller: View {
     
     public var body: some View {
         ZStack {
-            let playerVM = PlayerViewModel()
             PlayerContainerView(player: player, gravity: gravity, replay: replay) {
                 videoPlaying = false
                 onEnd(player)
             }
             .onAppear {
                 print("onappear et play")
-                playerVM.play(player: player)
+                PlayerViewModel.shared.play(player: player)
                 observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
                     print("notification")
                     PlayerViewModel.shared.loopVideo(videoPlayer: player)
@@ -54,7 +53,7 @@ public struct PlayerContainerViewCaller: View {
             .onDisappear {
                 print("disappeared and stop")
                 NotificationCenter.default.removeObserver(observer as Any)
-                playerVM.stopVideo(player: player)
+                PlayerViewModel.shared.stopVideo(player: player)
                 videoPlaying = false
             }
 //            if !videoPlaying {
