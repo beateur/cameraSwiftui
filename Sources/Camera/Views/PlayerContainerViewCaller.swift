@@ -17,6 +17,7 @@ public struct PlayerContainerViewCaller: View {
     let gravity: PlayerGravity
     let replay: Bool
     
+    var observer: NSObjectProtocol!
     var onEnd: (AVPlayer)->()
     
     @State var videoPlaying = true
@@ -30,6 +31,11 @@ public struct PlayerContainerViewCaller: View {
         self.player = player
         self.replay = replay
         self.onEnd = onEnd
+        
+        observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            print("notification")
+            PlayerViewModel.shared.loopVideo(videoPlayer: player)
+        }
     }
     
     public var body: some View {
@@ -45,6 +51,7 @@ public struct PlayerContainerViewCaller: View {
                 videoPlaying = true
             }
             .onDisappear {
+                NotificationCenter.default.removeObserver(observer)
                 playerVM.stopVideo(player: player)
                 videoPlaying = false
             }
@@ -59,6 +66,8 @@ public struct PlayerContainerViewCaller: View {
 //                        .frame(width: 36, height: 36)
 //                }
 //            }
+        }
+        .onDisappear {
         }
     }
 }

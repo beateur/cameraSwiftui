@@ -30,9 +30,6 @@ struct PlayerContainerView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PlayerView, context: Context) {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
-            print("notification")
-            PlayerViewModel.shared.loopVideo(videoPlayer: player)
-        }
+        
     }
 }
