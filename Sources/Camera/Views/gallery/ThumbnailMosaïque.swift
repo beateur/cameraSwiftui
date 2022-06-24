@@ -68,7 +68,7 @@ public struct ThumbnailMosaïque: View {
                         ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
                             ZStack {
                                 ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.2475)
-                                Color.white.opacity(0.01)
+                                Color.white.opacity(0.05)
                                     .frame(width: UIScreen.main.bounds.size.width * 0.2475, height: UIScreen.main.bounds.size.width * 0.2475)
                                     .onTapGesture {
                                         galleryViewModel.tapThumbnail(photo: Photo)

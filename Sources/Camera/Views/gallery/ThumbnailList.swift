@@ -26,10 +26,14 @@ struct ThumbList: View {
                 HStack(spacing: 10) {
                     
                     ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
-                        ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.height * 0.22)
-                            .onTapGesture {
-                                galleryViewModel.tapThumbnail(photo: Photo)
-                            }
+                        ZStack {
+                            ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.height * 0.22)
+                            Color.white.opacity(0.05)
+                                .frame(width: UIScreen.main.bounds.size.height * 0.22, height: UIScreen.main.bounds.size.height * 0.22)
+                                .onTapGesture {
+                                    galleryViewModel.tapThumbnail(photo: Photo)
+                                }
+                        }
                     }
                     .padding(.leading)
 

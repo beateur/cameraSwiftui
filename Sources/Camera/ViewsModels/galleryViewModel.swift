@@ -26,9 +26,8 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     
     public func initPicker(size: CGSize) {
         setup()
-        DispatchQueue.global().async { [self] in
-            fetchElements(size: size)
-        }
+        fetchElements(size: size)
+
     }
     
    public func fetchElements(size: CGSize) {
@@ -40,6 +39,8 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     func tapThumbnail(photo: Asset) {
         showPickerMosaïque = false
         showPickerList = false
+        selectedImage = nil
+        selectedVideo = nil
         extractPreviewData(asset: photo.asset)
         showPreview = true
     }
@@ -116,13 +117,11 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         if asset.mediaType == .video {
             let videoManager = PHVideoRequestOptions()
             videoManager.deliveryMode = .highQualityFormat
-            
            
             manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
                 guard let videoUrl = videoAsset else {return}
                 
                 DispatchQueue.main.async {
-                    self.selectedImage = nil
                     self.selectedVideo = videoUrl
                 }
             }
@@ -131,7 +130,6 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         if asset.mediaType == .image {
             getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
                 DispatchQueue.main.async {
-                    self.selectedVideo = nil
                     self.selectedImage = image
                 }
             }
