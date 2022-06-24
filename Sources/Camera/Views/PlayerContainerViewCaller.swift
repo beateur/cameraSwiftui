@@ -52,6 +52,7 @@ public struct PlayerContainerViewCaller: View {
                 videoPlaying = true
             }
             .onDisappear {
+                print("disappeared and stop")
                 NotificationCenter.default.removeObserver(observer as Any)
                 playerVM.stopVideo(player: player)
                 videoPlaying = false
