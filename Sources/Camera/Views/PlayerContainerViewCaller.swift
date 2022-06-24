@@ -32,6 +32,7 @@ public struct PlayerContainerViewCaller: View {
         self.replay = replay
         self.onEnd = onEnd
         
+        print("init caller")
         observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
             print("notification")
             PlayerViewModel.shared.loopVideo(videoPlayer: player)
