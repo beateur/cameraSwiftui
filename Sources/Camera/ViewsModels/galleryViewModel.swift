@@ -24,9 +24,11 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         
     }
     
-   public func initPicker(size: CGSize) {
+    public func initPicker(size: CGSize) {
         setup()
-        fetchElements(size: size)
+        DispatchQueue.global().async { [self] in
+            fetchElements(size: size)
+        }
     }
     
    public func fetchElements(size: CGSize) {

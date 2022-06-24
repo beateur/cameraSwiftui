@@ -66,10 +66,15 @@ public struct ThumbnailMosaïque: View {
                 ScrollView {
                     LazyVGrid(columns: gridItem, spacing: 0.5) {
                         ForEach(galleryViewModel.fetchedElements, id: \.self) { Photo in
-                            ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.2475)
-                                .onTapGesture {
-                                    galleryViewModel.tapThumbnail(photo: Photo)
-                                }
+                            ZStack {
+                                ThumbnailView(photo: Photo, size: UIScreen.main.bounds.size.width * 0.2475)
+                                Color.white.opacity(0.01)
+                                    .frame(width: UIScreen.main.bounds.size.width * 0.2475, height: UIScreen.main.bounds.size.width * 0.2475)
+                                    .onTapGesture {
+                                        galleryViewModel.tapThumbnail(photo: Photo)
+                                    }
+                            }
+                                
                         }
                     }
                     .padding(.horizontal, 4)
@@ -78,6 +83,7 @@ public struct ThumbnailMosaïque: View {
         }
     }
 
+    // for better UX faire une page avec un p'tit bonhomme ptite animation "oh zut vous n'avez pas selectionné de photos
     private var emptyPlaceHolder: some View {
         VStack {
             Text("0 photo/vidéo")

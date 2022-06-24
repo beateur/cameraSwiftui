@@ -30,10 +30,10 @@ public struct defaultCamera: View {
                     ThumbnailMosaïque(contentCompletion: { _, _ in
                         
                     })
-                        .environmentObject(galleryViewModel)
-                        .onDisappear {
-                            galleryViewModel.dismissMosaïque()
-                        }
+                    .environmentObject(galleryViewModel)
+                    .onDisappear {
+                        galleryViewModel.dismissMosaïque()
+                    }
                 }
             }
         }
@@ -142,15 +142,15 @@ public struct defaultCamera: View {
             defaultCameraModel.flashElement(disabled: cameraInstanceModel.isRecording, flashmode: cameraInstanceModel.flashMode, perform: {
                 cameraInstanceModel.switchFlash()
             })
-                .padding(.leading)
-                .padding(.leading)
-                .scaleEffect(1.2)
+            .padding(.leading)
+            .padding(.leading)
+            .scaleEffect(2)
             Spacer()
             defaultCameraModel.cameraInversion(perform: {
                 cameraInstanceModel.switchCamera()
             })
-                .padding(.trailing)
-                .scaleEffect(1.4)
+            .padding(.trailing)
+            .scaleEffect(2)
         }
         .foregroundColor(.white)
     }

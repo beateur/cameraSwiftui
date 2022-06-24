@@ -55,12 +55,11 @@ public struct contentPreview: View {
                 } label: {
                     Image(systemName: "crop")
                         .font(.system(size: 13))
+                        .padding()
+                        .background(Color(hex: 0xF9F9F9).opacity(0.65))
                 }
-                .padding()
-                .background(Color(hex: 0xF9F9F9).opacity(0.65))
                 .cornerRadius(15)
             }
-            
         }
         .ignoresSafeArea(.all, edges: .bottom)
     }
