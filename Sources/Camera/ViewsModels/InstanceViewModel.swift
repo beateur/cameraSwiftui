@@ -65,18 +65,23 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     
     func switchCamera() {
         if session.inputs.isEmpty {
+            print("retuned switch camera")
            return
         }
         session.removeInput(cameraInput)
         
         switch cameraPosition {
         case .unspecified, .front:
+            print("unspecified front")
             cameraPosition = .back
         case .back:
+            print("back")
             cameraPosition = .front
         @unknown default:
+            print("default")
             cameraPosition = .back
         }
+
         if let newCam = createDevice() {
             do {
                 let newInput = try AVCaptureDeviceInput(device: newCam)
@@ -86,6 +91,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
                     adjustVideoMirror()
                 }
             } catch {
+                print("catched no avcapture device create for \(newCam)")
                 // handle plus tard
             }
         }
