@@ -15,13 +15,11 @@ struct PlayerContainerView: UIViewRepresentable {
     
     let player: AVPlayer
     let gravity: PlayerGravity
-    let replay: Bool
     let onEditingChanged: ()->()
     
-    init(player: AVPlayer, gravity: PlayerGravity, replay: Bool, onEditingChanged: @escaping()->()) {
+    init(player: AVPlayer, gravity: PlayerGravity, onEditingChanged: @escaping()->()) {
         self.player = player
         self.gravity = gravity
-        self.replay = replay
         self.onEditingChanged = onEditingChanged
     }
     

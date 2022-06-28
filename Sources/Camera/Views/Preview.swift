@@ -36,7 +36,7 @@ public struct contentPreview: View {
                     Spacer()
                     if selectedVideo != nil {
                         ZStack {
-                            PlayerContainerViewCaller(asset: selectedVideo!, gravity: .aspectFill, replay: true) { _ in
+                            PlayerContainerViewCaller(asset: selectedVideo!, gravity: .aspectFill, play: true) { _ in
                                 
                             }
                         }
