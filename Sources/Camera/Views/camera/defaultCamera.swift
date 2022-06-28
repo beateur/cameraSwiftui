@@ -31,6 +31,7 @@ public struct defaultCamera: View {
                         
                     })
                     .frame(width: UIScreen.main.bounds.width)
+                    .background(Color.white)
                     .environmentObject(galleryViewModel)
                     .onDisappear {
                         galleryViewModel.dismissMosaïque()

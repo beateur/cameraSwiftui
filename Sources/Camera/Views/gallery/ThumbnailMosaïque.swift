@@ -28,7 +28,6 @@ public struct ThumbnailMosaïque: View {
             header
             corpus
         }
-        .background(Color.white)
         .onChange(of: galleryViewModel.selectedVideo) { _ in
             performCompletion()
         }
