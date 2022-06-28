@@ -94,7 +94,7 @@ public struct defaultCamera: View {
                 }
                 .padding(.leading, 40)
             Spacer()
-            defaultCameraModel.recordButton()
+            defaultCameraModel.recordButton(isRecording: cameraInstanceModel.isRecording)
             // foutre la gesture ailleurs
                 .gesture(
                     DragGesture(minimumDistance: .zero, coordinateSpace: .global)

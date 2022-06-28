@@ -84,8 +84,9 @@ public struct PlayerContainerViewCaller: View {
                             Image(systemName: "video.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.white)
                                 .frame(width: readsize.width / 4, height: readsize.height / 4)
-                                .padding(readsize.width/6)
+                                .padding()
                         }
                     }
                 }

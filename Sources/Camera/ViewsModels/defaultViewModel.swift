@@ -84,8 +84,16 @@ public class defaultViewModel: ObservableObject {
         }
     }
     
-    @ViewBuilder func recordButton() -> some View {
-        RecordButton
+    @ViewBuilder func recordButton(isRecording: Bool) -> some View {
+        ZStack {
+            Circle().fill(LinearGradient(colors: [Color.red, Color.red.opacity(0.7), Color.red.opacity(0.5), Color.red.opacity(0.3)], startPoint: .center, endPoint: .top))
+                .frame(width: 86, height: 86)
+                .opacity(isRecording ? 1: 0)
+            RecordButton
+                .scaleEffect(isRecording ? 0.7: 1)
+                .opacity(isRecording ? 0.5: 1)
+        }
+        
     }
     
     @ViewBuilder func filterButton() -> some View {
