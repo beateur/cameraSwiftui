@@ -17,10 +17,10 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     @Published var alert = false
     @Published var photoOutput = AVCapturePhotoOutput()
     @Published var movieOutput = AVCaptureMovieFileOutput()
-    @Published var preview: AVCaptureVideoPreviewLayer!
     @Published var flashMode: AVCaptureDevice.FlashMode = .off
     @Published var capturemode: captureMode = .photo
     
+    var preview: AVCaptureVideoPreviewLayer!
     var cameraPosition: AVCaptureDevice.Position = .back
     var cameraInput: AVCaptureInput!
 
