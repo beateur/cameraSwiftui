@@ -38,7 +38,7 @@ struct ThumbList: View {
                     }
                     .padding(.leading)
 
-                    if galleryViewModel.libraryStatus != .authorized {
+                    if galleryViewModel.libraryStatus != .authorized && !galleryViewModel.tooMany {
                         VStack(spacing: 8) {
                             Text(galleryViewModel.libraryStatus == .denied ? galleryViewModel.tooMany ? "Veuillez selectionner maximum 200 photos" : "Acceder à votre gallerie" : galleryViewModel.tooMany ? "Veuillez selectionner maximum 200 photos" : "Plus de photos")
                                 .font(.system(size: 13))
