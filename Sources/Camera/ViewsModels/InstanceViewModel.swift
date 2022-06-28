@@ -105,8 +105,8 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         do {
             self.session.beginConfiguration()
 
-
             if let cameradevice = createDevice() {
+                print("second time camera deviced:")
                 let camerainput = try AVCaptureDeviceInput(device: cameradevice)
                 cameraInput = camerainput
                 let audiodevice = AVCaptureDevice.default(for: .audio)
@@ -135,7 +135,6 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     }
     
     private func adjustVideoMirror(){
-        print("adjust video mirror")
         if let conn = movieOutput.connection(with: .video){
             conn.isVideoMirrored = cameraPosition == .front
         }
@@ -147,18 +146,14 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     
     func createDevice() -> AVCaptureDevice? {
         if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: cameraPosition) {
-            print("return dualCameraDevice")
             return dualCameraDevice
         } else if let dualWideCameraDevice = AVCaptureDevice.default(.builtInDualWideCamera, for: .video, position: cameraPosition) {
             // If a rear dual camera is not available, default to the rear dual wide camera.
-            print("return dualWideCameraDevice")
             return dualWideCameraDevice
         }  else if let WideAngleCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition) {
             // If the rear dual wide camera isn't available, default to the wide angle camera.
-            print("return WideAngleCamera")
             return WideAngleCamera
         }
-        print("return")
         return AVCaptureDevice.default(for: .video)
     }
     
