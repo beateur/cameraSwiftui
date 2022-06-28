@@ -78,16 +78,24 @@ public struct cameraBalancer: View {
                 cameraInstanceModel.makeProgression()
             }
             .onChange(of: cameraInstanceModel.previewAsset) { newValue in
-                performCompletion(type: 1)
+                if newValue != nil {
+                    performCompletion(type: 1)
+                }
             }
             .onChange(of: cameraInstanceModel.photoCaptured) { newValue in
-                performCompletion(type: 0)
+                if newValue != nil {
+                    performCompletion(type: 0)
+                }
             }
             .onChange(of: galleryViewModel.selectedImage) { newValue in
-                performCompletion(type: 0)
+                if newValue != nil {
+                    performCompletion(type: 0)
+                }
             }
             .onChange(of: galleryViewModel.selectedVideo) { newValue in
-                performCompletion(type: 1)
+                if newValue != nil {
+                    performCompletion(type: 1)
+                }
             }
         }
         .edgesIgnoringSafeArea(.bottom)
