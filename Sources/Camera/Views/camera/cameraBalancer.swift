@@ -78,16 +78,16 @@ public struct cameraBalancer: View {
                 cameraInstanceModel.makeProgression()
             }
             .onChange(of: cameraInstanceModel.previewAsset) { newValue in
-                performCompletion()
+                performCompletion(type: 1)
             }
             .onChange(of: cameraInstanceModel.photoCaptured) { newValue in
-                performCompletion()
+                performCompletion(type: 0)
             }
             .onChange(of: galleryViewModel.selectedImage) { newValue in
-                performCompletion()
+                performCompletion(type: 0)
             }
             .onChange(of: galleryViewModel.selectedVideo) { newValue in
-                performCompletion()
+                performCompletion(type: 1)
             }
         }
         .edgesIgnoringSafeArea(.bottom)
@@ -104,10 +104,31 @@ public struct cameraBalancer: View {
         }
     }
     
-    func performCompletion() {
-        let image = galleryViewModel.selectedImage ?? cameraInstanceModel.photoCaptured
-        let video = galleryViewModel.selectedVideo ?? cameraInstanceModel.previewAsset
-        
-        contentCompletion(image, video)
+    func performCompletion(type: Int) {
+        switch type {
+        case 0:
+            let image = galleryViewModel.selectedImage ?? cameraInstanceModel.photoCaptured
+            dismissVideo()
+            contentCompletion(image, nil)
+        case 1:
+            let video = galleryViewModel.selectedVideo ?? cameraInstanceModel.previewAsset
+            dismissImage()
+            contentCompletion(nil, video)
+        default:
+            print("defaulted")
+            dismissVideo()
+            dismissImage()
+            contentCompletion(nil, nil)
+        }
+    }
+    
+    func dismissVideo() {
+        galleryViewModel.selectedVideo = nil
+        cameraInstanceModel.previewAsset = nil
+    }
+    
+    func dismissImage() {
+        galleryViewModel.selectedImage = nil
+        cameraInstanceModel.photoCaptured = nil
     }
 }
