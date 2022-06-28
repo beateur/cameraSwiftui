@@ -40,7 +40,7 @@ struct ThumbList: View {
 
                     if galleryViewModel.libraryStatus != .authorized {
                         VStack(spacing: 8) {
-                            Text(galleryViewModel.libraryStatus == .denied ? "Acceder à votre gallerie" : "Plus de photos")
+                            Text(galleryViewModel.libraryStatus == .denied ? galleryViewModel.tooMany ? "Veuillez selectionner maximum 200 photos" : "Acceder à votre gallerie" : galleryViewModel.tooMany ? "Veuillez selectionner maximum 200 photos" : "Plus de photos")
                                 .font(.system(size: 13))
                                 .foregroundColor(.gray)
                             Button {

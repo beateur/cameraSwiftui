@@ -27,12 +27,17 @@ public struct defaultCamera: View {
                 OverlayedComponents
                 
                 if galleryViewModel.showPickerMosaïque {
-                    ThumbnailMosaïque(contentCompletion: { _, _ in
+                    GeometryReader { reader in
+                        let readSizeGallery = reader.size
                         
-                    })
-                    .environmentObject(galleryViewModel)
-                    .onDisappear {
-                        galleryViewModel.dismissMosaïque()
+                        ThumbnailMosaïque(contentCompletion: { _, _ in
+                            
+                        })
+                        .frame(width: readSizeGallery.width)
+                        .environmentObject(galleryViewModel)
+                        .onDisappear {
+                            galleryViewModel.dismissMosaïque()
+                        }
                     }
                 }
             }

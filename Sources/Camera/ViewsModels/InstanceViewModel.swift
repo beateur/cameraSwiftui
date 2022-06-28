@@ -63,14 +63,13 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         }
     }
     
-    func switchCamera() {
-        if session.inputs.isEmpty {
-            print("retuned switch camera")
-           return
+    func removeSessionInputs() {
+        for input in session.inputs {
+            session.removeInput(input)
         }
-        session.removeInput(cameraInput)
-        
-        print("removed \(cameraInput) now \(session.inputs)")
+    }
+    
+    func switchPosition() {
         switch cameraPosition {
         case .unspecified, .front:
             print("unspecified front")
@@ -82,16 +81,29 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             print("default")
             cameraPosition = .back
         }
-
+    }
+    
+    func switchCamera() {
+        if session.inputs.isEmpty {
+           return
+        }
+        
+        removeSessionInputs()
+        
+        switchPosition()
+        
         if let newCam = createDevice() {
             do {
                 let newInput = try AVCaptureDeviceInput(device: newCam)
                 cameraInput = newInput
-                print("cameraInput = \(newInput)")
-                print("inputs: \(self.session.inputs)")
-                if self.session.canAddInput(newInput) {
-                    print("cameraInput = addNewInput")
-                    self.session.addInput(newInput)
+                
+                let audiodevice = AVCaptureDevice.default(for: .audio)
+                let audioinput = try AVCaptureDeviceInput(device: audiodevice!)
+                                        
+                if self.session.canAddInput(cameraInput) && self.session.canAddInput(audioinput) {
+
+                    self.session.addInput(cameraInput)
+                    self.session.addInput(audioinput)
                     adjustVideoMirror()
                 }
             } catch {
@@ -106,8 +118,6 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             self.session.beginConfiguration()
 
             if let cameradevice = createDevice() {
-                print("second time camera deviced:")
-
                 if cameraInput == nil {
                     cameraInput = try AVCaptureDeviceInput(device: cameradevice)
                 }

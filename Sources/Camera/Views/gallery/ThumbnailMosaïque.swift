@@ -24,21 +24,16 @@ public struct ThumbnailMosaïque: View {
     }
 
     public var body: some View {
-        GeometryReader { reader in
-            let readSize = reader.size
-            
-            VStack(spacing: 1) {
-                header
-                corpus
-            }
-            .background(Color.white)
-            .frame(width: readSize.width, height: readSize.height)
-            .onChange(of: galleryViewModel.selectedVideo) { _ in
-                performCompletion()
-            }
-            .onChange(of: galleryViewModel.selectedImage) { _ in
-                performCompletion()
-            }
+        VStack(spacing: 1) {
+            header
+            corpus
+        }
+        .background(Color.white)
+        .onChange(of: galleryViewModel.selectedVideo) { _ in
+            performCompletion()
+        }
+        .onChange(of: galleryViewModel.selectedImage) { _ in
+            performCompletion()
         }
     }
     
@@ -91,8 +86,9 @@ public struct ThumbnailMosaïque: View {
     // for better UX faire une page avec un p'tit bonhomme ptite animation "oh zut vous n'avez pas selectionné de photos
     private var emptyPlaceHolder: some View {
         VStack {
-            Text("0 photo/vidéo")
+            Text("\(galleryViewModel.fetchedElements.count) photo/vidéo")
                 .font(.title)
+            + Text(galleryViewModel.tooMany ? "Veuillez selectionner maximum 200 photos": "")
             Text("Ajoutez des photos depuis votre gallerie")
                 .frame(width: UIScreen.main.bounds.width * 0.7)
         }

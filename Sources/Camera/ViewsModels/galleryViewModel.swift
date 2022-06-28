@@ -20,6 +20,8 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var selectedImage: UIImage!
     @Published var showPreview = false
     
+    @Published var tooMany = false
+    
     public override init() {
         
     }
@@ -80,6 +82,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     }
     
     public func fetchAssets(size: CGSize) {
+        tooMany = false
         let options = PHFetchOptions()
         options.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -88,8 +91,8 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         
         let fetchresult = PHAsset.fetchAssets(with: options)
         
-        if fetchresult.count > 400 {
-            print("vous avez trop de photos")
+        if fetchresult.count > 200 {
+            tooMany = true
             return
         }
         allPhotos = fetchresult
