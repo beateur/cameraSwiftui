@@ -38,18 +38,16 @@ public struct ThumbnailMosaïque: View {
     
     private var header: some View {
         Group {
-            if galleryViewModel.libraryStatus != .authorized {
-                Button {
-                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-                } label: {
-                    VStack(spacing: 8) {
-                        Text("Accedez à votre gallerie")
-                            .font(.system(size: 13))
-                            .foregroundColor(.gray)
-                    }
-                    .frame(width: UIScreen.main.bounds.width, height: 50)
-                    .background(Color.gray.opacity(0.6))
+            Button {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+            } label: {
+                VStack(spacing: 8) {
+                    Text("Accedez à votre gallerie")
+                        .font(.system(size: 13))
+                        .foregroundColor(.gray)
                 }
+                .frame(width: UIScreen.main.bounds.width, height: 50)
+                .background(Color.gray.opacity(0.6))
             }
         }
     }
