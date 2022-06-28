@@ -88,6 +88,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
                 cameraInput = newInput
                 print("cameraInput = newInput")
                 if self.session.canAddInput(newInput) {
+                    print("cameraInput = addNewInput")
                     self.session.addInput(newInput)
                     adjustVideoMirror()
                 }
@@ -132,7 +133,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     }
     
     private func adjustVideoMirror(){
-        
+        print("adjust video mirror")
         if let conn = movieOutput.connection(with: .video){
             conn.isVideoMirrored = cameraPosition == .front
         }
