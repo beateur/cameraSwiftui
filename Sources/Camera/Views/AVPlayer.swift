@@ -29,6 +29,12 @@ class PlayerView: UIView {
         setupLayer()
     }
     
+    deinit {
+        if let player = player {
+            PlayerViewModel.shared.stopVideo(player: player)
+        }
+    }
+    
     func setupLayer() {
         switch gravity {
     
