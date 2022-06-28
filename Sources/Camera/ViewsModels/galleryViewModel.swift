@@ -96,6 +96,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
             return
         }
         allPhotos = fetchresult
+
         fetchresult.enumerateObjects { asset, index, _ in
             self.getImageFromAsset(asset: asset, size: size) { picture in
                 self.fetchedElements.append(Asset(asset: asset, image: picture))
