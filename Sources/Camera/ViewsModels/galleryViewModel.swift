@@ -79,7 +79,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-   public func fetchAssets(size: CGSize) {
+    public func fetchAssets(size: CGSize) {
         let options = PHFetchOptions()
         options.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -87,6 +87,11 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         options.includeHiddenAssets = false
         
         let fetchresult = PHAsset.fetchAssets(with: options)
+        
+        if fetchresult.count > 400 {
+            print("vous avez trop de photos")
+            return
+        }
         allPhotos = fetchresult
         fetchresult.enumerateObjects { asset, index, _ in
             self.getImageFromAsset(asset: asset, size: size) { picture in
