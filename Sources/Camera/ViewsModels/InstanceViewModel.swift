@@ -70,6 +70,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         }
         session.removeInput(cameraInput)
         
+        print("removed \(cameraInput) now \(session.inputs)")
         switch cameraPosition {
         case .unspecified, .front:
             print("unspecified front")
@@ -86,7 +87,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
             do {
                 let newInput = try AVCaptureDeviceInput(device: newCam)
                 cameraInput = newInput
-                print("cameraInput = newInput")
+                print("cameraInput = \(newInput)")
                 print("inputs: \(self.session.inputs)")
                 if self.session.canAddInput(newInput) {
                     print("cameraInput = addNewInput")
