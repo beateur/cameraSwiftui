@@ -24,17 +24,21 @@ public struct ThumbnailMosaïque: View {
     }
 
     public var body: some View {
-        VStack(spacing: 1) {
-            header
-            corpus
-        }
-        .background(Color.white)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onChange(of: galleryViewModel.selectedVideo) { _ in
-            performCompletion()
-        }
-        .onChange(of: galleryViewModel.selectedImage) { _ in
-            performCompletion()
+        GeometryReader { reader in
+            let readSize = reader.size
+            
+            VStack(spacing: 1) {
+                header
+                corpus
+            }
+            .background(Color.white)
+            .frame(width: readSize.width, height: readSize.height)
+            .onChange(of: galleryViewModel.selectedVideo) { _ in
+                performCompletion()
+            }
+            .onChange(of: galleryViewModel.selectedImage) { _ in
+                performCompletion()
+            }
         }
     }
     

@@ -107,13 +107,16 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
 
             if let cameradevice = createDevice() {
                 print("second time camera deviced:")
-                let camerainput = try AVCaptureDeviceInput(device: cameradevice)
-                cameraInput = camerainput
+
+                if cameraInput == nil {
+                    cameraInput = try AVCaptureDeviceInput(device: cameradevice)
+                }
+
                 let audiodevice = AVCaptureDevice.default(for: .audio)
                 let audioinput = try AVCaptureDeviceInput(device: audiodevice!)
                                         
-                if self.session.canAddInput(camerainput) && self.session.canAddInput(audioinput) {
-                    self.session.addInput(camerainput)
+                if self.session.canAddInput(cameraInput) && self.session.canAddInput(audioinput) {
+                    self.session.addInput(cameraInput)
                     self.session.addInput(audioinput)
                 }
                 
