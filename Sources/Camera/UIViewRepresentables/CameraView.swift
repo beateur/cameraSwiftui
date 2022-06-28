@@ -23,7 +23,7 @@ struct cameraModelPreview: UIViewRepresentable {
         
         view.layer.addSublayer(cameraModel.preview)
         DispatchQueue.global(qos: .userInitiated).async {
-            print("startrunning")
+            print("startrunning make UIview")
             cameraModel.session.startRunning()
         }
         return view
