@@ -94,10 +94,7 @@ public struct cameraBalancer: View {
         .onChange(of: stopRunningCamera) { newValue in
             switch newValue {
             case true:
-                DispatchQueue.global(qos: .userInitiated).async {
-                    print("startrunning newValue")
-                    cameraInstanceModel.session.startRunning()
-                }
+                print("newValue \(newValue)")
             case false:
                 DispatchQueue.global(qos: .userInitiated).async {
                     print("stoprunning")
