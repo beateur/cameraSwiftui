@@ -87,6 +87,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
                 let newInput = try AVCaptureDeviceInput(device: newCam)
                 cameraInput = newInput
                 print("cameraInput = newInput")
+                print("inputs: \(self.session.inputs)")
                 if self.session.canAddInput(newInput) {
                     print("cameraInput = addNewInput")
                     self.session.addInput(newInput)
