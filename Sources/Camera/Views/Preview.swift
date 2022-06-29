@@ -9,6 +9,7 @@ import SwiftUI
 import AVKit
 
 public struct contentPreview: View {
+    let ratio: Double
     let isCroppable: Bool
     let gravity: PlayerGravity
     let selectedVideo: AVAsset?
@@ -17,7 +18,8 @@ public struct contentPreview: View {
     @State var isCrop = false
     @State var videoPlaying = true
 
-    public init (gravity: PlayerGravity, isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
+    public init (ratio: CGFloat, gravity: PlayerGravity, isCroppable: Bool, selectedVideo: AVAsset?, selectedImage: Binding<UIImage?>) {
+        self.ratio = ratio
         self.gravity = gravity
         self.isCroppable = isCroppable
         self.selectedVideo = selectedVideo
@@ -68,7 +70,7 @@ public struct contentPreview: View {
         ZStack {
             if isCroppable {
                 if needCrop {
-                    imageEditor(image: $selectedImage, isShowing: $needCrop, isCropped: $isCrop, frame: CGSize(width: 4, height: 3))
+                    imageEditor(image: $selectedImage, isShowing: $needCrop, isCropped: $isCrop, ratio: ratio)
                         .frame(width: size.width, height: size.height)
                 } else {
                     if selectedImage!.size.width < selectedImage!.size.height {
