@@ -70,7 +70,8 @@ public struct contentPreview: View {
         ZStack {
             if isCroppable {
                 if needCrop {
-                    imageEditor(image: $selectedImage, isShowing: $needCrop, isCropped: $isCrop, ratio: ratio)
+                    let sizecrop = ratio == 1.0 ? CGSize(width: 4, height: 4) : CGSize(width: 4, height: 3)
+                    imageEditor(image: $selectedImage, isShowing: $needCrop, isCropped: $isCrop, frame: sizecrop)
                         .frame(width: size.width, height: size.height)
                 } else {
                     if selectedImage!.size.width < selectedImage!.size.height {

@@ -50,7 +50,7 @@ struct imageEditor: UIViewControllerRepresentable {
     @Binding var isShowing: Bool
     @Binding var isCropped: Bool
     
-    var ratio: Double
+    var frame: CGSize
     
     func makeCoordinator() -> ImageEditorCoordinator {
         return ImageEditorCoordinator(self)
@@ -63,7 +63,7 @@ struct imageEditor: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<imageEditor>) -> Mantis.CropViewController {
         let Editor = Mantis.cropViewController(image: image!)
         Editor.delegate = context.coordinator
-        Editor.config.presetFixedRatioType = .alwaysUsingOnePresetFixedRatio(ratio: ratio)
+        Editor.config.presetFixedRatioType = .alwaysUsingOnePresetFixedRatio(ratio: Double(frame.width / (frame.height)))
         return Editor
     }
 }
