@@ -61,7 +61,7 @@ public struct PlayerContainerViewCaller: View {
                             playerVM.play(player: player)
                             observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
                                 print("notification")
-                                playerVM.loopVideo(videoPlayer: player)
+//                                playerVM.loopVideo(videoPlayer: player)
                             }
                             videoPlaying = true
                         }
