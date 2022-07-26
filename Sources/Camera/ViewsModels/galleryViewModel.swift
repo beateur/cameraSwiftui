@@ -93,10 +93,10 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         
         let fetchresult = PHAsset.fetchAssets(with: options)
         
-        if fetchresult.count > 200 {
-            tooMany = true
-            return
-        }
+//        if fetchresult.count > 200 {
+//            tooMany = true
+//            return
+//        }
         allPhotos = fetchresult
 
         fetchresult.enumerateObjects { asset, index, _ in
