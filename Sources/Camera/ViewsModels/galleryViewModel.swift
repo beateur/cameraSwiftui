@@ -54,9 +54,11 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-   public func openPickerMosaïque() {
-        initPicker(size: MosaïqueSize)
-
+    public func openPickerMosaïque() {
+        DispatchQueue.global().async {
+            self.initPicker(size: MosaïqueSize)
+        }
+        
         withAnimation {
             showPickerMosaïque.toggle()
         }
