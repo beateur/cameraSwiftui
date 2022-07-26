@@ -19,9 +19,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     @Published var selectedVideo: AVAsset!
     @Published var selectedImage: UIImage!
     @Published var showPreview = false
-    
-    @Published var tooMany = false
-    
+        
     public override init() {
         
     }
@@ -29,7 +27,6 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     public func initPicker(size: CGSize) {
         setup()
         fetchElements(size: size)
-
     }
     
    public func fetchElements(size: CGSize) {
@@ -84,7 +81,6 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
     }
     
     public func fetchAssets(size: CGSize) {
-        tooMany = false
         let options = PHFetchOptions()
         options.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -92,11 +88,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         options.includeHiddenAssets = false
         
         let fetchresult = PHAsset.fetchAssets(with: options)
-        
-//        if fetchresult.count > 200 {
-//            tooMany = true
-//            return
-//        }
+
         allPhotos = fetchresult
 
         fetchresult.enumerateObjects { asset, index, _ in

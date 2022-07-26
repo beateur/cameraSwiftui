@@ -38,13 +38,14 @@ struct ThumbList: View {
                     }
                     .padding(.leading)
 
-                    if galleryViewModel.libraryStatus != .authorized && !galleryViewModel.tooMany {
+                    if galleryViewModel.libraryStatus != .authorized {
                         VStack(spacing: 8) {
-                            Text(galleryViewModel.libraryStatus == .denied ? galleryViewModel.tooMany ? "Veuillez selectionner maximum 200 photos" : "Acceder à votre gallerie" : galleryViewModel.tooMany ? "Veuillez selectionner maximum 200 photos" : "Plus de photos")
+                            Text(galleryViewModel.libraryStatus == .denied ? "Acceder à votre gallerie" : "Plus de photos")
                                 .font(.system(size: 13))
                                 .foregroundColor(.gray)
                             Button {
-                                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                                galleryViewModel.initPicker(size: MosaïqueSize)
+//                                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
                             } label: {
                                 Text(galleryViewModel.libraryStatus == .denied ? "Autoriser l'accès": "Sélectionner")
                                     .foregroundColor(.white)

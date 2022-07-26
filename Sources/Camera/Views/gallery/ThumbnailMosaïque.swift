@@ -85,7 +85,7 @@ public struct ThumbnailMosaïque: View {
         VStack {
             Text("\(galleryViewModel.fetchedElements.count) photo/vidéo")
                 .font(.title)
-            Text(galleryViewModel.tooMany ? " Veuillez selectionner maximum 200 photos": "Ajoutez des photos depuis votre gallerie")
+            Text("Ajoutez des photos depuis votre gallerie")
                 .frame(width: UIScreen.main.bounds.width * 0.7)
         }
         .foregroundColor(Color.gray)
