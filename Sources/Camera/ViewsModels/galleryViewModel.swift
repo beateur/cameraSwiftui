@@ -141,7 +141,7 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
 
     
    public func setup() {
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+       PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             switch status {
             case .notDetermined:
                 DispatchQueue.main.async {
