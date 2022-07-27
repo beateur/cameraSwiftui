@@ -48,10 +48,13 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             fetchresults.enumerateObjects { [self] asset, index, _ in
                 extractPreviewData(asset: asset) { image, video in
                     parent.completion(image, video)
-                    parent.presentationMode.wrappedValue.dismiss()
                 }
             }
+            
+            parent.presentationMode.wrappedValue.dismiss()
         }
+        
+        
         
         public func extractPreviewData(asset: PHAsset, completion: @escaping(UIImage?, AVAsset?)->()) {
              let manager = PHCachingImageManager()
