@@ -40,8 +40,7 @@ public struct ThumbnailMosaïque: View {
         Group {
             Button {
 //                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-                galleryViewModel.initPicker(size: MosaïqueSize)
-                
+                galleryViewModel.showGallery = true
             } label: {
                 VStack(spacing: 8) {
                     Text("Accedez à votre gallerie")

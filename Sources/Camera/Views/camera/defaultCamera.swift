@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 #if !os(macOS)
 @available(iOS 14, *)
@@ -16,6 +17,14 @@ public struct defaultCamera: View {
     
     public init() {
 
+    }
+    
+    // Add PHPicker configuration
+    var pickerConfiguration: PHPickerConfiguration {
+        var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        config.filter = .any(of: [PHPickerFilter.images, PHPickerFilter.videos])
+        config.selectionLimit = 10
+        return config
     }
     
     public var body: some View {
@@ -35,6 +44,12 @@ public struct defaultCamera: View {
                     .environmentObject(galleryViewModel)
                     .onDisappear {
                         galleryViewModel.dismissMosaïque()
+                    }
+                    .sheet(isPresented: $galleryViewModel.showGallery) {
+                        GalleryPickerView(configuration: pickerConfiguration) { img, vid in
+                            galleryViewModel.selectedImage = img
+                            galleryViewModel.selectedVideo = vid
+                        }
                     }
                 }
             }

@@ -9,7 +9,10 @@ import SwiftUI
 import Photos
 import AVKit
 
-public class ImagePickerViewModel: NSObject, ObservableObject {    
+public class ImagePickerViewModel: NSObject, ObservableObject {
+    static let shared = ImagePickerViewModel()
+    
+    @Published public var showGallery = false
     @Published var showPickerList = false
     @Published public var showPickerMosaïque = false
     @Published var libraryStatus = PHLibraryStatus.denied
