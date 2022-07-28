@@ -11,7 +11,7 @@ import PhotosUI
 
 struct GalleryPickerView: UIViewControllerRepresentable {
     let configuration: PHPickerConfiguration
-    let completion: (_ img: UIImage?, _ vid: AVAsset?)  -> Void
+    let completion: (PHFetchResult<PHAsset>)  -> Void
     @Environment(\.presentationMode) var presentationMode
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<GalleryPickerView>) -> PHPickerViewController {
@@ -45,40 +45,36 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             ]
             fetchoptions.includeHiddenAssets = false
             let fetchresults = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchoptions)
-            fetchresults.enumerateObjects { [self] asset, index, _ in
-                extractPreviewData(asset: asset) { image, video in
-                    parent.completion(image, video)
-                }
-            }
-            
+
+            parent.completion(fetchresults)
             parent.presentationMode.wrappedValue.dismiss()
         }
         
         
         
-        public func extractPreviewData(asset: PHAsset, completion: @escaping(UIImage?, AVAsset?)->()) {
-             let manager = PHCachingImageManager()
-             
-             if asset.mediaType == .video {
-                 let videoManager = PHVideoRequestOptions()
-                 videoManager.deliveryMode = .highQualityFormat
-                
-                 manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
-                     guard let videoUrl = videoAsset else {return}
-                     
-                     DispatchQueue.main.async {
-                         completion(nil, videoUrl)
-                     }
-                 }
-             }
-             
-             if asset.mediaType == .image {
-                 ImagePickerViewModel.shared.getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
-                     DispatchQueue.main.async {
-                         completion(image, nil)
-                     }
-                 }
-             }
-         }
+//        public func extractPreviewData(asset: PHAsset, completion: @escaping(UIImage?, AVAsset?)->()) {
+//             let manager = PHCachingImageManager()
+//
+//             if asset.mediaType == .video {
+//                 let videoManager = PHVideoRequestOptions()
+//                 videoManager.deliveryMode = .highQualityFormat
+//
+//                 manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
+//                     guard let videoUrl = videoAsset else {return}
+//
+//                     DispatchQueue.main.async {
+//                         completion(nil, videoUrl)
+//                     }
+//                 }
+//             }
+//
+//             if asset.mediaType == .image {
+//                 ImagePickerViewModel.shared.getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
+//                     DispatchQueue.main.async {
+//                         completion(image, nil)
+//                     }
+//                 }
+//             }
+//         }
     }
 }

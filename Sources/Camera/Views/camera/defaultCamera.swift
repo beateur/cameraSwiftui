@@ -46,11 +46,21 @@ public struct defaultCamera: View {
                         galleryViewModel.dismissMosaïque()
                     }
                     .sheet(isPresented: $galleryViewModel.showGallery) {
-                        GalleryPickerView(configuration: pickerConfiguration) { img, vid in
-                            galleryViewModel.selectedImage = img
-                            galleryViewModel.selectedVideo = vid
+                        GalleryPickerView(configuration: pickerConfiguration) { assets in
+                            performGalleryCompletion(result: assets)
                         }
                     }
+                }
+            }
+        }
+    }
+    
+    func performGalleryCompletion(result: PHFetchResult<PHAsset>) {
+        result.enumerateObjects { asset, index, _ in
+            galleryViewModel.fetchedElements.removeAll(where: { $0.asset == asset })
+            galleryViewModel.getImageFromAsset(asset: asset, size: ThumSize) { image in
+                DispatchQueue.main.async {
+                    galleryViewModel.fetchedElements.append(Asset(asset: asset, image: image))
                 }
             }
         }
