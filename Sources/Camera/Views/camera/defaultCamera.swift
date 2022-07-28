@@ -58,6 +58,7 @@ public struct defaultCamera: View {
     }
     
     func performGalleryCompletion(result: PHFetchResult<PHAsset>) {
+        print("results \(result.count)")
         result.enumerateObjects { asset, index, _ in
             galleryViewModel.fetchedElements.removeAll(where: { $0.asset == asset })
             galleryViewModel.getImageFromAsset(asset: asset, size: ThumSize) { image in
