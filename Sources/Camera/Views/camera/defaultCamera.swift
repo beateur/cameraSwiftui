@@ -22,8 +22,18 @@ public struct defaultCamera: View {
     // Add PHPicker configuration
     var pickerConfiguration: PHPickerConfiguration {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        if #available(iOS 15, *) {
+            config.selection = .ordered
+        } else {
+            // Fallback on earlier versions
+        }
         config.filter = .any(of: [PHPickerFilter.images, PHPickerFilter.videos])
         config.selectionLimit = 1
+        if #available(iOS 15, *) {
+            config.preselectedAssetIdentifiers = galleryViewModel.fetchedElements.compactMap( {$0.asset.localIdentifier} )
+        } else {
+            // Fallback on earlier versions
+        }
         return config
     }
     
