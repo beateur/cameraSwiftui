@@ -47,6 +47,8 @@ public struct defaultCamera: View {
                     }
                     .sheet(isPresented: $galleryViewModel.showGallery) {
                         GalleryPickerView(configuration: pickerConfiguration) { assets in
+                            print("passage là")
+
                             performGalleryCompletion(result: assets)
                         }
                     }
@@ -59,6 +61,7 @@ public struct defaultCamera: View {
         result.enumerateObjects { asset, index, _ in
             galleryViewModel.fetchedElements.removeAll(where: { $0.asset == asset })
             galleryViewModel.getImageFromAsset(asset: asset, size: ThumSize) { image in
+                print("passage ici")
                 DispatchQueue.main.async {
                     galleryViewModel.fetchedElements.append(Asset(asset: asset, image: image))
                 }
