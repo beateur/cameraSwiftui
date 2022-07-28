@@ -23,7 +23,7 @@ public struct defaultCamera: View {
     var pickerConfiguration: PHPickerConfiguration {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
         config.filter = .any(of: [PHPickerFilter.images, PHPickerFilter.videos])
-        config.selectionLimit = 10
+        config.selectionLimit = 1
         return config
     }
     

@@ -11,7 +11,7 @@ import PhotosUI
 
 struct GalleryPickerView: UIViewControllerRepresentable {
     let configuration: PHPickerConfiguration
-    let completion: (_ img: UIImage?, _ vid: AVAsset?)  -> Void
+    let completion: (_ img: [UIImage]?, _ vid: [AVAsset]?)  -> Void
     @Environment(\.presentationMode) var presentationMode
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<GalleryPickerView>) -> PHPickerViewController {
