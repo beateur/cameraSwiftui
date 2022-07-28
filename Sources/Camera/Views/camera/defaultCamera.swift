@@ -57,17 +57,9 @@ public struct defaultCamera: View {
         }
     }
     
-    func performGalleryCompletion(result: PHFetchResult<PHAsset>) {
+    func performGalleryCompletion(result: [Asset]) {
         print("results \(result.count)")
-        result.enumerateObjects { asset, index, _ in
-            galleryViewModel.fetchedElements.removeAll(where: { $0.asset == asset })
-            galleryViewModel.getImageFromAsset(asset: asset, size: ThumSize) { image in
-                print("passage ici")
-                DispatchQueue.main.async {
-                    galleryViewModel.fetchedElements.append(Asset(asset: asset, image: image))
-                }
-            }
-        }
+        galleryViewModel.fetchedElements.append(contentsOf: result)
     }
     
     private var entete: some View {
