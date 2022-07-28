@@ -11,7 +11,7 @@ import PhotosUI
 
 struct GalleryPickerView: UIViewControllerRepresentable {
     let configuration: PHPickerConfiguration
-    let completion: ([Asset])  -> Void
+    let completion: (_ image: UIImage?, _ asset: AVAsset?)  -> Void
     @Environment(\.presentationMode) var presentationMode
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<GalleryPickerView>) -> PHPickerViewController {
@@ -48,11 +48,8 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             let fetchresults = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchoptions)
 
             fetchresults.enumerateObjects { asset, index, _ in
-                ImagePickerViewModel.shared.getImageFromAsset(asset: asset, size: ThumSize) { [self] image in
-                    assets.append(Asset(asset: asset, image: image))
-                    if assets.count == fetchresults.count {
-                        parent.completion(assets)
-                    }
+                self.extractPreviewData(asset: asset) { image, asset in
+                    self.parent.completion(image, asset)
                 }
             }
             parent.presentationMode.wrappedValue.dismiss()

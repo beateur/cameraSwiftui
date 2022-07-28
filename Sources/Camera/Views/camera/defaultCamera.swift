@@ -34,32 +34,24 @@ public struct defaultCamera: View {
                     .edgesIgnoringSafeArea(.bottom)
                 camera
                 OverlayedComponents
-                
-                if galleryViewModel.showPickerMosaïque {
-                    ThumbnailMosaïque(contentCompletion: { _, _ in
-                        
-                    })
-                    .frame(width: UIScreen.main.bounds.width)
-                    .background(Color.white)
-                    .environmentObject(galleryViewModel)
-                    .onDisappear {
-                        galleryViewModel.dismissMosaïque()
-                    }
                     .sheet(isPresented: $galleryViewModel.showGallery) {
-                        GalleryPickerView(configuration: pickerConfiguration) { assets in
-                            print("passage là")
+                        GalleryPickerView(configuration: pickerConfiguration) { image, asset in
 
-                            performGalleryCompletion(result: assets)
+                            print("get here")
+                            performGalleryCompletion(img: image, vid: asset)
                         }
                     }
-                }
+
+                
             }
+            
         }
     }
     
-    func performGalleryCompletion(result: [Asset]) {
-        print("results \(result.count)")
-        galleryViewModel.fetchedElements.append(contentsOf: result)
+    func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
+        print("arrived here")
+        galleryViewModel.selectedVideo = vid
+        galleryViewModel.selectedImage = img
     }
     
     private var entete: some View {
@@ -115,7 +107,8 @@ public struct defaultCamera: View {
                 .background(Color.gray.opacity(0.2))
                 .scaleEffect(2)
                 .onTapGesture {
-                    galleryViewModel.openPickerMosaïque()
+                    galleryViewModel.openGallery()
+//                    galleryViewModel.openPickerMosaïque()
                 }
                 .padding(.leading, 40)
             Spacer()

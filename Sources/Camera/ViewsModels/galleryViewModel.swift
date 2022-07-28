@@ -32,6 +32,10 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         fetchElements(size: size)
     }
     
+    public func openGallery() {
+        showGallery = true
+    }
+    
    public func fetchElements(size: CGSize) {
         if fetchedElements.isEmpty {
             fetchAssets(size: size)

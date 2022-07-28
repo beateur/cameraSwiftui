@@ -44,7 +44,7 @@ struct ThumbList: View {
                                 .font(.system(size: 13))
                                 .foregroundColor(.gray)
                             Button {
-                                galleryViewModel.showGallery = true
+                                galleryViewModel.openGallery()
 //                                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
                             } label: {
                                 Text(galleryViewModel.libraryStatus == .denied ? "Autoriser l'accès": "Sélectionner")
