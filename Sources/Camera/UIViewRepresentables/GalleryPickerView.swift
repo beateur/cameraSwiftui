@@ -46,6 +46,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             fetchoptions.includeHiddenAssets = false
             let fetchresults = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchoptions)
 
+            print("fetchresults: \(fetchresults.firstObject)")
             parent.completion(fetchresults)
             parent.presentationMode.wrappedValue.dismiss()
         }
