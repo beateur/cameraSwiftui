@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 import Foundation
 import AVFoundation
@@ -39,6 +40,16 @@ public struct cameraBalancer: View {
     @Binding var stopRunningCamera: Bool
     
     @EnvironmentObject var defaultCameraModel: defaultViewModel
+    
+    
+    // Add PHPicker configuration
+    var pickerConfiguration: PHPickerConfiguration {
+        var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        config.filter = .any(of: [PHPickerFilter.images, PHPickerFilter.videos])
+        config.selectionLimit = 1
+        return config
+    }
+    
     public var contentCompletion: ((UIImage?, AVAsset?)->())
 
     public init(stopRunning: Binding<Bool>, contentCompletion: @escaping(UIImage?, AVAsset?)->()) {
@@ -62,6 +73,13 @@ public struct cameraBalancer: View {
                     }
                     .onAppear {
                         cameraInstanceModel.maxDuration = 30
+                    }
+                    .sheet(isPresented: $galleryViewModel.showGallery) {
+                        GalleryPickerView(configuration: pickerConfiguration) { image, asset in
+
+                            print("get here")
+                            performGalleryCompletion(img: image, vid: asset)
+                        }
                     }
                 // MARK: progress bar
                 cameraInstanceModel.progressBar(size: size)
@@ -110,6 +128,13 @@ public struct cameraBalancer: View {
                 }
             }
         }
+    }
+    
+    func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
+        print("arrived here")
+        cameraInstanceModel.showPreview = true
+        cameraInstanceModel.previewAsset = vid
+        cameraInstanceModel.photoCaptured = img
     }
     
     func performCompletion(type: Int) {

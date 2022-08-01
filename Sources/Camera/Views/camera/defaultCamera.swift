@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 #if !os(macOS)
 @available(iOS 14, *)
@@ -19,14 +18,6 @@ public struct defaultCamera: View {
 
     }
     
-    // Add PHPicker configuration
-    var pickerConfiguration: PHPickerConfiguration {
-        var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-        config.filter = .any(of: [PHPickerFilter.images, PHPickerFilter.videos])
-        config.selectionLimit = 1
-        return config
-    }
-    
     public var body: some View {
         VStack {
             ZStack {
@@ -34,23 +25,9 @@ public struct defaultCamera: View {
                     .edgesIgnoringSafeArea(.bottom)
                 camera
                 OverlayedComponents
-                    .sheet(isPresented: $galleryViewModel.showGallery) {
-                        GalleryPickerView(configuration: pickerConfiguration) { image, asset in
-
-                            print("get here")
-                            performGalleryCompletion(img: image, vid: asset)
-                        }
-                    }
             }
         }
-    }
-    
-    func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
-        print("arrived here")
-        cameraInstanceModel.showPreview = true
-        cameraInstanceModel.previewAsset = vid
-        cameraInstanceModel.photoCaptured = img
-    }
+    }    
     
     private var entete: some View {
         defaultCameraModel.entete {
