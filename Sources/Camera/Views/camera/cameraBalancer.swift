@@ -132,9 +132,8 @@ public struct cameraBalancer: View {
     
     func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
         print("arrived here")
-        cameraInstanceModel.showPreview = true
-        cameraInstanceModel.previewAsset = vid
-        cameraInstanceModel.photoCaptured = img
+        contentCompletion(img, vid)
+
     }
     
     func performCompletion(type: Int) {
