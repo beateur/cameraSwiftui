@@ -41,17 +41,14 @@ public struct defaultCamera: View {
                             performGalleryCompletion(img: image, vid: asset)
                         }
                     }
-
-                
             }
-            
         }
     }
     
     func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
         print("arrived here")
-        defaultCameraModel.selectedVideo = vid
-        defaultCameraModel.selectedImage = img
+        defaultCameraModel.previewAsset = vid
+        cameraInstanceModel.photoCaptured = img
     }
     
     private var entete: some View {
