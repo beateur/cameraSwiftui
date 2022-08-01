@@ -104,6 +104,7 @@ public struct defaultCamera: View {
     private var bardesButtons: some View {
         HStack {
             defaultCameraModel.galleryButton()
+                .padding()
                 .background(Color.gray.opacity(0.2))
                 .scaleEffect(2)
                 .onTapGesture {
