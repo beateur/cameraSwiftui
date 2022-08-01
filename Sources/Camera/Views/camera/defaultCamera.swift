@@ -50,8 +50,8 @@ public struct defaultCamera: View {
     
     func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
         print("arrived here")
-        galleryViewModel.selectedVideo = vid
-        galleryViewModel.selectedImage = img
+        defaultCameraModel.selectedVideo = vid
+        defaultCameraModel.selectedImage = img
     }
     
     private var entete: some View {
@@ -104,14 +104,15 @@ public struct defaultCamera: View {
     private var bardesButtons: some View {
         HStack {
             defaultCameraModel.galleryButton()
-                .padding()
+                .padding(12)
                 .background(Color.gray.opacity(0.2))
+                .cornerRadius(36)
                 .scaleEffect(2)
                 .onTapGesture {
                     galleryViewModel.openGallery()
 //                    galleryViewModel.openPickerMosaïque()
                 }
-                .padding(.leading, 40)
+                .padding(.leading, 28)
             Spacer()
             defaultCameraModel.recordButton(isRecording: cameraInstanceModel.isRecording)
             // foutre la gesture ailleurs
