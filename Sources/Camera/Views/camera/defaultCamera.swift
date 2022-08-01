@@ -47,6 +47,7 @@ public struct defaultCamera: View {
     
     func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
         print("arrived here")
+        cameraInstanceModel.showPreview = true
         cameraInstanceModel.previewAsset = vid
         cameraInstanceModel.photoCaptured = img
     }

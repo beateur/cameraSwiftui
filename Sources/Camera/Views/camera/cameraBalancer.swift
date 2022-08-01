@@ -33,7 +33,7 @@ private extension UIEdgeInsets {
 public struct cameraBalancer: View {
     @Environment(\.safeAreaInsets) private var safeAreaInsets
 
-    @StateObject var cameraInstanceModel = cameraInstanceViewModel.shared
+    @StateObject var cameraInstanceModel = cameraInstanceViewModel()
     @StateObject var galleryViewModel = ImagePickerViewModel()
     
     @Binding var stopRunningCamera: Bool
