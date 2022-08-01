@@ -48,8 +48,9 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             let fetchresults = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchoptions)
 
             fetchresults.enumerateObjects { asset, index, _ in
-                self.extractPreviewData(asset: asset) { image, asset in
-                    self.parent.completion(image, asset)
+                self.extractPreviewData(asset: asset) { image, video in
+                    print("est )ce que ça passe là")
+                    self.parent.completion(image, video)
                 }
             }
             parent.presentationMode.wrappedValue.dismiss()

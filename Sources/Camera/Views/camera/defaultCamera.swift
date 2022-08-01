@@ -79,7 +79,7 @@ public struct defaultCamera: View {
     private var bardesButtons: some View {
         HStack {
             defaultCameraModel.galleryButton()
-                .padding(12)
+                .padding(7)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(36)
                 .scaleEffect(2)
@@ -87,7 +87,7 @@ public struct defaultCamera: View {
                     galleryViewModel.openGallery()
 //                    galleryViewModel.openPickerMosaïque()
                 }
-                .padding(.leading, 28)
+                .padding(.leading, 27)
             Spacer()
             defaultCameraModel.recordButton(isRecording: cameraInstanceModel.isRecording)
             // foutre la gesture ailleurs

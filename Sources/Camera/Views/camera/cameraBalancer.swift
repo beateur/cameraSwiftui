@@ -133,7 +133,7 @@ public struct cameraBalancer: View {
     func performGalleryCompletion(img: UIImage?, vid: AVAsset?) {
         print("arrived here")
         contentCompletion(img, vid)
-
+        dismissAll()
     }
     
     func performCompletion(type: Int) {
@@ -162,5 +162,10 @@ public struct cameraBalancer: View {
     func dismissImage() {
         galleryViewModel.selectedImage = nil
         cameraInstanceModel.photoCaptured = nil
+    }
+    
+    func dismissAll() {
+        dismissImage()
+        dismissVideo()
     }
 }
