@@ -72,7 +72,7 @@ public struct cameraBalancer: View {
                         cameraInstanceModel.switchCamera()
                     }
                     .onAppear {
-                        cameraInstanceModel.maxDuration = 30
+//                        cameraInstanceModel.maxDuration = 30
                     }
                     .sheet(isPresented: $galleryViewModel.showGallery) {
                         GalleryPickerView(configuration: pickerConfiguration) { image, asset in
