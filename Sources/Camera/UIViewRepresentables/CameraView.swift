@@ -25,7 +25,7 @@ struct cameraModelPreview: UIViewRepresentable {
             view.layer.addSublayer(preview)
         }
         
-        cameraModel.session.startRunning()
+        DispatchQueue.global(qos: .background)
         return view
     }
     
