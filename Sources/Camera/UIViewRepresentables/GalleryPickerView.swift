@@ -49,6 +49,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
 
             print("problem here \(fetchresults.count)")
             fetchresults.enumerateObjects { asset, index, _ in
+                print("là dédans?")
                 self.extractPreviewData(asset: asset) { image, video in
                     print("est )ce que ça passe là")
                     self.parent.completion(image, video)
@@ -58,28 +59,32 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         }        
         
         public func extractPreviewData(asset: PHAsset, completion: @escaping(UIImage?, AVAsset?)->()) {
-             let manager = PHCachingImageManager()
+            let manager = PHCachingImageManager()
+            
+            print("asset media type: \(asset.mediaType)")
+            if asset.mediaType == .video {
+                let videoManager = PHVideoRequestOptions()
+                videoManager.deliveryMode = .highQualityFormat
+                
+                print("ici?")
+                manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
+                    guard let videoUrl = videoAsset else {return}
+                    
+                    DispatchQueue.main.async {
+                        completion(nil, videoUrl)
+                    }
+                }
+            }
+            
+            if asset.mediaType == .image {
+                print("ou là?")
 
-             if asset.mediaType == .video {
-                 let videoManager = PHVideoRequestOptions()
-                 videoManager.deliveryMode = .highQualityFormat
-
-                 manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
-                     guard let videoUrl = videoAsset else {return}
-
-                     DispatchQueue.main.async {
-                         completion(nil, videoUrl)
-                     }
-                 }
-             }
-
-             if asset.mediaType == .image {
-                 ImagePickerViewModel.shared.getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
-                     DispatchQueue.main.async {
-                         completion(image, nil)
-                     }
-                 }
-             }
-         }
+                ImagePickerViewModel.shared.getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
+                    DispatchQueue.main.async {
+                        completion(image, nil)
+                    }
+                }
+            }
+        }
     }
 }
