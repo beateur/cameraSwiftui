@@ -47,6 +47,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             fetchoptions.includeHiddenAssets = false
             let fetchresults = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchoptions)
 
+            print("problem here \(fetchresults.count)")
             fetchresults.enumerateObjects { asset, index, _ in
                 self.extractPreviewData(asset: asset) { image, video in
                     print("est )ce que ça passe là")
