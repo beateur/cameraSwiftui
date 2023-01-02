@@ -80,6 +80,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
                 print("ou là?")
 
                 ImagePickerViewModel.shared.getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { (image) in
+                    print("ici c ça?")
                     DispatchQueue.main.async {
                         completion(image, nil)
                     }

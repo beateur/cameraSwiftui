@@ -114,9 +114,10 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         options.isSynchronous = false
         
         let size = CGSize(width: size.width, height: size.height)
+       print("ça passe là")
         manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options) { image, _ in
             guard let resizedImage = image else { return }
-            
+            print("ça réussi là")
             completion(resizedImage)
         }
     }
