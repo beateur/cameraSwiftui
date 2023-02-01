@@ -110,14 +110,19 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         manager.allowsCachingHighQualityImages = true
         
         let options = PHImageRequestOptions()
-        options.deliveryMode = .highQualityFormat
+       options.deliveryMode = .highQualityFormat
         options.isSynchronous = false
         
         let size = CGSize(width: size.width, height: size.height)
        print("ça passe là")
-        manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options) { image, _ in
-            guard let resizedImage = image else { return }
-            print("ça réussi là")
+        manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options) { image, infos in
+            if let infos = infos {
+                for info in infos {
+                    print("des infos randoms: \(info.key) --> \(info.value)")
+                }
+            }
+            guard let resizedImage = image else { print("fail guard let"); return }
+            print("ça réussi là") 
             completion(resizedImage)
         }
     }
