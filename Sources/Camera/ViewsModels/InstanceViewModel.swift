@@ -13,7 +13,7 @@ import AVFoundation
 class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate {
     static let shared = cameraInstanceViewModel()
     
-    @Published var session = AVCaptureSession()
+    let session = AVCaptureSession()
     @Published var alert = false
     @Published var photoOutput = AVCapturePhotoOutput()
     @Published var movieOutput = AVCaptureMovieFileOutput()
@@ -215,6 +215,7 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
+            print("fileOutput: \(error)")
             return
         }
 

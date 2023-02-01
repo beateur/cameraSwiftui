@@ -36,7 +36,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         }
         
         func picker(_: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            var assets = [Asset]()
+            var _ = [Asset]()
             
             let identifiers: [String] = results.compactMap(\.assetIdentifier)
 
