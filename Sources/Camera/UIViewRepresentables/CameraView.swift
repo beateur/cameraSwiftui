@@ -22,7 +22,9 @@ struct cameraModelPreview: UIViewRepresentable {
         preview.videoGravity = .resizeAspectFill
         view.layer.addSublayer(preview)
        
-        cameraModel.session.startRunning()
+        DispatchQueue.main.async {
+            cameraModel.session.startRunning()
+        }
 
         return view
     }
