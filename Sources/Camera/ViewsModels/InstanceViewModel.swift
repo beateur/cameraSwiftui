@@ -13,7 +13,7 @@ import AVFoundation
 class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate {
     static let shared = cameraInstanceViewModel()
     
-    let session = AVCaptureSession()
+    @Published var session = AVCaptureSession()
     @Published var alert = false
     @Published var photoOutput = AVCapturePhotoOutput()
     @Published var movieOutput = AVCaptureMovieFileOutput()
