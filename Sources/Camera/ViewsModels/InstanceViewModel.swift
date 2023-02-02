@@ -146,6 +146,18 @@ class cameraInstanceViewModel: NSObject, ObservableObject, AVCapturePhotoCapture
         }
     }
     
+    func stoprunningsession() {
+        DispatchQueue.global(qos: .background).async {
+            self.session.stopRunning()
+        }
+    }
+    
+    func startrunningsession() {
+        DispatchQueue.global(qos: .background).async {
+            self.session.startRunning()
+        }
+    }
+    
     private func adjustVideoMirror(){
         if let conn = movieOutput.connection(with: .video){
             conn.isVideoMirrored = cameraPosition == .front
