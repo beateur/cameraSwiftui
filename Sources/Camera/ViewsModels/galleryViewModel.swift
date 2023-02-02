@@ -105,17 +105,17 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         }
     }
     
-   public func getImageFromAsset(asset: PHAsset, size: CGSize, completion: @escaping(UIImage)->()) {
+    public func getImageFromAsset(asset: PHAsset, size: CGSize, completion: @escaping(UIImage)->()) {
         let manager = PHCachingImageManager()
         manager.allowsCachingHighQualityImages = true
         
         let options = PHImageRequestOptions()
         options.deliveryMode = .opportunistic
-       options.isNetworkAccessAllowed = true
+        options.isNetworkAccessAllowed = true
         options.isSynchronous = false
         
         let size = CGSize(width: size.width, height: size.height)
-       print("ça passe là")
+        print("ça passe là")
         manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options) { image, infos in
             
             if let infos = infos {
@@ -127,12 +127,12 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
                 }
             }
             guard let resizedImage = image else { print("fail guard let"); return }
-            print("ça réussi là") 
+            print("ça réussi là")
             completion(resizedImage)
         }
     }
     
-   public func extractPreviewData(asset: PHAsset) {
+    public func extractPreviewData(asset: PHAsset) {
         let manager = PHCachingImageManager()
         
         if asset.mediaType == .video {

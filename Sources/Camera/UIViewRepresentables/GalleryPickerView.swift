@@ -60,7 +60,7 @@ struct GalleryPickerView: UIViewControllerRepresentable {
         
         public func extractPreviewData(asset: PHAsset, completion: @escaping(UIImage?, AVAsset?)->()) {
             let manager = PHCachingImageManager()
-            
+
             print("asset media type: \(asset.mediaType)")
             if asset.mediaType == .video {
                 let videoManager = PHVideoRequestOptions()
