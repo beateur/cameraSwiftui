@@ -138,7 +138,9 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         if asset.mediaType == .video {
             let videoManager = PHVideoRequestOptions()
             videoManager.deliveryMode = .highQualityFormat
-           
+            videoManager.isNetworkAccessAllowed = true
+            videoManager.deliveryMode = .automatic
+            
             manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
                 guard let videoUrl = videoAsset else {return}
                 

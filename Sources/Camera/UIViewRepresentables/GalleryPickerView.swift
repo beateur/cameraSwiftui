@@ -64,8 +64,8 @@ struct GalleryPickerView: UIViewControllerRepresentable {
             print("asset media type: \(asset.mediaType)")
             if asset.mediaType == .video {
                 let videoManager = PHVideoRequestOptions()
-                videoManager.deliveryMode = .highQualityFormat
-                
+                videoManager.deliveryMode = .automatic
+                videoManager.isNetworkAccessAllowed = true
                 print("ici?")
                 manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
                     guard let videoUrl = videoAsset else {return}
