@@ -110,13 +110,18 @@ public class ImagePickerViewModel: NSObject, ObservableObject {
         manager.allowsCachingHighQualityImages = true
         
         let options = PHImageRequestOptions()
-       options.deliveryMode = .highQualityFormat
+        options.deliveryMode = .opportunistic
+       options.isNetworkAccessAllowed = true
         options.isSynchronous = false
         
         let size = CGSize(width: size.width, height: size.height)
        print("ça passe là")
         manager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options) { image, infos in
+            
             if let infos = infos {
+                if let error = infos[PHImageErrorKey] as? NSError {
+                    NSLog("Nil image error = \(error.localizedDescription)")
+                }
                 for info in infos {
                     print("des infos randoms: \(info.key) --> \(info.value)")
                 }
