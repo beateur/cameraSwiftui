@@ -49,11 +49,11 @@ public class defaultViewModel: ObservableObject {
                 dismissButtonView
             }
             Spacer()
-            Button(action: {
-                next()
-            }) {
-                nextButtonView
-            }
+//            Button(action: {
+//                next()
+//            }) {
+//                nextButtonView
+//            }
         }
         .padding()
     }
