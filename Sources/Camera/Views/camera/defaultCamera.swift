@@ -70,8 +70,8 @@ public struct defaultCamera: View {
     
     private var bottomComponents: some View {
         VStack {
-            ThumbList()
-                .environmentObject(galleryViewModel)
+//            ThumbList()
+//                .environmentObject(galleryViewModel)
             bardesButtons
         }
     }
